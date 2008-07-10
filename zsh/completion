@@ -1,4 +1,4 @@
-autoload -U compinit
+autoload -Uz compinit
 compinit
 
 # matches case insensitive for lowercase
@@ -6,3 +6,12 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 # pasting with tabs doesn't perform completion
 zstyle ':completion:*' insert-tab pending
+
+# The following lines were added by compinstall
+
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' menu select=1
+zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
+zstyle :compinstall filename '/Users/senny/.zshrc'
+
+# End of lines added by compinstall
