@@ -8,7 +8,7 @@ export LSCOLORS='dxfxcxdxbxegedabagacad'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 
-cdpath=($cdpath ~/projects)
+#cdpath=($cdpath ~/projects)
 fpath=(~/.zsh/functions $fpath)
 
 autoload -U ~/.zsh/functions/*(:t)
