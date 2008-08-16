@@ -1,0 +1,7 @@
+#compdef sake
+home="/Users/$(whoami)/"
+recent=`last_modified $home.sake $home.sake_tasks`
+if [[ $recent != "$home.sake_tasks" ]]; then
+  sake --silent --tasks | cut -d " " -f 2 > $home.sake_tasks
+fi
+compadd `cat $home.sake_tasks`
