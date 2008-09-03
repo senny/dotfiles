@@ -1,3 +1,6 @@
+#diverses
+alias cls=clear
+
 # cd
 alias ..='cd ..'
 
