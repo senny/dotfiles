@@ -1,5 +1,5 @@
-#diverses
-alias cls=clear
+# diverses
+alias cls='clear'
 
 # cd
 alias ..='cd ..'
