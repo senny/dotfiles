@@ -1170,8 +1170,19 @@ function! s:Project(filename) " <<<
             endif
         endfunction
         " >>>
+    function s:RegenerateDirectoryEntries()
+        let line = line('.') 
+        let parent_infoline = s:RecursivelyConstructDirectives(line('.'))
+        let home=expand(s:GetHome(parent_infoline, ''))
+        let filter = s:GetFilter(parent_infoline, '*')
+        let foldlev=foldlevel(line)
+        if (foldclosed(line) != -1) || (getline(line) =~ '}')
+            let foldlev=foldlev - 1
+        "call s:DoEntryFromDir(a:recursive, line, name, home.dir, dir, c_d, filter_directive, filter, foldlev, 0)
+    endfunction
 
         " Mappings <<<
+        nnoremap <buffer> <LocalLeader>x :call <SID>RegenerateDirectoryEntries()<CR>
         nnoremap <buffer> <silent> <Return>   \|:call <SID>DoFoldOrOpenEntry('', 'e')<CR>
         nnoremap <buffer> <silent> <S-Return> \|:call <SID>DoFoldOrOpenEntry('', 'sp')<CR>
         nnoremap <buffer> <silent> <C-Return> \|:call <SID>DoFoldOrOpenEntry('silent! only', 'e')<CR>
