@@ -62,7 +62,7 @@ set showtabline=2                   " always show tab bar
 
 
 " VARIOUS MAPPINGS
-    " toggle syntax
+let maplocalleader = ","
 map <D-2> :syntax off<CR>:syntax on<CR>
     " reload .vimrc
 map <D-3> :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
