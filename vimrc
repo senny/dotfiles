@@ -168,6 +168,10 @@ endif
 """"""""""""""""""""""""""""""""""""""""
 " PLUGIN SECTION
 """"""""""""""""""""""""""""""""""""""""
+
+" Plugin: NERDTree
+nmap <silent> <C-t> :NERDTreeToggle<CR>
+
 " Plugin: Project
 nmap <silent> <C-d> :call ToggleFolding()<CR>
 nmap <silent> <A-Left> zc
