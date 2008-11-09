@@ -4,6 +4,7 @@ if MySys() == "windows"
 elseif MySys() == "mac"
   nmap <silent> <C-t> :NERDTreeToggle<CR>
 endif
+
 " Plugin: Project
 nmap <silent> <C-d> :call ToggleFolding()<CR>
 nmap <silent> <A-Left> zc

@@ -21,6 +21,10 @@ alias gco='git checkout'
 alias gb='git branch'
 alias gs='git status'
 
+# merb
+alias bm='bin/merb'
+alias bt='bin/thor'
+
 # rails
 alias sc='script/console'
 alias ss='script/server'

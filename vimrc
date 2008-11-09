@@ -2,6 +2,7 @@
 set nocompatible
 let g:current_os="mac"
 
+" Loading vim configurations
 source ~/.vim/configs/functions.vim
 source ~/.vim/configs/global.vim
 source ~/.vim/configs/mappings.vim
