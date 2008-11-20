@@ -22,6 +22,7 @@ alias gb='git branch'
 alias gs='git status'
 
 # merb
+alias gen='merb-gen'
 alias bm='bin/merb'
 alias bt='bin/thor'
 
