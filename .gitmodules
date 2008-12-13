@@ -1,0 +1,6 @@
+[submodule "emacs.d/vendor/twilight-emacs"]
+	path = emacs.d/vendor/twilight-emacs
+	url = git://github.com/crafterm/twilight-emacs.git
+[submodule "emacs.d/vendor/textmate.el"]
+	path = emacs.d/vendor/textmate.el
+	url = git://github.com/defunkt/textmate.el.git
