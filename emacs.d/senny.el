@@ -13,7 +13,6 @@
 (load "senny/temp_files")
 (load "senny/git")
 
-
 (vendor 'magit)
 (vendor 'textmate)
 (vendor 'growl)

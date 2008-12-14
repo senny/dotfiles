@@ -21,6 +21,7 @@ alias gca='git commit -a'
 alias gco='git checkout'
 alias gb='git branch'
 alias gs='git status'
+alias gsm='git submodule init'
 
 # merb
 alias gen='merb-gen'
