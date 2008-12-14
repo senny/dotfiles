@@ -60,8 +60,7 @@
     (when (functionp mode-fn)
       (funcall mode-fn))))
 ;(add-hook 'find-file-hook 'defunkt-shebang-to-mode)
-
-; duplicate the current line
+;duplicate the current line
 (defun defunkt-duplicate-line () 
   (interactive)
     (beginning-of-line)

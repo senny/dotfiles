@@ -4,3 +4,9 @@
 [submodule "emacs.d/vendor/textmate.el"]
 	path = emacs.d/vendor/textmate.el
 	url = git://github.com/defunkt/textmate.el.git
+[submodule "emacs.d/vendor/org-mode"]
+	path = emacs.d/vendor/org-mode
+	url = git://repo.or.cz/org-mode.git
+[submodule "emacs.d/vendor/magit"]
+	path = emacs.d/vendor/magit
+	url = git://github.com/technomancy/magit.git

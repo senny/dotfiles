@@ -10,4 +10,4 @@
 ;   M-x mac-font-panel
 ;   pick your font
 ;   M-x describe-font
-(setq default-frame-alist '((font . "-apple-inconsolata-medium-r-normal--16-160-72-72-m-160-iso10646-1")))
+; (setq default-frame-alist '((font . "-apple-inconsolata-medium-r-normal--16-160-72-72-m-160-iso10646-1")))
