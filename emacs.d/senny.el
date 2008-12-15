@@ -4,7 +4,7 @@
 (load "senny/smart_tab")
 (load "senny/defun")
 (load "senny/bindings")
-;(load "senny/modes")
+(load "senny/modes")
 (load "senny/theme")
 (load "senny/temp_files")
 

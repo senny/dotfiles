@@ -5,7 +5,7 @@
   ((string-match "nt5" system-configuration) 
    (load "windows")
   )
-  ((string-match "mac" system-configuration)
+  ((string-match "apple" system-configuration)
     (load "mac")
   ))
 
