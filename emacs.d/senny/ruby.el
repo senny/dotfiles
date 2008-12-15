@@ -1,3 +1,5 @@
+(vendor 'ruby-mode)
+
 ; rinari
 (vendor 'rinari)
 (setq rinari-tags-file-name "TAGS")

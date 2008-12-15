@@ -13,7 +13,7 @@
 (global-set-key "\C-R" 'replace-string)
 
 ; Completion
-(global-set-key [(tab)] 'smart-tab)
+;(global-set-key [(tab)] 'smart-tab)
 
 ; vim emulation
 (global-set-key [C-tab] 'other-window) 

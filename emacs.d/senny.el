@@ -1,20 +1,15 @@
-(add-to-list 'load-path "~/.emacs.d/vendor")
-
-; custom place to save customizations
-(setq custom-file "~/.emacs.d/senny/custom.el")
-(load custom-file)
+(add-to-list 'load-path (concat senny-config-dir "/vendor"))
 
 (load "senny/global")
 (load "senny/smart_tab")
 (load "senny/defun")
 (load "senny/bindings")
-(load "senny/modes")
+;(load "senny/modes")
 (load "senny/theme")
 (load "senny/temp_files")
-(load "senny/git")
 
 (vendor 'magit)
 (vendor 'textmate)
-(vendor 'growl)
 (vendor 'pastie)
+(vendor 'ruby-mode)
 (textmate-mode)

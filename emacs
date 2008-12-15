@@ -1,7 +1,12 @@
-(add-to-list 'load-path "~/.emacs.d")
- 
-;; You're expected to populate .emacs.d/local.el
-;; with your own code. This file is under .gitignore
-;; so it won't be version-controlled. The idea is to
-;; make this file load other version-controlled files.
-(load "local")
+(setq senny-config-dir "~/projects/dotfiles/emacs.d")
+(add-to-list 'load-path senny-config-dir)
+
+(cond 
+  ((string-match "nt5" system-configuration) 
+   (load "windows")
+  )
+  ((string-match "mac" system-configuration)
+    (load "mac")
+  ))
+
+(if (file-exists-p (concat senny-config-dir "/local.el")) (load "local") )
