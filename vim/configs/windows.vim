@@ -31,9 +31,8 @@ if has("gui_running")
     vnoremap <C-x> "*d
     " CTRL-c is copy (in visual mode only)
     vnoremap <C-c> "*y
-    " ---- Restore some remapped things 
+    " ---- Restore some remapped things
     " make real <C-V> (visual block) as <C-Q> available
     noremap <c-q> <c-v>
     inoremap <C-Y> <C-Y>
 endif
-
