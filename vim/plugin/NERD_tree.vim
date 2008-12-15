@@ -22,11 +22,6 @@ if v:version < 700
     finish
 endif
 let loaded_nerd_tree = 1
-
-"for line continuation - i.e dont want C in &cpo
-let s:old_cpo = &cpo
-set cpo&vim
-
 "Function: s:initVariable() function {{{2
 "This function is used to initialise a given variable to a given value. The
 "variable is only initialised if it does not exist prior
@@ -360,7 +355,7 @@ endfunction
 function! s:Bookmark.toRoot()
     if self.validate()
         try
-            let targetNode = self.getNode(1)
+            let targetNode = s:Bookmark.GetNodeForName(self.name, 1)
         catch /NERDTree.BookmarkedNodeNotFound/
             let targetNode = s:TreeFileNode.New(s:Bookmark.BookmarkFor(self.name).path)
         endtry
@@ -500,7 +495,7 @@ function! s:TreeFileNode.findNode(path)
     endif
     return {}
 endfunction
-"FUNCTION: TreeFileNode.findOpenDirSiblingWithVisibleChildren(direction) {{{3
+"FUNCTION: TreeFileNode.findOpenDirSiblingWithChildren(direction) {{{3
 "
 "Finds the next sibling for this node in the indicated direction. This sibling
 "must be a directory and may/may not have children as specified.
@@ -510,7 +505,7 @@ endfunction
 "
 "Return:
 "a treenode object or {} if no appropriate sibling could be found
-function! s:TreeFileNode.findOpenDirSiblingWithVisibleChildren(direction)
+function! s:TreeFileNode.findOpenDirSiblingWithChildren(direction)
     "if we have no parent then we can have no siblings
     if self.parent != {}
         let nextSibling = self.findSibling(a:direction)
@@ -829,7 +824,7 @@ endfunction
 "FUNCTION: TreeDirNode.hasVisibleChildren() {{{3
 "returns 1 if this node has any childre, 0 otherwise..
 function! s:TreeDirNode.hasVisibleChildren()
-    return self.getVisibleChildCount() != 0
+    return self.getChildCount() != 0
 endfunction
 
 "FUNCTION: TreeDirNode._initChildren() {{{3
@@ -1055,10 +1050,10 @@ endfunction
 let s:Path = {}
 "FUNCTION: Path.bookmarkNames() {{{3
 function! s:Path.bookmarkNames()
-    if !exists("self._bookmarkNames")
+    if !exists("self.bookmarkNames")
         call self.cacheDisplayString()
     endif
-    return self._bookmarkNames
+    return self.bookmarkNames
 endfunction
 "FUNCTION: Path.cacheDisplayString() {{{3
 function! s:Path.cacheDisplayString()
@@ -1068,14 +1063,14 @@ function! s:Path.cacheDisplayString()
         let self.cachedDisplayString = self.cachedDisplayString . '*'
     endif
 
-    let self._bookmarkNames = []
+    let self.bookmarkNames = []
     for i in s:Bookmark.Bookmarks()
         if i.path.equals(self)
-            call add(self._bookmarkNames, i.name)
+            call add(self.bookmarkNames, i.name)
         endif
     endfor
-    if !empty(self._bookmarkNames)
-        let self.cachedDisplayString .= ' {' . join(self._bookmarkNames) . '}'
+    if !empty(self.bookmarkNames)
+        let self.cachedDisplayString .= ' {' . join(self.bookmarkNames) . '}'
     endif
 
     if self.isSymLink
@@ -1833,6 +1828,9 @@ function! s:createTreeWin()
     endif
 
 
+    " for line continuation
+    let cpo_save1 = &cpo
+    set cpo&vim
 
     call s:bindMappings()
     setfiletype nerdtree
@@ -2233,7 +2231,7 @@ function! s:jumpToChild(direction)
     endif
 
     if targetNode.equals(currentNode)
-        let siblingDir = currentNode.parent.findOpenDirSiblingWithVisibleChildren(a:direction)
+        let siblingDir = currentNode.parent.findOpenDirSiblingWithChildren(a:direction)
         if siblingDir != {}
             let indx = a:direction ? siblingDir.getVisibleChildCount()-1 : 0
             let targetNode = siblingDir.getChildByIndex(indx, 1)
@@ -3528,9 +3526,5 @@ function! s:upDir(keepState)
         call s:putCursorOnNode(oldRoot, 0, 0)
     endif
 endfunction
-
-
-"reset &cpo back to users setting
-let &cpo = s:old_cpo
 
 " vim: set sw=4 sts=4 et fdm=marker:

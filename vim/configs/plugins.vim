@@ -1,10 +1,9 @@
 " Plugin: NERDTree
-if MySys() == "windows"
+if g:current_os == "windows"
 
-elseif MySys() == "mac"
+elseif g:current_os == "mac"
   nmap <silent> <C-t> :NERDTreeToggle<CR>
 endif
-
 " Plugin: Project
 nmap <silent> <C-d> :call ToggleFolding()<CR>
 nmap <silent> <A-Left> zc
@@ -23,6 +22,7 @@ let Tlist_WinWidth = 50
 
 "Plugin: TODO
 au BufRead,BufNewFile TODO.txt		set filetype=todo
+map <LocalLeader><C-A> /^T,,\(DONE\)\@!<Cr>
 
 " Plugin: Grep
 function! SearchWithList()

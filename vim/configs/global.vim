@@ -4,7 +4,9 @@
 let maplocalleader = ","
 let mapleader = ";"
 set nobackup
-if MySys() == "windows"
+filetype on
+filetype plugin on
+if g:current_os == "windows"
   set dir=c:\\swap\\vim
 endif
 
@@ -21,19 +23,12 @@ set autoindent
 """"""""""""""""""""""""""""""""""""""""
 " TABS
 """"""""""""""""""""""""""""""""""""""""
-map ä :tabn<CR>
-map ö :tabp<CR>
-map <silent> ü :tabnew<CR>
-map <silent> è :tabnew<CR>:BufExplorer<CR> 
-map $ :q<CR>
-map . :e .<CR>
-map - :Exp<CR>
 set showtabline=2
 
 """"""""""""""""""""""""""""""""""""""""
 " SEARCHING
 """"""""""""""""""""""""""""""""""""""""
 set hlsearch            " highlight search results
-set incsearch           
+set incsearch           " highlight search resultsw while typing
 set ignorecase          " case-insensitive search
 set smartcase           " use smartcase => case-insensitive with lowercase

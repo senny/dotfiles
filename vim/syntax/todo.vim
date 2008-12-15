@@ -1,6 +1,6 @@
 syn match todoComment "*.*"
 syn match todoDefinition "^[QTI]\{1},.\{-},.\{-}:" contains=todoTask,todoQuestion,todoInformation,todoStatus,todoPerson,todoImportant
-syn match todoTask "^T" contained 
+syn match todoTask "^T" contained
 syn match todoQuestion "^Q" contained
 syn match todoInformation "^I" contained
 syn match todoKeyword "=>"

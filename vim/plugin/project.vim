@@ -1170,19 +1170,49 @@ function! s:Project(filename) " <<<
             endif
         endfunction
         " >>>
-    function s:RegenerateDirectoryEntries()
-        let line = line('.') 
-        let parent_infoline = s:RecursivelyConstructDirectives(line('.'))
-        let home=expand(s:GetHome(parent_infoline, ''))
-        let filter = s:GetFilter(parent_infoline, '*')
-        let foldlev=foldlevel(line)
-        if (foldclosed(line) != -1) || (getline(line) =~ '}')
-            let foldlev=foldlev - 1
-        "call s:DoEntryFromDir(a:recursive, line, name, home.dir, dir, c_d, filter_directive, filter, foldlev, 0)
+
+    function! s:DisableElement()
+        let line=line('.')
+        let top=s:FindFoldTop(line)
+        let bottom=s:FindFoldBottom(line)
+        call cursor(top+1,0)
+        while getline('.') !~ '}'
+            if line('.') == line('$')
+                break
+            endif
+            if getline('.') !~ '{'
+                if (just_a_fold == 0) && (getline('.') !~ '^\s*#') && (getline('.') !~ '#.*pragma keep')
+                    d _
+                endif
+            else
+                d _
+            endif
+        endwhile
+        "rows delete
     endfunction
 
+    function! s:CreateFipoProject(branch)
+          " Save a mark for the current cursor position
+        normal! mk
+        let home=g:clear_case_view_path.a:branch.'\fipo\se'
+        if !isdirectory(home)
+            call confirm('"'.home.'" is not a valid directory.', "&OK", 1)
+            return
+        endif
+        let c_d = ''
+        let filter = '*'
+        " Do the work
+
+        call s:GenerateEntry(1, 1, a:branch, home,home, c_d, '', filter, 1, 1)
+
+        " Restore the cursor position
+        normal! `k
+    endfunction
+
+command! -nargs=* -complete=file DisableProjectElement call s:DisableElement()
+command! -nargs=* -complete=file CreateFipoProjectFromBranch call s:CreateFipoProject()
+
         " Mappings <<<
-        nnoremap <buffer> <LocalLeader>x :call <SID>RegenerateDirectoryEntries()<CR>
         nnoremap <buffer> <silent> <Return>   \|:call <SID>DoFoldOrOpenEntry('', 'e')<CR>
         nnoremap <buffer> <silent> <S-Return> \|:call <SID>DoFoldOrOpenEntry('', 'sp')<CR>
         nnoremap <buffer> <silent> <C-Return> \|:call <SID>DoFoldOrOpenEntry('silent! only', 'e')<CR>
@@ -1292,6 +1322,25 @@ if !exists("*<SID>DoToggleProject()") "<<<
         endif
     endfunction
 endif ">>>
+" Open Fipo Project
+if !exists("*<SID>OpenFipoProject()") "<<<
+    function! s:OpenFipoProject()
+        let name = inputdialog('Enter the Name of the Branch: ')
+        if strlen(name) == 0
+            return
+        endif
+        let path = g:project_files_location.name.'.vimproject'
+
+        execute 'cd '.g:clear_case_view_path.name
+        call s:Project(path)
+
+        if !filereadable(path)
+            call s:CreateFipoProject(name)
+        endif
+    endfunction
+endif ">>>
+
+nnoremap <script> <Plug>OpenFipoProject :call <SID>OpenFipoProject()<CR>
 nnoremap <script> <Plug>ToggleProject :call <SID>DoToggleProject()<CR>
 if exists('g:proj_flags') && (match(g:proj_flags, '\Cg') != -1)
     if !hasmapto('<Plug>ToggleProject')

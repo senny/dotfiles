@@ -17,7 +17,7 @@ setlocal commentstring=*\ %s
 
 function! s:CreateToDoBlock()
     let name = inputdialog('Enter TODO-Name: ')
-    
+
     if name == ""
         return
     endif
