@@ -1,6 +1,7 @@
 ;; others
-(load "senny/ruby")
-(load "senny/shell")
+(load "senny/modes/ruby")
+(load "senny/modes/shell")
+(load "senny/modes/java")
 
 ;; Org-Mode
 (setq load-path (cons "~/.emacs.d/vendor/org-mode/lisp" load-path))
@@ -24,3 +25,4 @@
 (autoload 'mode-compile-kill "mode-compile"
  "Command to kill a compilation launched by `mode-compile'" t)
 (global-set-key "\C-ck" 'mode-compile-kill)
+

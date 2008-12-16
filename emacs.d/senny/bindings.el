@@ -6,7 +6,7 @@
 (global-set-key "\C-xg" 'magit-status)
 (global-set-key "\M-i" 'insert-soft-tab)
 (global-set-key "\C-xp" 'defunkt-ido-find-project)
-(global-set-key "\C-cp" 'defunkt-ido-find-config)
+(global-set-key "\C-cp" 'senny-ido-find-config)
 (global-set-key "\C-cP" 'defunkt-goto-config)
 (global-set-key [C-return] 'defunkt-duplicate-line)
 (global-set-key "\C-x\C-g" 'github-ido-find-file)

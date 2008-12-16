@@ -12,11 +12,11 @@
   (backward-char))
 (ad-activate 'zap-to-char)
 
-(defun defunkt-ido-find-config ()
+(defun senny-ido-find-config ()
   (interactive)
   (find-file
-   (concat "~/.emacs.d/defunkt/" (ido-completing-read "Config file: "
-                                   (directory-files "~/.emacs.d/defunkt/" nil "^[^.]")))))
+   (concat "~/.emacs.d/senny/" (ido-completing-read "Config file: "
+                                   (directory-files "~/.emacs.d/senny/" nil "^[^.]")))))
 
 (defun defunkt-ido-find-project ()
   (interactive)
@@ -24,9 +24,9 @@
    (concat "~/Projects/" (ido-completing-read "Project: "
                            (directory-files "~/Projects/" nil "^[^.]")))))
 
-(defun defunkt-goto-config ()
+(defun senny-goto-config ()
   (interactive)
-  (find-file "~/.emacs.d/defunkt.el"))
+  (find-file "~/.emacs.d/senny.el"))
 
 ;; fix kill-word
 (defun defunkt-kill-word (arg)

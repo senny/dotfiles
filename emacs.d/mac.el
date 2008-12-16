@@ -1,6 +1,6 @@
 ; custom place to save customizations
-(setq custom-file (concat senny-config-dir "/senny/mac/custom.el"))
-(load custom-file)
+;(setq custom-file (concat senny-config-dir "/senny/mac/custom.el"))
+;(load custom-file)
 
 (cua-mode nil)
 (setq mac-emulate-three-button-mouse nil)
@@ -11,4 +11,4 @@
 
 (load "senny")
 
-(vendor 'growl)
+;(vendor 'growl)

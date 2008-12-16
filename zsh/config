@@ -1,4 +1,8 @@
 PS1='%3~$(git_branch_for_prompt)%# '
+JAVA_HOME='/System/Library/Frameworks/JavaVM.framework/Versions/1.6'
+export JAVA_HOME
+JAVA_VERSION='/System/Library/Frameworks/JavaVM.framework/Versions/1.6'
+export JAVA_VERSION='1.6'
 EDITOR='mate -w'
 PATH="~/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/git/bin:$PATH"
 MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
