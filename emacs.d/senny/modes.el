@@ -3,6 +3,12 @@
 (load "senny/modes/shell")
 (load "senny/modes/java")
 
+;; Yasnippet
+(vendor 'yasnippet)
+(require 'yasnippet)
+(yas/initialize)
+(yas/load-directory (concat senny-config-dir "/vendor/yasnippet/snippets"))
+
 ;; Org-Mode
 (setq load-path (cons "~/.emacs.d/vendor/org-mode/lisp" load-path))
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
