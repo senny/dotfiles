@@ -2,6 +2,7 @@
 (load "senny/modes/ruby")
 (load "senny/modes/shell")
 (load "senny/modes/java")
+(load "senny/modes/javascript")
 
 ;; Yasnippet
 (vendor 'yasnippet)
