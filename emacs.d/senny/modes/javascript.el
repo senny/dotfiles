@@ -11,4 +11,5 @@
 
 (add-hook 'js2-mode-hook '(lambda () 
                             (define-key js2-mode-map (kbd "A-r") 'js2-execute-buffer)
-                            (define-key js2-mode-map (kbd "A-R") 'js2-execute-line)))
+                            (define-key js2-mode-map (kbd "A-R") 'js2-execute-line)
+                            (yas/minor-mode-on)))
