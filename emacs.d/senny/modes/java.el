@@ -1,6 +1,11 @@
+(add-to-list 'load-path (expand-file-name (concat senny-config-dir "/vendor/jde/lisp")))
+(add-to-list 'load-path (expand-file-name (concat senny-config-dir "/vendor/cedet/common")))
+(load-file (expand-file-name (concat senny-config-dir "/vendor/cedet/common/cedet.el")))
+(add-to-list 'load-path (expand-file-name (concat senny-config-dir "/vendor/elib")))
+
+(require 'jde)
 (add-hook 'jde-mode-hook
           '(lambda()
-             (message "FUCK THAT SHIT")
              ;; Indent width is two spaces.
              (setq c-basic-offset 2)
  
