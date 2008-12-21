@@ -4,6 +4,14 @@
 (prefer-coding-system 'utf-8)
 (setq vc-handled-backends nil)
 
+(setq hippie-expand-try-function-list
+      '(yas/hippie-try-expand try-expand-dabbrev
+                              try-expand-dabbrev-all-buffers
+                              try-expand-dabbrev-from-kill
+                              try-expand-dabbrev-from-kill))
+
+(global-set-key (kbd "TAB") 'hippie-expand)
+
 ;; works in both aquamacs and carbon
 (when (functionp 'tool-bar-mode)
-  (tool-bar-mode))
+  (tool-bar-mode nil))

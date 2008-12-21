@@ -1,5 +1,11 @@
 ; custom place to save customizations
-(setq custom-file (concat senny-config-dir "/senny/mac/custom.el"))
+(cond
+  ((string-match "aquamacs" (version))
+    (setq custom-file (concat senny-config-dir "/senny/mac/aquamacs-custom.el"))
+  )
+  ((string-match "carbon" (version))
+    (setq custom-file (concat senny-config-dir "/senny/mac/carbon-emacs-custom.el"))
+  ))
 (load custom-file)
 
 (cua-mode nil)

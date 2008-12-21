@@ -1,3 +1,7 @@
+(setq jde-jdk (quote ("1.5")))
+(setq jde-jdk-registry (quote (("1.5" . "/System/Library/Frameworks/JavaVM.framework/Versions/1.5"))))
+
+
 (add-to-list 'load-path (expand-file-name (concat senny-config-dir "/vendor/jde/lisp")))
 (add-to-list 'load-path (expand-file-name (concat senny-config-dir "/vendor/cedet/common")))
 (load-file (expand-file-name (concat senny-config-dir "/vendor/cedet/common/cedet.el")))

@@ -137,3 +137,11 @@
         (setq isearch-initial-string (buffer-substring begin end))
         (add-hook 'isearch-mode-hook 'isearch-set-initial-string)
         (isearch-forward regexp-p no-recursive-edit)))))
+
+(defun compile-senny ()
+  (interactive)
+  (byte-recompile-directory (concat senny-config-dir "/senny") t t))
+
+(defun compile-vendor ()
+  (interactive)
+  (byte-recompile-directory (concat senny-config-dir "/vendor") t t))
