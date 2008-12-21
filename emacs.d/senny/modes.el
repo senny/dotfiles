@@ -6,7 +6,7 @@
 
 ; linum
 (require 'linum)
-(linum-mode)
+(global-linum-mode)
 
 ;; Yasnippet
 (vendor 'yasnippet)

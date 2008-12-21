@@ -12,6 +12,12 @@
 
 (global-set-key (kbd "TAB") 'hippie-expand)
 
-;; works in both aquamacs and carbon
 (when (functionp 'tool-bar-mode)
   (tool-bar-mode nil))
+
+;; highlight
+(show-paren-mode t)
+
+;; Use a vertical bar as cursor
+(blink-cursor-mode t)
+(setq-default cursor-type '(bar . 2))
