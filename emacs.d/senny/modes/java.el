@@ -1,3 +1,14 @@
+(setq defer-loading-jde t)
+
+(if defer-loading-jde
+    (progn
+      (autoload 'jde-mode "jde" "JDE mode." t)
+      (setq auto-mode-alist
+	    (append
+	     '(("\\.java\\'" . jde-mode))
+	     auto-mode-alist)))
+  (require 'jde))
+
 (setq jde-jdk (quote ("1.5")))
 (setq jde-jdk-registry (quote (("1.5" . "/System/Library/Frameworks/JavaVM.framework/Versions/1.5"))))
 
@@ -7,7 +18,6 @@
 (load-file (expand-file-name (concat senny-config-dir "/vendor/cedet/common/cedet.el")))
 (add-to-list 'load-path (expand-file-name (concat senny-config-dir "/vendor/elib")))
 
-(require 'jde)
 (add-hook 'jde-mode-hook
           '(lambda()
              ;; Indent width is two spaces.

@@ -4,6 +4,10 @@
 (load "senny/modes/java")
 (load "senny/modes/javascript")
 
+; linum
+(require 'linum)
+(linum-mode)
+
 ;; Yasnippet
 (vendor 'yasnippet)
 (require 'yasnippet)
