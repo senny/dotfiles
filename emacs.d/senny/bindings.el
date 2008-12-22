@@ -12,6 +12,9 @@
 (global-set-key "\C-x\C-g" 'github-ido-find-file)
 (global-set-key "\C-R" 'replace-string)
 
+; Buffer cycling
+(global-set-key (kbd "C-ä") 'forward-buffer)
+(global-set-key (kbd "C-ö") 'forward-buffer)
 
 ; Completion
 (global-set-key [(tab)] 'smart-tab)
