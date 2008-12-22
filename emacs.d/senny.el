@@ -3,10 +3,11 @@
 (load "senny/global")
 (load "senny/smart_tab")
 (load "senny/defun")
-(load "senny/bindings")
 (load "senny/modes")
-(load "senny/theme")
+(load "senny/display")
 (load "senny/temp_files")
+(load "senny/bindings")
+
 
 (vendor 'magit)
 (vendor 'textmate)

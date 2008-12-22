@@ -1,7 +1,7 @@
 ;;;
 ;; Smart Tab
 
-(defvar smart-tab-using-hippie-expand nil
+(defvar smart-tab-using-hippie-expand t
   "turn this on if you want to use hippie-expand completion.")
 
 ;; (global-set-key [(tab)] 'smart-tab)

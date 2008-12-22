@@ -9,15 +9,3 @@
                               try-expand-dabbrev-all-buffers
                               try-expand-dabbrev-from-kill
                               try-expand-dabbrev-from-kill))
-
-(global-set-key (kbd "TAB") 'hippie-expand)
-
-(when (functionp 'tool-bar-mode)
-  (tool-bar-mode nil))
-
-;; highlight
-(show-paren-mode t)
-
-;; Use a vertical bar as cursor
-(blink-cursor-mode t)
-(setq-default cursor-type '(bar . 2))

@@ -9,6 +9,7 @@
 	     auto-mode-alist)))
   (require 'jde))
 
+(setq jde-complete-insert-method-signature nil)
 (setq jde-jdk (quote ("1.5")))
 (setq jde-jdk-registry (quote (("1.5" . "/System/Library/Frameworks/JavaVM.framework/Versions/1.5"))))
 
@@ -22,7 +23,9 @@
           '(lambda()
              ;; Indent width is two spaces.
              (setq c-basic-offset 2)
- 
+             
+             
+             
              ;; Show warnings and errors in code.
              ;(require 'jde-eclipse-compiler-server)
  
@@ -35,9 +38,13 @@
  
              ;; Don't use JDE's builtin abbrevs.
              (setq jde-enable-abbrev-mode nil)
- 
+             
+             
              ;; Generate getter and setter methods to variables.
              (define-key jde-mode-map (kbd "C-c C-v w") 'jde-wiz-get-set-methods)
+             
+             ;; auto-completion with Meta + Space
+             (define-key jde-mode-map (kbd " ") 'jde-complete-minibuf)
  
              ;; Generate variables and getter and setter methods to them.
              (define-key jde-mode-map (kbd "C-c C-v g") 'jde-gen-get-set-methods)

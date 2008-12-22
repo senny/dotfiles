@@ -1,3 +1,19 @@
+;; disable toolbar
+(when (functionp 'tool-bar-mode)
+  (tool-bar-mode nil))
+
+;; start maximized
+(vendor 'maxframe)
+(add-hook 'window-setup-hook 'maximize-frame t)
+
+;; highlight
+(show-paren-mode t)
+
+;; Use a vertical bar as cursor
+(blink-cursor-mode t)
+(setq-default cursor-type '(bar . 2))
+
+
 (require 'color-theme)
 (when (fboundp 'color-theme-initialize)
   (color-theme-initialize))
