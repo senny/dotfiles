@@ -19,7 +19,8 @@
   (color-theme-initialize))
 (setq color-theme-is-global t)
 
-(load-file (concat senny-config-dir "/vendor/twilight-emacs/color-theme-twilight.el"))
+(load-file (concat senny-config-dir "/senny/color-theme-twilight.el"))
+(load-file (concat senny-config-dir "/senny/color-theme-github.el"))
 (color-theme-twilight)
 
 ; how to get the font you want:
