@@ -6,6 +6,7 @@
   ;; If there is more than one, they won't work right.
  '(emulate-mac-swiss-german-keyboard-mode t)
  '(erc-modules (quote (autojoin button completion fill irccontrols match menu netsplit noncommands readonly ring scrolltobottom stamp track)))
+ '(inhibit-startup-screen t)
  '(jde-jdk (quote ("1.5")) t)
  '(jde-jdk-registry (quote (("1.5" . "/System/Library/Frameworks/JavaVM.framework/Versions/1.5"))) t)
  '(mf-display-padding-height 120))
