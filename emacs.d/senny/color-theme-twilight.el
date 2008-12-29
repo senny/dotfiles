@@ -82,6 +82,7 @@
      (jde-java-font-lock-package-face ((t (:inherit keyword))))
      (jde-java-font-lock-number-face ((t (:inherit string))))
      (jde-java-font-lock-code-face  ((t (:inherit default))))
+
      
      (diff-header ((t (:inherit default :background "#0E2231"))))
      (diff-added ((t (:inherit default :background "#253B22"))))
@@ -90,6 +91,10 @@
      (diff-context ((t (:inherit font-lock-comment))))
      (diff-index ((t (:inherit font-lock-comment))))
      (diff-file-header ((t (:inherit font-lock-comment :bold t))))
+
+     (jde-db-active-breakpoint-face ((t (:inherit diff-removed))))
+     (jde-db-requested-breakpoint-face ((t (:inherit diff-changed))))
+     (jde-db-spec-breakpoint-face ((t (:inherit diff-added))))
 
      (ediff-current-diff-A ((((class color) (min-colors 16)) (:background "#01243C" :foreground "white"))))
      (ediff-current-diff-Ancestor ((((class color) (min-colors 16)) (:background "#4D0600" :foreground "white"))))

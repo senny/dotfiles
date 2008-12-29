@@ -9,12 +9,6 @@
 	     auto-mode-alist)))
   (require 'jde))
 
-(setq jde-enable-abbrev-mode nil)
-(setq jde-complete-insert-method-signature nil)
-(setq jde-jdk (quote ("1.5")))
-(setq jde-jdk-registry (quote (("1.5" . "/System/Library/Frameworks/JavaVM.framework/Versions/1.5"))))
-
-
 (add-to-list 'load-path (expand-file-name (concat senny-config-dir "/vendor/jde/lisp")))
 (add-to-list 'load-path (expand-file-name (concat senny-config-dir "/vendor/cedet/common")))
 (load-file (expand-file-name (concat senny-config-dir "/vendor/cedet/common/cedet.el")))
@@ -22,11 +16,13 @@
 
 (add-hook 'jde-mode-hook
           '(lambda()
+             ; disable the abbrev mode
+             (setq jde-enable-abbrev-mode nil)
+             (setq jde-complete-insert-method-signature nil)
+
              ;; Indent width is two spaces.
              (setq c-basic-offset 2)
-             
-             
-             
+
              ;; Show warnings and errors in code.
              ;(require 'jde-eclipse-compiler-server)
  

@@ -25,7 +25,8 @@
                            (delete-trailing-whitespace))))
             (set (make-local-variable 'indent-tabs-mode) 'nil)
             (set (make-local-variable 'tab-width) 2)
-            (define-key ruby-mode-map "\C-m" 'ruby-reindent-then-newline-and-indent)))
+            (define-key ruby-mode-map "\C-m" 'ruby-reindent-then-newline-and-indent)
+            (define-key ruby-mode-map "\M-r" 'ruby-run-w/compilation)))
 
 (defadvice ruby-do-run-w/compilation (before kill-buffer (name cmdlist))
   (let ((comp-buffer-name (format "*%s*" name)))

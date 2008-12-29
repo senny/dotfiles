@@ -17,7 +17,7 @@
 (global-set-key (kbd "C-ö") 'backward-buffer)
 
 ; Completion
-;(global-set-key [(tab)] 'smart-tab)
+(global-set-key [(tab)] 'smart-tab)
 
 ; vim emulation
 ;(global-set-key [C-tab] 'other-window) 
