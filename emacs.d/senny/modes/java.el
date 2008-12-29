@@ -9,6 +9,7 @@
 	     auto-mode-alist)))
   (require 'jde))
 
+(setq jde-enable-abbrev-mode nil)
 (setq jde-complete-insert-method-signature nil)
 (setq jde-jdk (quote ("1.5")))
 (setq jde-jdk-registry (quote (("1.5" . "/System/Library/Frameworks/JavaVM.framework/Versions/1.5"))))

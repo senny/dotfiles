@@ -1,13 +1,17 @@
-;; disable toolbar
-(when (functionp 'tool-bar-mode)
-  (tool-bar-mode nil))
+;; remove ui components
+;(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+;(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
 ;; start maximized
 (vendor 'maxframe)
 (add-hook 'window-setup-hook 'maximize-frame t)
 
+;; highlight the selected region
+(transient-mark-mode)
+
 ;; highlight
-(show-paren-mode t)
+(show-paren-mode)
 
 ;; Use a vertical bar as cursor
 (blink-cursor-mode t)
@@ -20,11 +24,4 @@
 (setq color-theme-is-global t)
 
 (load-file (concat senny-config-dir "/senny/color-theme-twilight.el"))
-(load-file (concat senny-config-dir "/senny/color-theme-github.el"))
 (color-theme-twilight)
-
-; how to get the font you want:
-;   M-x mac-font-panel
-;   pick your font
-;   M-x describe-font
-; (setq default-frame-alist '((font . "-apple-inconsolata-medium-r-normal--16-160-72-72-m-160-iso10646-1")))

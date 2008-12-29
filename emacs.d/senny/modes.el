@@ -1,8 +1,10 @@
 ;; others
+(load "senny/modes/nxhtml")
 (load "senny/modes/ruby")
 (load "senny/modes/shell")
 (load "senny/modes/java")
 (load "senny/modes/javascript")
+
 
 ; linum
 (require 'linum)
@@ -36,4 +38,3 @@
 (autoload 'mode-compile-kill "mode-compile"
  "Command to kill a compilation launched by `mode-compile'" t)
 (global-set-key "\C-ck" 'mode-compile-kill)
-
