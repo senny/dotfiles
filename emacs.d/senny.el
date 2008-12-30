@@ -1,12 +1,14 @@
 (add-to-list 'load-path (concat senny-config-dir "/vendor"))
 
 (load "senny/global")
-(load "senny/smart_tab")
+;(load "senny/smart_tab")
 (load "senny/defun")
 (load "senny/modes")
 (load "senny/display")
 (load "senny/temp_files")
 (load "senny/bindings")
+
+(load "vendor/minibuffer-complete-cycle")
 
 
 (vendor 'magit)
