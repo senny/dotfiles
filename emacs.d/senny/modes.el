@@ -36,7 +36,7 @@
 (yas/load-directory (concat senny-config-dir "/vendor/yasnippet/snippets"))
 
 ;; Org-Mode
-(setq load-path (cons "~/.emacs.d/vendor/org-mode/lisp" load-path))
+;(setq load-path (cons "~/.emacs.d/vendor/org-mode/lisp" load-path))
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 
 ; magit

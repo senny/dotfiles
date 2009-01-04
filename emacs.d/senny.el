@@ -10,7 +10,6 @@
 
 (load "vendor/minibuffer-complete-cycle")
 
-
 (vendor 'magit)
 (vendor 'textmate)
 (vendor 'pastie)
