@@ -20,7 +20,7 @@
 (global-set-key (kbd "C-ö") 'backward-buffer)
 
 ; Completion
-(global-set-key [(tab)] 'hippie-expand)
+;(global-set-key [(tab)] 'hippie-expand)
 
 ; vim emulation
 ;(global-set-key [C-tab] 'other-window) 
