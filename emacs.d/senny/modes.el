@@ -37,14 +37,13 @@
 (yas/load-directory (concat senny-config-dir "/senny/snippets"))
 
 ;; Org-Mode
-;(setq load-path (cons "~/.emacs.d/vendor/org-mode/lisp" load-path))
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 
 ;; magit
-;(eval-after-load 'magit
-;  '(progn
-;     (set-face-foreground 'magit-diff-add "green3")
-;     (set-face-foreground 'magit-diff-del "red3")))
+(eval-after-load 'magit
+  '(progn
+     (set-face-foreground 'magit-diff-add "green3")
+     (set-face-foreground 'magit-diff-del "red3")))
      
 ; ido
 (ido-mode t)

@@ -10,8 +10,8 @@
 
 (load "vendor/minibuffer-complete-cycle")
 
-;(vendor 'magit)
-;(vendor 'textmate)
+(vendor 'magit)
+(vendor 'textmate)
 (vendor 'pastie)
 (vendor 'ruby-mode)
-;(textmate-mode)
+(textmate-mode 1)
