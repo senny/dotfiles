@@ -8,13 +8,13 @@
 (add-hook 'window-setup-hook 'maximize-frame t)
 
 ;; highlight the selected region
-(transient-mark-mode)
+(transient-mark-mode 1)
 
 ;; highlight
-(show-paren-mode)
+(show-paren-mode 1)
 
 ;; Use a vertical bar as cursor
-(blink-cursor-mode t)
+(blink-cursor-mode 1)
 (setq-default cursor-type '(bar . 2))
 
 

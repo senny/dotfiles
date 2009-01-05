@@ -4,9 +4,9 @@
     (progn
       (autoload 'jde-mode "jde" "JDE mode." t)
       (setq auto-mode-alist
-	    (append
-	     '(("\\.java\\'" . jde-mode))
-	     auto-mode-alist)))
+            (append
+             '(("\\.java\\'" . jde-mode))
+             auto-mode-alist)))
   (require 'jde))
 
 (add-to-list 'load-path (expand-file-name (concat senny-config-dir "/vendor/jde/lisp")))
@@ -16,36 +16,30 @@
 
 (add-hook 'jde-mode-hook
           '(lambda()
-             ; disable the abbrev mode
-             (setq jde-enable-abbrev-mode nil)
              (setq jde-complete-insert-method-signature nil)
 
              ;; Indent width is two spaces.
              (setq c-basic-offset 2)
 
-             ;; Show warnings and errors in code.
-             ;(require 'jde-eclipse-compiler-server)
- 
-             ;; Activate flymake.
-             ;(flymake-mode-on)
- 
+             (setq c-auto-newline t)
+             (setq c-comment-continuation-stars "* ")
+             
              ;; No "final" when auto creating methods and variables.
              (setq jde-gen-final-arguments nil)
              (setq jde-gen-final-methods nil)
- 
+             
              ;; Don't use JDE's builtin abbrevs.
              (setq jde-enable-abbrev-mode nil)
-             
-             
+                          
              ;; Generate getter and setter methods to variables.
              (define-key jde-mode-map (kbd "C-c C-v w") 'jde-wiz-get-set-methods)
              
              ;; auto-completion with Meta + Space
              (define-key jde-mode-map (kbd " ") 'jde-complete-minibuf)
- 
+             
              ;; Generate variables and getter and setter methods to them.
              (define-key jde-mode-map (kbd "C-c C-v g") 'jde-gen-get-set-methods)
- 
+             
              ;; Fix imports.
              (define-key jde-mode-map (kbd "C-c o")
                (lambda ()
@@ -55,10 +49,10 @@
                    (jde-import-organize)
                    (jde-import-kill-extra-imports))))
              ))
- 
+
 (provide 'java)
 
-; jde
+                                        ; jde
 (setq auto-mode-alist
       (append
        '(("\\.java\\'" . jde-mode))

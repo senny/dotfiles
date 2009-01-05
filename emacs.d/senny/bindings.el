@@ -12,12 +12,15 @@
 (global-set-key "\C-x\C-g" 'github-ido-find-file)
 (global-set-key "\C-R" 'replace-string)
 
+; Window management
+(global-set-key [f1] 'resize-windows)
+
 ; Buffer cycling
 (global-set-key (kbd "C-ä") 'forward-buffer)
 (global-set-key (kbd "C-ö") 'backward-buffer)
 
 ; Completion
-;(global-set-key [(tab)] 'smart-tab)
+(global-set-key [(tab)] 'hippie-expand)
 
 ; vim emulation
 ;(global-set-key [C-tab] 'other-window) 

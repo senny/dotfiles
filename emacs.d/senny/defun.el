@@ -20,8 +20,8 @@
 (defun senny-ido-find-config ()
   (interactive)
   (find-file
-   (concat "~/.emacs.d/senny/" (ido-completing-read "Config file: "
-                                   (directory-files "~/.emacs.d/senny/" nil "^[^.]")))))
+   (concat senny-config-dir "/senny/" (ido-completing-read "Config file: "
+                                   (directory-files (concat senny-config-dir "/senny/") nil "^[^.]")))))
 
 (defun defunkt-ido-find-project ()
   (interactive)

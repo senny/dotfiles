@@ -289,9 +289,9 @@ variable ANT_HOME."
     (if (not (string= buildfile ""))
         (setq ant-command 
               (concat ant-command 
-                      " -buildfile " delimiter
+                      " -buildfile  \""
                       (jde-normalize-path buildfile)
-                      delimiter)))
+                      "\"")))
 
     (if (not (string= jde-ant-args ""))
         (setq ant-command (concat ant-command " " jde-ant-args)))

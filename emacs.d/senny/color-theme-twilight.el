@@ -127,9 +127,6 @@
 
      (html-tag-face ((t (:inherit keyword))))
 
-
-
-
      (mumamo-background-chunk-major ((t (:inherit background-color))))
      (mumamo-background-chunk-submode ((t (:inherit background-color))))
      (nxml-delimited-data-face ((t (:inherit string))))
@@ -148,13 +145,17 @@
      (nxml-processing-instruction-delimiter-face ((t (:inherit keyword))))
      (nxml-cdata-section-CDATA-face ((t (:inherit constant))))
      (nxml-cdata-section-delimiter-face ((t (:inherit keyword))))
+     
+     (org-done ((t (:inherit string :bold t))))
+     (org-todo ((t (:inherit constant :bold t))))
 
      (ido-only-match ((t (:inherit string))))
      (ido-subdir ((t (:inherit constant))))
 
      (gui-element ((t (:background "#D4D0C8" :foreground "black"))))
      (region ((t (:background "#333333"))))
-     (minibuffer-prompt ((t (:foreground "cyan"))))
+     (minibuffer-prompt ((t (:background "#141414" :foreground "cyan"))))
+     (minibuffer-noticeable-prompt ((t (:inherit minibuffer-prompt))))
      (mode-line ((t (:background "#CCCCCC" :foreground "black"))))
      (highlight ((t (:inherit highlighted))))
      (left-margin ((t (nil))))
