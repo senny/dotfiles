@@ -146,6 +146,9 @@
      (nxml-cdata-section-CDATA-face ((t (:inherit constant))))
      (nxml-cdata-section-delimiter-face ((t (:inherit keyword))))
      
+     (yas/mirror-highlight-face ((t (:background "#4E404F"))))
+     (yas/field-highlight-face ((t (:background "#2E2E2E"))))
+
      (org-done ((t (:inherit string :bold t))))
      (org-todo ((t (:inherit constant :bold t))))
 
