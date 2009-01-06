@@ -16,7 +16,7 @@
 ;;; Commentary:
 
 ;; This minor mode exists to mimick TextMate's awesome
-;; features. 
+;; features.
 
 ;;    ⌘T - Go to File
 ;;  ⇧⌘T - Go to Symbol
@@ -27,7 +27,7 @@
 ;;  ⌥⌘] - Align Assignments
 ;;  ⌥⌘[ - Indent Line
 ;;  ⌘RET - Insert Newline at Line's End
-;;  ⌥⌘T - Reset File Cache (for Go to File)
+;;  ⌥⌘T - Reset File Cache (for Go to File, cache unused if using git/hg root)
 
 ;; A "project" in textmate-mode is determined by the presence of
 ;; a .git directory. If no .git directory is found in your current
@@ -35,7 +35,7 @@
 ;; is found. The directory housing the .git directory is presumed
 ;; to be the project's root.
 
-;; In other words, calling Go to File from 
+;; In other words, calling Go to File from
 ;; ~/Projects/fieldrunners/app/views/towers/show.html.erb will use
 ;; ~/Projects/fieldrunners/ as the root if ~/Projects/fieldrunners/.git
 ;; exists.
@@ -59,42 +59,55 @@
 (defvar textmate-use-file-cache t
   "* Should `textmate-goto-file' keep a local cache of files?")
 
-(defvar textmate-completing-library 'ido 
+(defvar textmate-completing-library 'ido
   "The library `textmade-goto-symbol' and `textmate-goto-file' should use for completing filenames and symbols (`ido' by default)")
 
-(defvar *textmate-completing-function-alist* '((ido ido-completing-read) 
-                                               (icicles  icicle-completing-read) 
-                                               (none completing-read)) 
+(defvar *textmate-completing-function-alist* '((ido ido-completing-read)
+                                               (icicles  icicle-completing-read)
+                                               (none completing-read))
   "The function to call to read file names and symbols from the user")
 
-(defvar *textmate-completing-minor-mode-alist* 
-  `((ido ,(lambda (a) (progn (ido-mode a) (setq ido-enable-flex-matching t)))) 
-    (icicles ,(lambda (a) (icy-mode a))) 
+(defvar *textmate-completing-minor-mode-alist*
+  `((ido ,(lambda (a) (progn (ido-mode a) (setq ido-enable-flex-matching t))))
+    (icicles ,(lambda (a) (icy-mode a)))
     (none ,(lambda (a) ())))
   "The list of functions to enable and disable completing minor modes")
 
 (defvar *textmate-mode-map* (make-sparse-keymap))
 (defvar *textmate-project-root* nil)
 (defvar *textmate-project-files* '())
-(defvar *textmate-gf-exclude* 
+(defvar *textmate-gf-exclude*
   "/\\.|vendor|fixtures|tmp|log|build|\\.xcodeproj|\\.nib|\\.framework|\\.app|\\.pbproj|\\.pbxproj|\\.xcode|\\.xcodeproj|\\.bundle")
 
-(defvar *textmate-keybindings-list* `((textmate-next-line 
+(defvar *textmate-keybindings-list* `((textmate-next-line
                                      [A-return]    [M-return])
-                                     (textmate-clear-cache 
+                                     (textmate-clear-cache
                                       ,(kbd "A-M-t") [(control c)(control t)])
-                                     (align 
+                                     (align
                                       ,(kbd "A-M-]") [(control c)(control a)])
-                                     (indent-according-to-mode 
+                                     (indent-according-to-mode
                                       ,(kbd "A-M-[") nil)
-                                     (indent-region 
+                                     (indent-region
                                       ,(kbd "A-]")   [(control tab)])
-                                     (comment-or-uncomment-region-or-line 
+                                     (comment-or-uncomment-region-or-line
                                       ,(kbd "A-/")   [(control c)(control k)])
-                                     (textmate-goto-file 
+                                     (textmate-goto-file
                                       ,(kbd "A-t")   [(meta t)])
-                                     (textmate-goto-symbol 
-                                      ,(kbd "A-T")   [(meta T)])))
+                                     (textmate-goto-symbol
+                                      ,(kbd "A-T")   [(meta T)])
+				     (textmate-toggle-camel-case
+				      ,(kbd "C-_")   [(control _)])))
+
+(defvar *textmate-project-root-p*
+  #'(lambda (coll) (or (member ".git" coll)
+                       (member ".hg" coll)
+                       (member "prj.el" coll)
+                       ))
+  "*Lambda that, given a collection of directory entries, returns
+  non-nil if it represents the project root.")
+
+(defvar *textmate-find-in-project-default* nil)
+(defvar *textmate-find-in-project-type-default* nil)
 
 ;;; Bindings
 
@@ -109,8 +122,8 @@
   ; weakness until i figure out how to do this right
   (when (boundp 'osx-key-mode-map)
     (define-key osx-key-mode-map (kbd "A-t") 'textmate-goto-file)
-    (define-key osx-key-mode-map (kbd "A-T") 'textmate-goto-symbol)) 
- 
+    (define-key osx-key-mode-map (kbd "A-T") 'textmate-goto-symbol))
+
   (let ((member) (i 0) (access (if (boundp 'aquamacs-version) 'cadr 'caddr)))
     (setq member (nth i *textmate-keybindings-list*))
     (while member
@@ -144,15 +157,15 @@
                              (cond
                               ((and (listp symbol) (imenu--subalist-p symbol))
                                (addsymbols symbol))
-                              
+
                               ((listp symbol)
                                (setq name (car symbol))
                                (setq position (cdr symbol)))
-                              
+
                               ((stringp symbol)
                                (setq name symbol)
                                (setq position (get-text-property 1 'org-imenu-marker symbol))))
-                             
+
                              (unless (or (null position) (null name))
                                (add-to-list 'symbol-names name)
                                (add-to-list 'name-and-pos (cons name position))))))))
@@ -164,14 +177,65 @@
 (defun textmate-goto-file ()
   (interactive)
   (let ((root (textmate-project-root)))
-    (when (null root) 
+    (message "FOUND ROOT")
+    (when (null root)
       (error "Can't find any .git directory"))
-    (find-file 
-     (concat 
+    (find-file
+     (concat
       (expand-file-name root) "/"
-      (textmate-completing-read 
+      (textmate-completing-read
        "Find file: "
-       (textmate-cached-project-files root))))))
+       (textmate-project-files root))))))
+
+(defun textmate-find-in-project-type ()
+  (interactive)
+  (let ((pat (read-string (concat "Suffix"
+                                  (if *textmate-find-in-project-type-default*
+                                      (format " [\"%s\"]" *textmate-find-in-project-type-default*)
+                                    "")
+                                  ": "
+                                  ) nil nil *textmate-find-in-project-type-default*)))
+    (setq *textmate-find-in-project-type-default* pat)
+    (textmate-find-in-project (concat "*." pat))))
+
+(defun textmate-find-in-project (&optional pattern)
+  (interactive)
+  (let ((root (textmate-project-root))
+        (default *textmate-find-in-project-default*)
+        )
+    (message "textmate-find-in-project")
+    (when (null root)
+      (error "Not in a project area."))
+    (let ((re (read-string (concat "Search for "
+                         (if (and default (> (length default) 0))
+                             (format "[\"%s\"]" default)) ": ")
+                 nil 'textmate-find-in-project-history default)
+              )
+          (incpat (if pattern pattern "*")))
+      (append textmate-find-in-project-history (list re))
+      (setq *textmate-find-in-project-default* re)
+      (let ((type (textmate-project-root-type root)))
+        (let ((command
+            (cond ((not (string= type "unknown"))
+                   (concat "cd "
+                           root
+                           " ; "
+                           (cond ((string= type "git") "git ls-files")
+                                 ((string= type "hg") "hg manifest"))
+                           " | xargs grep -nR "
+                           (if pattern (concat " --include='" pattern "' ") "")
+                           "'" re "'"))
+                  (t (concat "cd " root "; egrep -nR --exclude='"
+                            *textmate-gf-exclude*
+                            "' --include='"
+                            incpat
+                            "' '"
+                            re
+                            "' . | grep -vE '"
+                            *textmate-gf-exclude*
+                            "' | sed s:./::"
+                            )))))
+                  (compilation-start command 'grep-mode))))))
 
 (defun textmate-clear-cache ()
   (interactive)
@@ -179,31 +243,89 @@
   (setq *textmate-project-files* nil)
   (message "textmate-mode cache cleared."))
 
+(defun textmate-toggle-camel-case ()
+  "Toggle current sexp between camelCase and snake_case, like TextMate C-_."
+  (interactive)
+  (if (thing-at-point 'word)
+      (progn
+	(unless (looking-at "\\<") (backward-sexp))
+	(let ((case-fold-search nil)
+	      (start (point))
+	      (end (save-excursion (forward-sexp) (point))))
+	  (if (and (looking-at "[a-z0-9_]+") (= end (match-end 0))) ; snake-case
+	      (progn
+		(goto-char start)
+		(while (re-search-forward "_[a-z]" end t)
+		  (goto-char (1- (point)))
+		  (delete-char -1)
+		  (upcase-region (point) (1+ (point)))
+		  (setq end (1- end))))
+	    (downcase-region (point) (1+ (point)))
+	    (while (re-search-forward "[A-Z][a-z]" end t)
+	      (forward-char -2)
+	      (insert "_")
+	      (downcase-region (point) (1+ (point)))
+	      (forward-char 1)
+	      (setq end (1+ end)))
+	    (downcase-region start end)
+	    )))))
+
 ;;; Utilities
 
+(defun textmate-also-ignore (pattern)
+  "Also ignore PATTERN in project files."
+  (setq *textmate-gf-exclude*
+    (concat *textmate-gf-exclude* "|" pattern)))
+
+(defun textmate-project-root-type (root)
+  (cond ((member ".git" (directory-files root)) "git")
+        ((member ".hg" (directory-files root)) "hg")
+        (t "ls")
+        (t "unknown")
+   ))
+
 (defun textmate-project-files (root)
-  (split-string 
-    (shell-command-to-string 
-     (concat 
-      "find " 
+  (let ((type (textmate-project-root-type root)))
+    (message "SEARCHING FILES")
+    (cond ((string= type "git") (split-string
+                           (shell-command-to-string
+                            (concat "cd " root " && git ls-files")) "\n" t))
+          ((string= type "hg") (split-string
+                                (shell-command-to-string
+                           (concat "cd " root " && hg manifest")) "\n" t))
+          ((string= type "ls") (split-string
+                                (shell-command-to-string
+                                 (concat 
+                                  "find " root " -type f  | grep -vE '" 
+                                  *textmate-gf-exclude* 
+                                  "' | sed 's:" 
+                                  *textmate-project-root* 
+                                  "/::'")) "\n" t))
+          ((string= type "unknown") (textmate-cached-project-files-find root)))))
+
+(defun textmate-project-files-find (root)
+  (split-string
+    (shell-command-to-string
+     (concat
+      "find "
       root
       " -type f  | grep -vE '"
       *textmate-gf-exclude*
       "' | sed 's:"
-      *textmate-project-root* 
+      *textmate-project-root*
       "/::'")) "\n" t))
 
-(defun textmate-cached-project-files (&optional root)
+(defun textmate-cached-project-files-find (&optional root)
   (cond
    ((null textmate-use-file-cache) (textmate-project-files root))
    ((equal (textmate-project-root) (car *textmate-project-files*))
     (cdr *textmate-project-files*))
-   (t (cdr (setq *textmate-project-files* 
+   (t (cdr (setq *textmate-project-files*
                  `(,root . ,(textmate-project-files root)))))))
 
 (defun textmate-project-root ()
-  (when (or 
-         (null *textmate-project-root*) 
+  (when (or
+         (null *textmate-project-root*)
          (not (string-match *textmate-project-root* default-directory)))
     (let ((root (textmate-find-project-root)))
       (if root
@@ -214,7 +336,8 @@
 (defun textmate-find-project-root (&optional root)
   (when (null root) (setq root default-directory))
   (cond
-   ((member ".git" (directory-files root)) (expand-file-name root))
+   ((funcall *textmate-project-root-p* (directory-files root))
+    (expand-file-name root))
    ((equal (expand-file-name root) "/") nil)
    (t (textmate-find-project-root (concat (file-name-as-directory root) "..")))))
 
@@ -226,7 +349,7 @@
   (dolist (mode *textmate-completing-minor-mode-alist*)
     (if (eq (car mode) textmate-completing-library)
         (funcall (cadr mode) t)
-      (when (fboundp 
+      (when (fboundp
              (cadr (assoc (car mode) *textmate-completing-function-alist*)))
         (funcall (cadr mode) -1)))))
 
