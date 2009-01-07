@@ -221,7 +221,8 @@
                            root
                            " ; "
                            (cond ((string= type "git") "git ls-files")
-                                 ((string= type "hg") "hg manifest"))
+                                 ((string= type "hg") "hg manifest")
+                                 ((string= type "ls") "ls"))
                            " | xargs grep -nR "
                            (if pattern (concat " --include='" pattern "' ") "")
                            "'" re "'"))
