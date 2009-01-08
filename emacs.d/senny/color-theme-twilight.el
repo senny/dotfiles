@@ -135,7 +135,6 @@
      (nxml-delimiter-face ((t (:inherit keyword))))
      (nxml-tag-delimiter-face ((t (:inherit keyword))))
      (nxml-tag-slash-face ((t (:inherit keyword))))
-     (nxml-element-local-name-face ((t (:inherit keyword))))
      (nxml-text-face ((t (:inherit default))))
      (nxml-attribute-local-name-face ((t (:inherit variable))))
      (nxml-attribute-value-face ((t (:inherit string))))
@@ -145,7 +144,8 @@
      (nxml-processing-instruction-delimiter-face ((t (:inherit keyword))))
      (nxml-cdata-section-CDATA-face ((t (:inherit constant))))
      (nxml-cdata-section-delimiter-face ((t (:inherit keyword))))
-     
+     (nxml-element-local-name-face ((t (:inherit keyword))))
+
      (yas/mirror-highlight-face ((t (:background "#4E404F"))))
      (yas/field-highlight-face ((t (:background "#2E2E2E"))))
 

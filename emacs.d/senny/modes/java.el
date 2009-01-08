@@ -16,6 +16,9 @@
 
 (add-hook 'jde-mode-hook
           '(lambda()
+             ;activate linum-mode for java-files
+             (linum-mode 1)
+
              (setq jde-complete-insert-method-signature nil)
 
              ;; Indent width is two spaces.

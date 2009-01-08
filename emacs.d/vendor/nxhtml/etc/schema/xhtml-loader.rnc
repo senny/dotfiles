@@ -1,1 +1,1 @@
-include "../../nxml-mode-20041004/schema/xhtml.rnc"
+include "../../../../../../../../../Program Files/Emacs_Patched/emacs/etc/schema/xhtml.rnc"
