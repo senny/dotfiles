@@ -23,8 +23,6 @@
 
              ;; Indent width is two spaces.
              (setq c-basic-offset 2)
-
-             (setq c-auto-newline t)
              (setq c-comment-continuation-stars "* ")
              
              ;; No "final" when auto creating methods and variables.

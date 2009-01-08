@@ -52,19 +52,6 @@
       (kill-region (point) (progn (re-search-backward "\\S-") (forward-char 1) (point)))
     (backward-kill-word arg)))
 
-; set the mode based on the shebang;
-; TODO: this sometimes breaks
-(defun defunkt-shebang-to-mode ()
-  (interactive)
-  (let*
-      ((bang (buffer-substring (point-min) (prog2 (end-of-line) (point) (move-beginning-of-line 1))))
-       (mode (progn
-               (string-match "^#!.+[ /]\\(\\w+\\)$" bang)
-               (match-string 1 bang)))
-       (mode-fn (intern (concat mode "-mode"))))
-    (when (functionp mode-fn)
-      (funcall mode-fn))))
-;(add-hook 'find-file-hook 'defunkt-shebang-to-mode)
 ;duplicate the current line
 (defun defunkt-duplicate-line () 
   (interactive)
@@ -116,11 +103,6 @@
     (search-forward-regexp "\n\n")
     (delete-region (point-min) (point))
     (buffer-string)))
-
-(defun gist-buffer-confirm ()
-  (interactive)
-  (when (yes-or-no-p "Are you sure you want to Gist this buffer? ") 
-    (gist-region-or-buffer)))
 
 ;; from http://platypope.org/blog/2007/8/5/a-compendium-of-awesomeness
 ;; I-search with initial contents

@@ -1,1 +1,1 @@
-include "../../../../../../../../../Program Files/Emacs_Patched/emacs/etc/schema/xhtml.rnc"
+include "../../../../../../../../../Applications/Aquamacs Emacs.app/Contents/Resources/site-lisp/edit-modes/nxml/schema/xhtml.rnc"
