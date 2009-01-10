@@ -1,12 +1,12 @@
 (load (concat senny-config-dir "/vendor/nxhtml/autostart.el"))
 
 (setq
- ;nxhtml-global-minor-mode t
+ nxhtml-global-minor-mode t
  mumamo-chunk-coloring 'submode-colored
  nxhtml-skip-welcome t
  indent-region-mode t
  rng-nxml-auto-validate-flag nil
- ;nxml-degraded t
+ nxml-degraded t
 )
 
 (add-hook 'nxhtml-mode-hook

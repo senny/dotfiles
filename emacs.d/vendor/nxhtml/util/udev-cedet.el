@@ -67,7 +67,7 @@
             (load-file cedet-el)
           (error (message "%s" err))))
       (unless (featurep 'cedet)
-        (when must-be-fetche
+        (when must-be-fetched
           (error "Could not load ecb???"))
         (when (y-or-n-p "Could not load CEDET, update from dev sources? ")
           (udev-cedet-update)

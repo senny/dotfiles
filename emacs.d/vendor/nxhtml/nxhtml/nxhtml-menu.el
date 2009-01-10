@@ -1,17 +1,17 @@
 ;;; nxhtml-menu.el --- Defines menus for nXhtml
 ;;
 ;; Author: Lennart Borgman (lennart O borgman A gmail O com)
-;; Created: Sat Apr 21 13:49:41 2007
-(defconst nxhtml-menu:version "1.64") ;;Version:
-;; Last-Updated: 2008-08-26T23:28:00+0200 Tue
+;; Created: Sat Apr 21 2007
+(defconst nxhtml-menu:version "1.72") ;;Version:
+;; Last-Updated: 2009-12-31 Wed
 ;; URL:
 ;; Keywords:
 ;; Compatibility:
 ;;
 ;; Features that might be required by this library:
 ;;
-;;   `compile', `flymake', `flymake-js', `flymake-php', `hexcolor',
-;;   `tool-bar', `xhtml-help'.
+  ;; `compile', `flymake', `flymake-js', `flymake-php', `hexcolor',
+  ;; `tool-bar', `xhtml-help'.
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -45,6 +45,12 @@
 ;;
 ;;; Code:
 
+(eval-when-compile (require 'cl))
+(eval-when-compile (require 'cus-edit))
+(eval-when-compile (require 'dired))
+(eval-when-compile (require 'gimp))
+(eval-when-compile (require 'html-site))
+(eval-when-compile (require 'mumamo))
 (require 'hexcolor)
 (require 'flymake)
 (require 'flymake-php)
@@ -146,6 +152,8 @@
       (define-key help-map [nxhtml-report-bug]
         (list 'menu-item "Report a Bug in nXhtml ..." 'nxhtml-report-bug))
       (define-key help-map [nxhtml-help-separator2] (list 'menu-item "--"))
+      (define-key help-map [nxhtml-byte-compile-nxhtml]
+        (list 'menu-item "Byte Compile nXhtml" 'nxhtmlmaint-start-byte-compilation))
       (define-key help-map [nxhtml-features-check]
         (list 'menu-item "Check Optional Features" 'nxhtml-features-check))
       (define-key help-map [nxhtml-customize]
@@ -191,7 +199,7 @@
         (define-key fill-map [nxhtml-wrap-to-fill-column-mode]
           (list 'menu-item "Wrap To Fill Column Mode"
                 'wrap-to-fill-column-mode
-                :button '(:toggle . wrap-to-fill-column-mode)))
+                :button '(:toggle . (and (boundp 'wrap-to-fill-column-mode) wrap-to-fill-column-mode))))
         )
       (define-key tools-map [nxhtml-ecb-separator]
         (list 'menu-item "--" nil))
@@ -1044,7 +1052,8 @@ Both the current value and the value to save is set, but
     (unless oldbuf
       (let ((inhibit-read-only t)
             (here (point)))
-        (custom-mode)
+        (require 'cus-edit)
+        (Custom-mode)
         (setq cursor-in-non-selected-windows nil)
         (nxhtml-custom-h1 "Welcome to nXhtml - a package for web editing" t)
         (insert "\n\n")
@@ -1064,19 +1073,6 @@ Both the current value and the value to save is set, but
                 "(which is in the Help menu above).\n\n")
         (fill-region here (point))
         (setq here (point))
-
-;;;         (insert "
-
-;;; To make the use of nXhtml as smooth as possible I also recommend
-;;; that you go to ")
-
-;;;         (widget-insert-link "Quick Customize nXhtml"
-;;;                             (lambda ()
-;;;                               (nxhtml-quick-customize))
-;;;                             nil)
-
-;;;         (insert " and follow the instructions
-;;; there.")
 
         (unless (nxhtml-skip-welcome)
           (insert "Click to ")
@@ -1107,13 +1103,17 @@ file using nxhtml-mode."
             )))
 
 (defun nxhtml-say-welcome-unless-skip ()
-  (unless (nxhtml-skip-welcome)
-    (nxhtml-welcome)))
+  (condition-case err
+      (unless (nxhtml-skip-welcome)
+        (nxhtml-welcome))
+    (error (message "ERROR nxhtml-say-welcome-unless-skip: %s" err))))
 
 ;; Show welcome screen once after loading nxhtml:
-(eval-after-load 'nxhtml
-  ;; Use a short delay if something like desktop is used:
-  '(run-with-idle-timer 0.5 nil 'nxhtml-say-welcome-unless-skip))
+;;(unless (boundp 'bytecomp-filename)
+(eval-when '(load)
+  (eval-after-load 'nxhtml
+    ;; Use a short delay if something like desktop is used:
+    '(run-with-idle-timer 0.5 nil 'nxhtml-say-welcome-unless-skip)))
 
 (provide 'nxhtml-menu)
 

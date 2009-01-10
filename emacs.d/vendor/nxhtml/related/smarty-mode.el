@@ -121,7 +121,8 @@
 (require 'custom)
 (require 'etags)
 (eval-when-compile
-(require 'regexp-opt))
+  (require 'regexp-opt))
+(require 'hippie-exp)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Customization
@@ -1248,7 +1249,7 @@ but not if inside a comment or quote)."
       ;; char. An example is that Viper calls expand-abbrev when
       ;; escape is pressed. The event is then 'escape.
       (let* ((base-event (event-basic-type last-command-event))
-             (invoke-char (when (char-valid-p base-event) base-event))
+             (invoke-char (when (characterp base-event) base-event))
              (abbrev-mode -1)
              (smarty-template-invoked-by-hook t))
         ;;(setq invoke-char last-command-char) ;; to get the orig err
@@ -1438,7 +1439,7 @@ but not if inside a comment or quote)."
     map)
   "Keymap for minibuffer used in Smarty Mode.")
 
-(mapcar
+(mapc
  (function
   (lambda (sym)
     (put sym 'delete-selection t)    ; for `delete-selection-mode' (Emacs)

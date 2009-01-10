@@ -46,20 +46,23 @@
 ;;
 ;;; Code:
 
+(eval-when-compile
+  ;; (unless (featurep 'nxhtml-autostart)
+  ;;   (let* ((this-dir (or load-file-name
+  ;;                       (when (boundp 'bytecomp-file-name) bytecomp-file-name)
+  ;;                       buffer-file-name))
+  ;;         (efn (expand-file-name "../../autostart.el" this-dir)))
+  ;;     (load efn))
+    (require 'rng-valid)
+    (require 'rng-nxml))
+
+(require 'rng-valid)
+(require 'ourcomments-util)
+
 (defvar rngalt-complete-first-try nil
   "First function to try for completion.
 If non-nil should be a function with no parameters.  Used by
 `rngalt-complete'.")
-
-(eval-when-compile
-  (unless (featurep 'nxhtml-autostart)
-    (let ((efn (expand-file-name "../autostart.el")))
-      (load efn))
-    (require 'rng-valid)
-    (require 'rng-nxml)
-    ))
-(require 'rng-valid)
-(require 'ourcomments-util)
 
 (defvar rngalt-complete-last-try nil
   "Last function to try for completion.

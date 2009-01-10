@@ -73,9 +73,11 @@
 ;;
 ;;; Code:
 
-
+(eval-when-compile (require 'cl))
 (require 'htmlfontify)
 (require 'easymenu)
+
+(defvar hfyview-selected-window)
 
 (defun hfyview-fontify-region (start end)
   ;; If the last command in mumamo resulted in a change of major-mode
@@ -386,6 +388,10 @@ body { font-family: outline-courier new;  font-stretch: normal;  font-weight: 50
   (or (hfy-triplet "SystemActiveTitle")
       (hfy-triplet "blue")))
 
+(defvar hfy-grabbed-echo-content nil)
+(defvar hfy-grabbed-minibuffer-content nil)
+(defvar hfyview-prompt-face nil)
+
 (defun hfyview-frame-minibuff (use-grabbed)
   (if (and use-grabbed
            (or hfy-grabbed-echo-content
@@ -420,8 +426,8 @@ body { font-family: outline-courier new;  font-stretch: normal;  font-weight: 50
           (setq bdy-end (point))
           (list (buffer-substring css-start css-end)
                 (buffer-substring bdy-start bdy-end))))
-    (let ((mini-bg (face-attribute prompt-face :background))
-          (mini-fg (face-attribute prompt-face :foreground)))
+    (let ((mini-bg (face-attribute hfyview-prompt-face :background))
+          (mini-fg (face-attribute hfyview-prompt-face :foreground)))
       (if (eq mini-fg 'unspecified)
           (setq mini-fg "")
         (setq mini-fg (concat "color:" (hfy-triplet mini-fg) "; ")))
@@ -450,13 +456,15 @@ body { font-family: outline-courier new;  font-stretch: normal;  font-weight: 50
          html
          css
          ;; (face-attribute 'minibuffer-prompt :foreground)
-         (prompt-face (plist-get minibuffer-prompt-properties 'face))
+         (hfyview-prompt-face (plist-get minibuffer-prompt-properties 'face))
          minibuf
          (frame-width (* 0.56 (frame-width)))
          table-style
          (icon-file (expand-file-name "../etc/images/icons/emacs_16.png" exec-directory))
          (img-tag (if (file-exists-p icon-file)
                       (concat "<img src=\"file://" icon-file "\" height=\"16\" width=\"16\" />")))
+	 mini-css
+	 mini-html
          )
     (setq table-style
           (format "border: solid %s; width:%sem;"
@@ -531,15 +539,12 @@ visible currently on the frame."
     viper-minibuffer-map
     isearch-mode-map))
 
-(defvar hfy-grabbed-minibuffer-content nil)
 ;; (global-set-key [f7] '(lambda () (interactive) (message "grabbed=%s" hfy-grabbed-minibuffer-content)))
 ;; (global-set-key [f7] '(lambda () (interactive) (message "grabbed cm=%s" hfy-grabbed-echo-content)))
 ;; (global-set-key [f7] '(lambda () (interactive) (message "grabbed cm=%s, mb=%s" hfy-grabbed-echo-content hfy-grabbed-minibuffer-content)))
 ;; (defun hfy-show-grabbed ()
 ;;   (interactive)
 ;;   (message "grabbed cm=%s, mb=%s" hfy-grabbed-echo-content hfy-grabbed-minibuffer-content))
-
-(defvar hfy-grabbed-echo-content nil)
 
 (defun hfy-grab-echo-content ()
   (setq hfy-grabbed-echo-content (current-message)))

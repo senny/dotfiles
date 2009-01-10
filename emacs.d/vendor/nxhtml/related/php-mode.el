@@ -112,6 +112,7 @@
 
 ;;; Code:
 
+(require 'add-log)
 (require 'speedbar)
 (require 'font-lock)
 (require 'cc-mode)

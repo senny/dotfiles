@@ -557,7 +557,7 @@ quarter clockwise (or counter clockwise with prefix)."
       (winsav-de-serialize (buffer-substring-no-properties (point-min) (point-max))))))
 
 (defun winsav-save-frame-to-file (file frame)
-  (serialize-to-file
+  (winsav-serialize-to-file
    (winsav-get-window-tree frame)
    file))
 

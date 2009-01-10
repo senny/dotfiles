@@ -48,8 +48,9 @@
 ;; If you want to create a file, visit that file with C-x C-f,
 ;; then enter the text in that file's own buffer.
 
+(eval-when-compile (require 'cl))
+(eval-when-compile (require 'mumamo))
 (eval-when-compile
-  (require 'cl)
   (unless (featurep 'nxhtml-autostart)
     (let ((efn (expand-file-name "../autostart.el")))
       (load efn))
@@ -84,6 +85,18 @@
         (nxml-where-mode -1)
         (nxml-where-mode 1)))))
 
+(defvar nxml-where-last-point nil)
+(make-variable-buffer-local 'nxml-where-last-point)
+(put 'nxml-where-last-point 'permanent-local t)
+
+(defvar nxml-where-last-finished nil)
+(make-variable-buffer-local 'nxml-where-last-finished)
+(put 'nxml-where-last-finished 'permanent-local t)
+
+(defvar nxml-where-last-added nil)
+(make-variable-buffer-local 'nxml-where-last-added)
+(put 'nxml-where-last-added 'permanent-local t)
+
 (defun nxml-where-restart-update ()
   (condition-case err
       (unless (and nxml-where-last-point
@@ -105,6 +118,20 @@
 
 (defun nxml-where-stop-updating ()
   (remove-hook 'post-command-hook 'nxml-where-restart-update t))
+
+(define-toggle nxml-where-only-inner nil
+  "Mark only inner-most tag."
+  :set (lambda (sym val)
+         (set-default sym val)
+         (nxml-where-update-buffers))
+  :group 'nxml-where)
+
+(define-toggle nxml-where-header t
+  "Show header with XML-path if non-nil."
+  :set (lambda (sym val)
+         (set-default sym val)
+         (nxml-where-update-buffers))
+  :group 'nxml-where)
 
 (defun nxml-where-setup-updating ()
   (nxml-where-clear-path)
@@ -129,22 +156,8 @@ If nil show only tag names."
          (nxml-where-update-buffers))
   :group 'nxml-where)
 
-(define-toggle nxml-where-header t
-  "Show header with XML-path if non-nil."
-  :set (lambda (sym val)
-         (set-default sym val)
-         (nxml-where-update-buffers))
-  :group 'nxml-where)
-
 (define-toggle nxml-where-marks t
   "Show marks in buffer for XML-path if non-nil."
-  :set (lambda (sym val)
-         (set-default sym val)
-         (nxml-where-update-buffers))
-  :group 'nxml-where)
-
-(define-toggle nxml-where-only-inner nil
-  "Mark only inner-most tag."
   :set (lambda (sym val)
          (set-default sym val)
          (nxml-where-update-buffers))
@@ -269,16 +282,27 @@ This is possible if `major-mode' in the buffer is derived from
      (nxml-where-error-message
       "nxml-where-start-update-in-timer error: %s" err))))
 
-(defvar nxml-where-get-id-pattern
-  (rx space
-      (eval (cons 'or nxml-where-header-attributes))
-      (0+ space)
-      ?=
-      (0+ space)
-      ?\"
-      (0+ (not (any ?\")))
-      ?\"
-      ))
+(defconst nxml-where-get-id-pattern
+  ;; (rx space
+  ;;     (eval (cons 'or nxml-where-header-attributes))
+  ;;     (0+ space)
+  ;;     ?=
+  ;;     (0+ space)
+  ;;     ?\"
+  ;;     (0+ (not (any ?\")))
+  ;;     ?\"
+  ;;     ))
+  (rx-to-string
+   `(and
+     space
+     ,(cons 'or nxml-where-header-attributes)
+     (0+ space)
+     ?=
+     (0+ space)
+     ?\"
+     (0+ (not (any ?\")))
+     ?\")
+   t))
 
 (defvar nxml-where-tag+id-pattern
   ;;(insert ;; -------------------
@@ -361,7 +385,7 @@ This is possible if `major-mode' in the buffer is derived from
           (error
            (let ((msg (error-message-string err)))
              (unless (string= msg "Start-tag has no end-tag")
-               (message "nxml-where-mark-forw: %s" str)))))
+               (message "nxml-where-mark-forw: %s" msg)))))
         (widen)
         (goto-char here)
         ;;(message "point 2 = %s" (point))
@@ -388,18 +412,6 @@ This is possible if `major-mode' in the buffer is derived from
       (assert (overlayp ovl) t)
       ;;(message "delete-overlay %s" ovl)
       (delete-overlay ovl))))
-
-(defvar nxml-where-last-point nil)
-(make-variable-buffer-local 'nxml-where-last-point)
-(put 'nxml-where-last-point 'permanent-local t)
-
-(defvar nxml-where-last-finished nil)
-(make-variable-buffer-local 'nxml-where-last-finished)
-(put 'nxml-where-last-finished 'permanent-local t)
-
-(defvar nxml-where-last-added nil)
-(make-variable-buffer-local 'nxml-where-last-added)
-(put 'nxml-where-last-added 'permanent-local t)
 
 (defun nxml-where-clear-path ()
   (setq nxml-where-last-added nil)

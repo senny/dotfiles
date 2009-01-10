@@ -45,8 +45,6 @@
 ;;
 ;;; Code:
 
-;;(eval-when-compile (require 'cl))
-
 (defvar rncpp-this-dir
   (file-name-as-directory
    (file-name-directory
@@ -65,28 +63,6 @@
     (unless (file-directory-p schema-dir)
       (error "Can't find schema-dir=%s" schema-dir))
     schema-dir))
-
-;; (defun rncpp-patch-file (file)
-;;   (let ((schema-dir (rncpp-get-nxml-schema-dir))
-;;         relative-inc-file
-;;         absolute-inc-file
-;;         (buf (find-file-noselect file))
-;;         file-dir
-;;         )
-;;     (with-current-buffer buf
-;;       (setq file-dir (file-name-directory buffer-file-name))
-;;       (widen)
-;;       (goto-char (point-min))
-;;       (setq absolute-inc-file (expand-file-name "xhtml.rnc" schema-dir))
-;;       (assert (file-exists-p absolute-inc-file) t)
-;;       (setq relative-inc-file
-;;             (file-relative-name absolute-inc-file file-dir))
-;;       (assert (file-exists-p relative-inc-file) t)
-;;       (when (re-search-forward "include \"\\(.*[^a-zA-Z0-9-]xhtml.rnc\\)\"" nil t)
-;;         (replace-match relative-inc-file t t nil 1)
-;;         (basic-save-buffer)
-;;         (kill-buffer (current-buffer))
-;;         (message "Patched %s" file)))))
 
 ;; Use xhtml-loader.rnc (an idea from Bryan Waite):
 (defun rncpp-patch-xhtml-loader ()
@@ -114,29 +90,6 @@
         (insert loader-string))
       (basic-save-buffer)
       (kill-buffer (current-buffer)))))
-
-;; (defun rncpp-patch-files (&optional no-check-done)
-;;   "Patch rnc files in this directory.
-;; This will make the includes from here point to those that
-;; `nxml-mode' use."
-;;   (interactive (list t))
-;;   (let ((default-directory rncpp-this-dir)
-;;         (done nil)
-;;         (done-mark "rncpp-patch-files.done"))
-;;     (message "Patching rnc files path in %s" default-directory)
-;;     (unless no-check-done
-;;       (setq done (file-exists-p done-mark)))
-;;     (if done
-;;         (message "... patching was already done")
-;;       (rncpp-patch-file "mjt.rnc")
-;;       (rncpp-patch-file "qtmstr-xhtml.rnc")
-;;       (with-current-buffer (find-file-noselect done-mark)
-;;         (insert (format-time-string "%Y-%m%dT%T%z"))
-;;         (basic-save-buffer)
-;;         (kill-buffer (current-buffer)))
-;;       (message "... ready patching"))))
-
-;;(rncpp-patch-files)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; schema-path-patch.el ends here

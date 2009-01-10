@@ -482,6 +482,7 @@ This key is always bound to `tabkey2-cycle-completion-functions'."
     makefile-mode
     org-mode
     Custom-mode
+    custom-mode ;; For Emacs 22
     ;; other
     cmd-mode
     )
@@ -529,6 +530,12 @@ Therefore `tabkey2-first' just calls the function on Tab."
 (defvar tabkey2-keymap-overlay nil
   "Hold the keymap for tab key 2.")
 
+(defvar tabkey2-current-tab-info nil
+  "Saved information message for Tab completion state.")
+(defvar tabkey2-current-tab-function nil
+  "Tab completion state current completion function.")
+(make-variable-buffer-local 'tabkey2-current-tab-function)
+
 (defun tabkey2-completion-state-p ()
   "Return t if Tab completion state should continue.
 Otherwise return nil."
@@ -550,12 +557,6 @@ Otherwise return nil."
                  (and (> (length last-name) prefix-len)
                       (string= name-prefix (substring last-name 0 prefix-len)))))
            ))))
-
-(defvar tabkey2-current-tab-info nil
-  "Saved information message for Tab completion state.")
-(defvar tabkey2-current-tab-function nil
-  "Tab completion state current completion function.")
-(make-variable-buffer-local 'tabkey2-current-tab-function)
 
 (defun tabkey2-read-only-p ()
   "Return non-nil if buffer seems to be read-only at point."
@@ -649,6 +650,10 @@ check and return the value from `tabkey2-is-active'."
                    (throw 'chk (nth 2 rec)))))))
     (tabkey2-is-active fun chk)))
 
+(defvar tabkey2-chosen-completion-function nil)
+(make-variable-buffer-local 'tabkey2-chosen-completion-function)
+(put 'tabkey2-chosen-completion-function 'permanent-local t)
+
 (defun tabkey2-first-active-from-completion-functions ()
   "Return first active completion function.
 Look in `tabkey2-completion-functions' for the first function
@@ -670,6 +675,8 @@ See `tabkey2-first' for the list considered."
       ;;tabkey2-preferred
       (tabkey2-first-active-from-completion-functions)
       tabkey2-fallback))
+
+(defvar tabkey2-overlay-message nil)
 
 (defvar tabkey2-completion-state-mode nil)
 ;;(make-variable-buffer-local 'tabkey2-completion-state-mode)
@@ -805,8 +812,6 @@ This is run in `post-command-hook' after each command."
                   (throw 'invis t))))
           (or (memq prop buffer-invisibility-spec)
               (assq prop buffer-invisibility-spec)))))))
-
-(defvar tabkey2-overlay-message nil)
 
 ;; (defun test-scroll ()
 ;;   (interactive)
@@ -993,10 +998,6 @@ Consider only those in `tabkey2-completion-functions'."
                         (chk (nth 2 rec)))
                     (when (tabkey2-is-active fun chk) rec)))
                 tabkey2-completion-functions)))
-
-(defvar tabkey2-chosen-completion-function nil)
-(make-variable-buffer-local 'tabkey2-chosen-completion-function)
-(put 'tabkey2-chosen-completion-function 'permanent-local t)
 
 (defun tabkey2-make-current-default ()
   "Make current Tab completion function default.

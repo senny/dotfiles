@@ -1,3 +1,4 @@
+(setq debug-on-error t)
 ;;; autostart.el --- Load nxhtml
 ;;
 ;; Author: By: Lennart Borgman
@@ -47,39 +48,57 @@
 ;;   (defalias 'define-globalized-minor-mode 'define-global-minor-mode))
 
 (defvar nxhtml-install-dir
-  (file-name-directory (if load-file-name load-file-name buffer-file-name))
+  (file-name-directory (or load-file-name
+                           (when (boundp 'bytecomp-filename) bytecomp-filename)
+                           buffer-file-name))
   "Installation directory for nXhtml.")
-(setq nxhtml-install-dir (file-name-directory (if load-file-name load-file-name buffer-file-name)))
+(setq nxhtml-install-dir (file-name-directory
+                          (or load-file-name
+                              (when (boundp 'bytecomp-filename) bytecomp-filename)
+                              buffer-file-name)))
 
 (unless (featurep 'nxhtml-autostart)
   ;; Provide the feature to avoid loading looping on error.
   (provide 'nxhtml-autostart)
-  ;; Use the css-mode that comes with Emacs if there is one.
-  ;; Fix-me: remove this loading later:
-  (when (fboundp 'css-mode) (require 'css-mode))
-  (let* ((util-dir (file-name-as-directory
-                    (expand-file-name "util"
-                                      nxhtml-install-dir)))
-         (related-dir (file-name-as-directory
-                       (expand-file-name "related"
-                                         nxhtml-install-dir))))
-    (add-to-list 'load-path util-dir)
+  ;; ;; Use the css-mode that comes with Emacs if there is one.
+  ;; ;; Fix-me: remove this loading later:
+  ;; (when (and (or (not (boundp 'bytecomp-filename))
+  ;;                (not bytecomp-filename))
+  ;;            (fboundp 'css-mode))
+  ;;   (require 'css-mode))
+  (let* ((util-dir (file-name-as-directory (expand-file-name "util" nxhtml-install-dir)))
+         (related-dir (file-name-as-directory (expand-file-name "related" nxhtml-install-dir)))
+         (nxhtml-dir (file-name-as-directory (expand-file-name "nxhtml" nxhtml-install-dir))))
+    (add-to-list 'load-path nxhtml-dir)
     (add-to-list 'load-path related-dir)
+    (add-to-list 'load-path util-dir)
+    (add-to-list 'load-path nxhtml-install-dir)
 
     ;; Autoloading etc
-    (require 'as-external)
+
+    ;; Fix-me: Why must as-external be loaded? Why doesn't it work in batch?
+    (unless noninteractive (require 'as-external))
+
     (load (expand-file-name "nxhtml-loaddefs.el" nxhtml-install-dir))
+
+    ;; Turn on `nxhtml-global-minor-mode'
+    (nxhtml-global-minor-mode 1)
+
     ;; Use the nxml-mode that comes with Emacs if available:
-    (unless (fboundp 'nxml-mode)
-      (load (expand-file-name "nxml-mode-20041004/rng-auto"
-                              nxhtml-install-dir)))
-    ;; Patch the rnc include paths
-    (load-file (expand-file-name "etc/schema/schema-path-patch.el"
-                                 nxhtml-install-dir))
-    (rncpp-patch-xhtml-loader)
+    ;; Load nXhtml
+    ;; (unless (fboundp 'nxml-mode)
+    ;;   (load (expand-file-name "nxml-mode-20041004/rng-auto"
+    ;;                           nxhtml-install-dir)))
+    (when (< emacs-major-version 23)
+      (load-file (expand-file-name "autostart22.el" nxhtml-install-dir)))
+    (when (fboundp 'nxml-mode)
+      ;; Patch the rnc include paths
+      (load-file (expand-file-name "etc/schema/schema-path-patch.el"
+                                   nxhtml-install-dir))
+      (rncpp-patch-xhtml-loader))
     ;; Load nXhtml
     (load (expand-file-name "nxhtml/nxhtml-autoload"
-                            nxhtml-install-dir))))
+                              nxhtml-install-dir))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; autostart.el ends here

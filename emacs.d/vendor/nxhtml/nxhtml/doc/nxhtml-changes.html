@@ -266,6 +266,14 @@
           <a href="#v1.62">v1.62</a>
           <a href="#v1.63">v1.63</a>
           <a href="#v1.64">v1.64</a>
+          <a href="#v1.65">v1.65</a>
+          <a href="#v1.66">v1.66</a>
+          <a href="#v1.67">v1.67</a>
+          <a href="#v1.68">v1.68</a>
+          <a href="#v1.69">v1.69</a>
+          <a href="#v1.70">v1.70</a>
+          <a href="#v1.71">v1.71</a>
+          <a href="#v1.72">v1.72</a>
         </div>
 
         <dl>
@@ -2367,6 +2375,137 @@
                 Majmodpri.el: Added a defcustom to give multi major
                 modes based on nxhtm-mode or nxml-mode lower
                 priority. This is on by default in Emacs 22.
+              </li>
+            </ul>
+          </dd>
+          <dt id="v1.65">1.65</dt>
+          <dd id="v1.65-dd">
+            <ul>
+              <li>Fixed a bug in nxml-where.el.</li>
+              <li>
+                Fixed a minor bug in majmodpri.el.  It did not work if
+                magic-mode-alist contained anonymous functions.
+                (Thanks from Niels Giesen.)
+              </li>
+              <li>
+                Fixed a bug in pause.el and added some mindfulness to it.
+              </li>
+              <li>
+                Adjusted <i>ourcomments-move-beginning-of-line</i> (and dito
+                for end) to the new <i>line-move-visual</i> in Emacs 23.
+                Moved physical-line.el to <i>old</i> subdir since it is now
+                obsolete.
+              </li>
+              <li>
+                Made it possible to byte compile nXhtml.
+                <p>
+                  To do that use
+                  <i>M-x nxhtmlmaint-start-byte-compilation</i>.
+                </p>
+                <p>
+                  A lot of code changes to make byte compilation
+                  possible without a lot of warnings.  Most changes
+                  where just moving code around, but some where bug
+                  fixes.
+                </p>
+              </li>
+            </ul>
+          </dd>
+          <dt id="v1.66">1.66</dt>
+          <dd id="v1.66-dd">
+            <ul>
+              <li>
+                Further work on byte compiling.
+              </li>
+              <li>
+                Tried to fix some problem with defadvice in
+                ourcomments-util.el.
+              </li>
+              <li>
+                Tried to finish the command <i>M-x search-form</i>.
+              </li>
+              <li>
+                When no chunk is found (border case) then set the
+                major mode to the main major mode for the current
+                multi major mode.
+              </li>
+            </ul>
+          </dd>
+          <dt id="v1.67">1.67</dt>
+          <dd id="v1.67-dd">
+            <ul>
+              <li>
+                Removed css.el since it is in Emacs 22.2 and later.
+              </li>
+            </ul>
+          </dd>
+          <dt id="v1.68">1.68</dt>
+          <dd id="v1.68-dd">
+            <ul>
+              <li>
+                Fixed bugs related to byte compilation. This should
+                now work for both Emacs 22 and 23. Also added a menu
+                entry for byte compilation.
+              </li>
+              <li>
+                Removed nXml from the distribution to make it
+                smaller. nXml comes with Emacs 23 (not yet released of
+                course). For Emacs 22 users see EmacsWiki about where
+                to get nXml.
+                <p>
+                  Adding nXml to Emacs 22 startup should be done by
+                  using the file <i>nxhtml/autostart22.el</i>.
+                </p>
+                <p>
+                  NOTE 1: if you want to use <i>nxhtml-mode</i> in
+                  multi major modes in Emacs 22 (not recommended) you
+                  must also customize <i>majmodpri-no-nxml</i>.
+                </p>
+                <p>
+                  NOTE 2: The major mode <i>nxhtml-mode</i> as a
+                  major-mode works however very well also in Emacs 22.
+                </p>
+              </li>
+            </ul>
+          </dd>
+          <dt id="v1.69">1.69</dt>
+          <dd id="v1.69-dd">
+            <ul>
+              <li>
+                Chunks were unnecessary deleted and recreated after a
+                change even if all changes where within one
+                chunk. This could make editing very slow. Fixed.
+              </li>
+              <li>
+                Search for rng-auto.el in path. (Emacs 22 only.)
+              </li>
+            </ul>
+          </dd>
+          <dt id="v1.70">1.70</dt>
+          <dd id="v1.70-dd">
+            <ul>
+              <li>
+                Validation could not be turned on in multi major
+                modes. Fixed.
+              </li>
+            </ul>
+          </dd>
+          <dt id="v1.71">1.71</dt>
+          <dd id="v1.71-dd">
+            <ul>
+              <li>
+                Fixed the problem that showed up in the file
+                nxhtml/tests/in/kubica-freezing-i.html which could
+                make Emacs freeze.
+              </li>
+            </ul>
+          </dd>
+          <dt id="v1.72">1.72</dt>
+          <dd id="v1.72-dd">
+            <ul>
+              <li>
+                Somehow I dropped this: Search for rng-auto.el in
+                path. (Emacs 22 only.) Don't ask me how. Fixed again.
               </li>
             </ul>
           </dd>

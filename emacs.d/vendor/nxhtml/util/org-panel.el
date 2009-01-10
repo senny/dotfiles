@@ -138,6 +138,26 @@ active.)"
     org-demote-subtree))
 
 
+(defvar orgpan-panel-window nil
+  "The window showing `orgpan-panel-buffer'.")
+
+(defvar orgpan-panel-buffer nil
+  "The panel buffer.
+There can be only one such buffer at any time.")
+
+(defvar orgpan-org-window nil)
+;;(make-variable-buffer-local 'orgpan-org-window)
+
+;; Fix-me: used?
+(defvar orgpan-org-buffer nil)
+;;(make-variable-buffer-local 'orgpan-org-buffer)
+
+(defvar orgpan-last-org-buffer nil)
+;;(make-variable-buffer-local 'orgpan-last-org-buffer)
+
+(defvar orgpan-point nil)
+;;(make-variable-buffer-local 'orgpan-point)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Hook functions etc
 
@@ -308,7 +328,7 @@ This refers to the functions `orgpan-paste-subtree',
 
 (defun orgpan-check-panel-mode ()
   (unless (derived-mode-p 'orgpan-mode)
-    (error "Not orgpan-mode in buffer: " major-mode)))
+    (error "Not orgpan-mode in buffer: %s" major-mode)))
 
 (defun orgpan-display-bindings-help ()
   (orgpan-check-panel-mode)
@@ -445,26 +465,6 @@ r      Show entries matching a regular expression"
      ((member ans '(?r ?R))
       (call-interactively 'org-occur))
      (t (error "No such sparse tree command \"%c\"" ans)))))
-
-(defvar orgpan-panel-window nil
-  "The window showing `orgpan-panel-buffer'.")
-
-(defvar orgpan-panel-buffer nil
-  "The panel buffer.
-There can be only one such buffer at any time.")
-
-(defvar orgpan-org-window nil)
-;;(make-variable-buffer-local 'orgpan-org-window)
-
-;; Fix-me: used?
-(defvar orgpan-org-buffer nil)
-;;(make-variable-buffer-local 'orgpan-org-buffer)
-
-(defvar orgpan-last-org-buffer nil)
-;;(make-variable-buffer-local 'orgpan-last-org-buffer)
-
-(defvar orgpan-point nil)
-;;(make-variable-buffer-local 'orgpan-point)
 
 ;; (defun orgpan-avoid-viper-in-buffer ()
 ;;   ;; Fix-me: This is ugly. However see `this-major-mode-requires-vi-state':
@@ -639,6 +639,12 @@ There can be only one such buffer at any time.")
   (set-keymap-parent orgpan-without-keymap org-mode-map)
   (message "Use 'l' to get back to last viewed org file"))
 
+(defcustom orgpan-panel-height 5
+  "Panel height"
+  :type '(choice (integer :tag "One line" 2)
+                 (integer :tag "All lines" 5))
+  :group 'orgpan)
+
 (defun orgpan-panel ()
   "Create a control panel for current `org-mode' buffer.
 The control panel may be used to quickly move around and change
@@ -693,12 +699,6 @@ button changes the binding of the arrow keys."
     (select-window orgpan-org-window)
     (orgpan-panel-minor-mode 1)
     (add-hook 'post-command-hook 'orgpan-minor-post-command t)))
-
-(defcustom orgpan-panel-height 5
-  "Panel height"
-  :type '(choice (integer :tag "One line" 2)
-                 (integer :tag "All lines" 5))
-  :group 'orgpan)
 
 (defun orgpan-minor-post-command ()
   ;; Check org window and buffer

@@ -73,6 +73,9 @@
 ;;; Code:
 
 ;;(org-open-file "c:/EmacsW32/nxhtml/nxhtml/doc/nxhtml-changes.html")
+(eval-when-compile (require 'cl))
+(eval-when-compile (require 'org))
+(eval-when-compile (require 'mailcap))
 
 (defcustom sex-file-apps
   '(
@@ -151,7 +154,7 @@ If no entry was found return `emacs' for opening inside Emacs."
     (when (eq cmd 'mailcap)
       (require 'mailcap)
       (mailcap-parse-mailcaps)
-      (let* ((mime-type (mailcap-extension-to-mime (or ext "")))
+      (let* ((mime-type (mailcap-extension-to-mime (or key "")))
 	     (command (mailcap-mime-info mime-type)))
 	(if (stringp command)
 	    (setq cmd command)
@@ -160,7 +163,8 @@ If no entry was found return `emacs' for opening inside Emacs."
     cmd))
 
 (defgroup sex nil
-  "Customization group for `sex-mode'.")
+  "Customization group for `sex-mode'."
+  :group 'external)
 
 ;;(setq sex-handle-urls t)
 (defcustom sex-handle-urls nil
@@ -248,7 +252,7 @@ file to system again."
       (if success
           (progn
             (insert success-header)
-            (sex-setup-restore-window-config)
+            (sex-setup-restore-window-config window-config)
             (message "%s" msg))
         (insert (propertize "Error: " 'face 'font-lock-warning-face)
                 fail-header msg
@@ -297,7 +301,7 @@ file to system again."
 ;; anyway do that.)
 (put 'sex-file-handler 'operations '(insert-file-contents))
 
-(defun sex-setup-restore-window-config ()
+(defun sex-setup-restore-window-config (window-config)
   (when (not (eq sex-keep-dummy-buffer 'visible))
     (run-with-idle-timer 0 nil
                          'sex-restore-window-config
