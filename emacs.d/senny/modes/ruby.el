@@ -1,5 +1,6 @@
 (vendor 'ruby-mode)
 (vendor 'jump)
+(vendor 'ri)
 
 ;; rinari
 (vendor 'rinari)
