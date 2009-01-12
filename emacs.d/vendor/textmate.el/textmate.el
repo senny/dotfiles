@@ -195,7 +195,6 @@ is a comment, uncomment."
 (defun textmate-goto-file ()
   (interactive)
   (let ((root (textmate-project-root)))
-    (message "FOUND ROOT")
     (when (null root)
       (error "Can't find any .git directory"))
     (find-file
@@ -323,6 +322,14 @@ is a comment, uncomment."
           ((string= type "unknown") (textmate-cached-project-files-find root)))))
 
 (defun textmate-project-files-find (root)
+  (message (concat "SEARCHING: " (concat
+      "find "
+      root
+      " -type f  | grep -vE '"
+      *textmate-gf-exclude*
+      "' | sed 's:"
+      *textmate-project-root*
+      "/::'")))
   (split-string
     (shell-command-to-string
      (concat

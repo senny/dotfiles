@@ -9,6 +9,7 @@
 (global-set-key [C-return] 'defunkt-duplicate-line)
 (global-set-key "\C-x\C-g" 'github-ido-find-file)
 (global-set-key "\C-R" 'replace-string)
+(global-set-key (kbd "C-$") 'kill-buffer)
 
 ; Window management
 (global-set-key [f1] 'resize-windows)
@@ -21,7 +22,6 @@
 ;(global-set-key [(tab)] 'hippie-expand)
 
 ; vim emulation
-;(global-set-key [C-tab] 'other-window) 
 (global-set-key [M-up] 'defunkt-inc-num-at-point)
 (global-set-key [M-down] 'defunkt-dec-num-at-point)
 (global-set-key (kbd "C-*") 'isearch-forward-at-point)

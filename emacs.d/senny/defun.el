@@ -1,3 +1,7 @@
+(defun senny-kill-buffer ()
+  (interactive)
+  (kill-buffer (buffer-name)))
+
 (defun indent-buffer ()
   (interactive)
   (save-excursion 
