@@ -20,11 +20,5 @@
 ;(add-to-list 'load-path (concat senny-config-dir "/vendor/vc-clearcase"))
 ;(load "vc-clearcase-auto")
 
-(defun fipo-ido-find-view ()
-  (interactive)
-  (find-file
-   (concat "C:\\views\\" (ido-completing-read "View: "
-                           (directory-files "C:\\views\\" nil "^[^.]")))))
-
-
-(global-set-key "\C-xv" 'fipo-ido-find-view)
+(vendor 'fipo)
+(fipo-mode 1)

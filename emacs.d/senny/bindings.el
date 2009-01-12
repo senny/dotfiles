@@ -1,4 +1,5 @@
 ; general
+(global-set-key "\C-xf" 'ido-find-file)
 (global-set-key "\C-x\C-b" 'buffer-menu)
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-c\C-m" 'execute-extended-command)
@@ -22,8 +23,6 @@
 ;(global-set-key [(tab)] 'hippie-expand)
 
 ; vim emulation
-(global-set-key [M-up] 'defunkt-inc-num-at-point)
-(global-set-key [M-down] 'defunkt-dec-num-at-point)
 (global-set-key (kbd "C-*") 'isearch-forward-at-point)
 (global-set-key [remap kill-word] 'defunkt-kill-word)
 (global-set-key [remap backward-kill-word] 'defunkt-backward-kill-word)

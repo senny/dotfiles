@@ -1,5 +1,1 @@
-<<<<<<< HEAD:emacs.d/vendor/nxhtml/etc/schema/xhtml-loader.rnc
-include "../../../../../../../../../Program Files/Emacs_Patched/Emacs/etc/schema/xhtml.rnc"
-=======
-include "../../../../../../../../../Applications/Emacs.app/Contents/Resources/site-lisp/nxhtml/nxml-mode-20041004/schema/xhtml.rnc"
->>>>>>> 0f1a4363b767faaf8a133ccfda3bd90eb3af7082:emacs.d/vendor/nxhtml/etc/schema/xhtml-loader.rnc
+include "../../../../../../../../../Program Files/Emacs_Patched/emacs/etc/schema/xhtml.rnc"
