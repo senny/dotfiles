@@ -10,6 +10,9 @@
 ;; highlight the selected region
 (transient-mark-mode 1)
 
+;; Delete the region when typing
+;(delete-selection-mode 1)
+
 ;; highlight
 (show-paren-mode 1)
 

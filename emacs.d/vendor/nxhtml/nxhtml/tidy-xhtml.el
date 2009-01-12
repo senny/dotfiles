@@ -192,6 +192,8 @@
 ;;;;; Forward references (stuff which must come first)
 
 (eval-when-compile (require 'cl))
+(eval-when-compile (require 'ediff))
+(eval-when-compile (require 'mumamo nil t))
 (eval-when-compile
   (add-to-list 'load-path default-directory))
 (require 'html-site)

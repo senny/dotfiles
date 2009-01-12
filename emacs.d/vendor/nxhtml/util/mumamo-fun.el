@@ -370,7 +370,9 @@ POS is where to start search and MIN is where to stop."
         (goto-char exc-start)
         (when (<= exc-start pos)
           ;;(cons (point) 'css-mode)
-          (list (point) 'css-mode '(nxml-mode))
+          ;;(list (point) 'css-mode '(nxml-mode))
+          ;; Fix-me: Kubica looping problem
+          (list (point) 'css-mode)
           )
         ))))
 

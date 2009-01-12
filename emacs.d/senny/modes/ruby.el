@@ -1,14 +1,16 @@
 (vendor 'ruby-mode)
+(vendor 'jump)
+(vendor 'ri)
 
 ;; rinari
-;(vendor 'rinari)
-;(setq rinari-tags-file-name "TAGS")
-;(add-hook 'rinari-minor-mode-hook 
-;          (lambda ()
-;            (define-key rinari-minor-mode-map (kbd "A-r") 'rinari-test)))
+(vendor 'rinari)
+(setq rinari-tags-file-name "TAGS")
+(add-hook 'rinari-minor-mode-hook 
+         (lambda ()
+           (define-key rinari-minor-mode-map (kbd "A-r") 'rinari-test)))
 
 ; rhtml
-(setq auto-mode-alist (cons '("\\.html\\.erb" . nxml-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.html\\.erb" . eruby-nxhtml-mumamo) auto-mode-alist))
 
 ; ruby
 (vendor 'ruby-hacks)
@@ -26,7 +28,7 @@
             (set (make-local-variable 'indent-tabs-mode) 'nil)
             (set (make-local-variable 'tab-width) 2)
             (define-key ruby-mode-map "\C-m" 'ruby-reindent-then-newline-and-indent)
-            (define-key ruby-mode-map "\M-r" 'ruby-run-w/compilation)))
+            (define-key ruby-mode-map "\M-r" 'ruby-compilation-run)))
 
 (defadvice ruby-do-run-w/compilation (before kill-buffer (name cmdlist))
   (let ((comp-buffer-name (format "*%s*" name)))

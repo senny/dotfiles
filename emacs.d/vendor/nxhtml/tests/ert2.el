@@ -51,6 +51,14 @@
   (require 'ert))
 
 
+(defvar ert-temp-test-buffer-test nil)
+(make-variable-buffer-local 'ert-temp-test-buffer-test)
+(put 'ert-temp-test-buffer-test 'permanent-local t)
+
+(defvar ert-temp-test-buffer-file nil)
+(make-variable-buffer-local 'ert-temp-test-buffer-file)
+(put 'ert-temp-test-buffer-file 'permanent-local t)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Test buffers
 
@@ -104,12 +112,6 @@
   "Helpers for those buffers ..."
   )
 (put 'ert-temp-test-buffer-minor-mode 'permanent-local t)
-(defvar ert-temp-test-buffer-test nil)
-(make-variable-buffer-local 'ert-temp-test-buffer-test)
-(put 'ert-temp-test-buffer-test 'permanent-local t)
-(defvar ert-temp-test-buffer-file nil)
-(make-variable-buffer-local 'ert-temp-test-buffer-file)
-(put 'ert-temp-test-buffer-file 'permanent-local t)
 
 ;; Fix-me: doc
 (defvar ert-test-files-root nil)

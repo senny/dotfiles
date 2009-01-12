@@ -44,7 +44,12 @@
 ;;
 ;;; Code:
 
-
+(eval-when-compile (require 'apropos))
+(eval-when-compile (require 'cl))
+(eval-when-compile (require 'grep))
+(eval-when-compile (require 'ido))
+;;(eval-when-compile (require 'mumamo))
+(eval-when-compile (require 'recentf))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Popups etc.
@@ -439,11 +444,24 @@ To create a menu item something similar to this can be used:
   "Move point to beginning of line or indentation.
 See `beginning-of-line' for ARG.
 
-If `physical-line-mode' is on then the visual line beginning is
-first tried."
+If `line-move-visual' is non-nil then the visual line beginning
+is first tried."
   (interactive "p")
-  (let ((pos (point)))
+  (let ((pos (point))
+        vis-pos)
+    (when line-move-visual
+      (line-move-visual -1 t)
+      (beginning-of-line)
+      (setq vis-pos (point))
+      (goto-char pos))
     (call-interactively 'beginning-of-line arg)
+    (when (and vis-pos
+               (= vis-pos (point)))
+      (while (and (> pos (point))
+                  (not (eobp)))
+        (let (last-command)
+          (line-move-visual 1 t)))
+      (line-move-visual -1 t))
     (when (= pos (point))
       (if (= 0 (current-column))
           (skip-chars-forward " \t")
@@ -453,15 +471,26 @@ first tried."
 
 ;;;###autoload
 (defun ourcomments-move-end-of-line(arg)
-  "Move point to end of line or indentation.
+  "Move point to end of line or after last non blank char.
 See `end-of-line' for ARG.
 
-If `physical-line-mode' is on then the visual line ending is
-first tried."
+Similar to `ourcomments-move-beginning-of-line' but for end of
+line."
   (interactive "p")
   (or arg (setq arg 1))
-  (let ((pos (point)))
+  (let ((pos (point))
+        vis-pos)
+    (when line-move-visual
+      (let (last-command) (line-move-visual 1 t))
+      (end-of-line)
+      (setq vis-pos (point))
+      (goto-char pos))
     (call-interactively 'end-of-line arg)
+    (when (and vis-pos
+               (= vis-pos (point)))
+      (beginning-of-line)
+      (let (last-command) (line-move-visual 1 t))
+      (backward-char))
     (when (= pos (point))
       (if (= (line-end-position) (point))
           (skip-chars-backward " \t")
@@ -543,6 +572,7 @@ for the keymap to be active \(minor mode levels only)."
         (maps (current-active-maps))
         map
         map-sym
+        map-rec
         binding
         keymaps
         minor-maps
@@ -831,33 +861,6 @@ what they will do ;-)."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Wrapping
 
-;; Fix-me: There is a confusion between buffer and window margins
-;; here. Also the doc says that left-margin-width and dito right may
-;; be nil. However they seem to be 0 by default, but when displaying a
-;; buffer in a window then window-margins returns (nil).
-(defun wrap-to-fill-set-values ()
-  "Use `fill-column' display columns in buffer windows."
-  ;;(message "wrap-to-fill-set-values here")
-  (let ((buf-windows (get-buffer-window-list (current-buffer))))
-    (dolist (win buf-windows)
-      (if wrap-to-fill-column-mode
-          (let* ((edges (window-edges win))
-                 (win-width (- (nth 2 edges) (nth 0 edges)))
-                 (extra-width (- win-width fill-column))
-                 (left-marg (if wrap-to-fill-left-marg-use
-                                wrap-to-fill-left-marg-use
-                              (- (/ extra-width 2) 1)))
-                 (right-marg (- win-width fill-column left-marg))
-                 (win-margs (window-margins win))
-                 (old-left (or (car win-margs) 0))
-                 (old-right (or (cdr win-margs) 0)))
-            (unless (> left-marg 0) (setq left-marg 0))
-            (unless (> right-marg 0) (setq right-marg 0))
-            (unless (and (= old-left left-marg)
-                         (= old-right right-marg))
-              (set-window-margins win left-marg right-marg)))
-        (set-window-buffer win (current-buffer))))))
-
 ;;;###autoload
 (defcustom wrap-to-fill-left-marg nil
   "Left margin handling for `wrap-to-fill-column-mode'.
@@ -960,7 +963,6 @@ See the hook for WINDOW and START-POS."
     (define-key map [(control ?c) left] 'wrap-to-fill-narrower)
     map))
 
-(put 'wrap-to-fill-column-mode 'permanent-local t)
 ;;;###autoload
 (define-minor-mode wrap-to-fill-column-mode
   "Use `fill-column' display columns in buffer windows.
@@ -1024,6 +1026,41 @@ Key bindings added by this minor mode:
           '(wrap-to-fill-prefix)))
        (goto-char here))))
   (wrap-to-fill-set-values))
+(put 'wrap-to-fill-column-mode 'permanent-local t)
+
+;; Fix-me: There is a confusion between buffer and window margins
+;; here. Also the doc says that left-margin-width and dito right may
+;; be nil. However they seem to be 0 by default, but when displaying a
+;; buffer in a window then window-margins returns (nil).
+(defun wrap-to-fill-set-values ()
+  (condition-case err
+      (wrap-to-fill-set-values-1)
+    (error (message "ERROR wrap-to-fill-set-values-1: %s" (error-message-string err)))))
+
+(defun wrap-to-fill-set-values-1 ()
+  "Use `fill-column' display columns in buffer windows."
+  ;;(message "wrap-to-fill-set-values window-configuration-change-hook=%s, wrap-to-fill-column-mode=%s, cb=%s" window-configuration-change-hook wrap-to-fill-column-mode (current-buffer))
+  (let ((buf-windows (get-buffer-window-list (current-buffer))))
+    ;;(message "buf-windows=%s" buf-windows)
+    (dolist (win buf-windows)
+      (if wrap-to-fill-column-mode
+          (let* ((edges (window-edges win))
+                 (win-width (- (nth 2 edges) (nth 0 edges)))
+                 (extra-width (- win-width fill-column))
+                 (left-marg (if wrap-to-fill-left-marg-use
+                                wrap-to-fill-left-marg-use
+                              (- (/ extra-width 2) 1)))
+                 (right-marg (- win-width fill-column left-marg))
+                 (win-margs (window-margins win))
+                 (old-left (or (car win-margs) 0))
+                 (old-right (or (cdr win-margs) 0)))
+            ;;(message "left-marg=%s, right-marg=%s, old-left=%s, old-right=%s" left-marg right-marg old-left old-right)
+            (unless (> left-marg 0) (setq left-marg 0))
+            (unless (> right-marg 0) (setq right-marg 0))
+            (unless (and (= old-left left-marg)
+                         (= old-right right-marg))
+              (set-window-margins win left-marg right-marg)))
+        (set-window-buffer win (current-buffer))))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1179,9 +1216,8 @@ This is used in EmacsW32 in the file ediff.cmd."
            "oldXMenu/ChangeLog"
            "src/ChangeLog"
            "test/ChangeLog"))
-        )
-    (emacs-root (expand-file-name ".." exec-directory)
-    )))
+	(emacs-root (expand-file-name ".." exec-directory)
+        ))))
 
 (defun ourcomments-read-symbol (prompt predicate)
   "Basic function for reading a symbol for describe-* functions.
@@ -1549,6 +1585,18 @@ function."
 
 (defvar ourcomments-ido-old-state ido-mode)
 
+(defun ourcomments-ido-ctrl-tab-activate ()
+  ;;(ad-update 'ido-visit-buffer)
+  (ad-enable-advice 'ido-visit-buffer 'before
+                    'ourcomments-ido-visit-buffer-other)
+  (ad-activate 'ido-visit-buffer)
+  ;;(ad-update 'ido-mode)
+  (ad-enable-advice 'ido-mode 'after
+                    'ourcomments-ido-add-ctrl-tab)
+  (ad-activate 'ido-mode)
+  (setq ourcomments-ido-old-state ido-mode)
+  (ido-mode (or ido-mode 'buffer)))
+
 (defcustom ourcomments-ido-ctrl-tab nil
   "Enable buffer switching using C-Tab with function `ido-mode'.
 This changes buffer switching with function `ido-mode' the
@@ -1569,18 +1617,7 @@ of those in for example common web browsers."
   :set (lambda (sym val)
          (set-default sym val)
          (if val
-             (progn
-               (ad-activate 'ido-visit-buffer)
-               (ad-update 'ido-visit-buffer)
-               (ad-enable-advice 'ido-visit-buffer 'before
-                                 'ourcomments-ido-visit-buffer-other)
-               (ad-activate 'ido-mode)
-               (ad-update 'ido-mode)
-               (ad-enable-advice 'ido-mode 'after
-                                 'ourcomments-ido-add-ctrl-tab)
-               (setq ourcomments-ido-old-state ido-mode)
-               (ido-mode (or ido-mode 'buffer))
-               )
+             (ourcomments-ido-ctrl-tab-activate)
            (ad-disable-advice 'ido-visit-buffer 'before
                               'ourcomments-ido-visit-buffer-other)
            (ad-disable-advice 'ido-mode 'after
@@ -1588,9 +1625,9 @@ of those in for example common web browsers."
            ;; For some reason this little complicated construct is
            ;; needed. If they are not there the defadvice
            ;; disappears. Huh.
-           (if ourcomments-ido-old-state
-               (ido-mode ourcomments-ido-old-state)
-             (when ido-mode (ido-mode -1)))
+           ;;(if ourcomments-ido-old-state
+           ;;    (ido-mode ourcomments-ido-old-state)
+           ;;  (when ido-mode (ido-mode -1)))
            ))
   :group 'emacsw32
   :group 'convenience)
@@ -1725,10 +1762,10 @@ This runs `query-replace-regexp' in selected files.
 See `dired-do-query-replace-regexp' for DELIMETED and more
 information."
   (interactive (dir-replace-read-parameters nil nil))
-  (message "%s" (list from to file-regexp root delimited))
+  (message "%s" (list from to files dir delimited))
   ;;(let ((files (directory-files root nil file-regexp))) (message "files=%s" files))
   (tags-query-replace from to delimited
-                      `(directory-files ,root t ,file-regexp)))
+                      `(directory-files ,dir t ,files)))
 
 (defun rdir-query-replace (from to file-regexp root &optional delimited)
   "Replace FROM with TO in FILES in directory tree ROOT.

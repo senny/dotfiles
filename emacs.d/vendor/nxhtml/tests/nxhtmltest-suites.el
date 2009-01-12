@@ -42,7 +42,14 @@
 ;;
 ;;; Code:
 
-(eval-when-compile (require 'cl))
+;;(eval-when-compile (require 'cl))
+(require 'cl)
+(require 'mumamo)
+(require 'nxhtml)
+(require 'nxhtml-mumamo)
+(when (fboundp 'nxml-mode)
+  (require 'rng-valid)
+  (require 'rngalt))
 
 (setq debug-on-error t)
 
@@ -67,11 +74,11 @@
   (when (file-directory-p distr-in)
     (setq nxhtmltest-files-root distr-in)))
 
-(setq nxhtmltest-update-method
-      ;;'font-lock-wait
-      'font-lock-run-timers
-      ;;'font-lock-fontify-buffer
-      )
+;; (setq nxhtmltest-update-method
+;;       ;;'font-lock-wait
+;;       'font-lock-run-timers
+;;       ;;'font-lock-fontify-buffer
+;;       )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Define tests using ert.el

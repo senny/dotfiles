@@ -656,6 +656,7 @@ By default the link moved to will be active, see
     (mlinks-stop-hilighter)
     (mlinks-stop-marking-links)
     ;;(remove-hook 'after-change-major-mode-hook 'mlinks-after-change-major-mode)
+    (remove-hook 'after-change-functions 'mlinks-after-change t)
     (mlinks-remove-overlays)))
 (put 'mlinks-mode 'permanent-local t)
 

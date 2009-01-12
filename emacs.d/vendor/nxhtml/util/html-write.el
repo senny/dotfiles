@@ -150,7 +150,7 @@ OVERLAY is the overlay added by `html-write-hide-tags' for this tag."
         (overlay-put overlay 'help-echo href)
         (overlay-put overlay 'mouse-face 'highlight)
         (if (eq ?# (string-to-char href))
-            (setq href (concat "file:///" buffer-name href))
+            (setq href (concat "file:///" buffer-file-name href))
           (when (file-exists-p href)
             (setq href (expand-file-name href))))
         (overlay-put overlay 'html-write-url href))
@@ -288,7 +288,7 @@ See that variable for START, END and PRE-LEN."
       (assert (markerp (car pend)))
       (assert (markerp (cdr pend))))
     (let ((pending html-write-pending-changes)
-          pending2
+          pending2 pend2
           pend pend-next
           (here (point-marker))
           (min-ovl (point-max))
