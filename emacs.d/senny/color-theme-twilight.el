@@ -21,19 +21,6 @@
 (defun color-theme-twilight ()
   "Color theme by Marcus Crafter, based off the TextMate Twilight theme, created 2008-04-18"
   (interactive)
-       (setq sgml-markup-faces
-           '((start-tag . font-lock-keyword-face)
-             (end-tag . font-lock-keyword-face)
-             (ignored . font-lock-string-face)
-             ;(ms-start . font-lock-other-type-face)
-             ;(ms-end . font-lock-other-type-face)
-             (shortref . bold)
-             (entity . font-lock-constant-face)
-             (comment . font-lock-comment-face)
-             ;(pi . other-emphasized-face)
-             ;(sgml . font-lock-function-name-face)
-             (doctype . font-lock-emphasized-face))
-           )
   (color-theme-install
    '(color-theme-twilight
      ((background-color . "#141414")
@@ -151,6 +138,12 @@
 
      (org-done ((t (:inherit string :bold t))))
      (org-todo ((t (:inherit constant :bold t))))
+     (org-level-1 ((t (:inherit default :underline t :bold t))))
+     (org-level-2 ((t (:inherit variable))))
+     (org-level-3 ((t (:inherit keyword))))
+     (org-level-4 ((t (:inherit type))))
+     (org-special-keyword ((t (:inherit doc))))
+
 
      (ido-only-match ((t (:inherit string))))
      (ido-subdir ((t (:inherit constant))))
