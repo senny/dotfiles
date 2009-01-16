@@ -6,7 +6,7 @@
 (set-default-coding-systems 'iso-latin-1-dos)
 
 
-(setq default-frame-alist '((font . "-outline-Monaco-normal-r-normal-normal-13-112-96-96-c-*-iso8859-1")))
+(setq default-frame-alist '((font ."-outline-Monaco-normal-normal-normal-*-13-*-*-*-p-*-iso8859-1")))
 
 (load "senny")
 
