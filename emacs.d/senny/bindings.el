@@ -10,7 +10,7 @@
 (global-set-key [C-return] 'defunkt-duplicate-line)
 (global-set-key "\C-x\C-g" 'github-ido-find-file)
 (global-set-key "\C-R" 'replace-string)
-(global-set-key (kbd "C-$") 'kill-buffer)
+(global-set-key (kbd "C-$") 'senny-kill-buffer)
 
 ; Window management
 (global-set-key [f1] 'resize-windows)

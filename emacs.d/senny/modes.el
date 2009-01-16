@@ -1,12 +1,15 @@
 ;; others
-(load "senny/modes/nxhtml")
+;; (load "senny/modes/nxhtml")
 (load "senny/modes/ruby")
 (load "senny/modes/shell")
 (load "senny/modes/java")
 (load "senny/modes/javascript")
 
+(load "vendor/nxhtml/util/winsize")
+
                                         ; use tab to indent and complete
-(tabkey2-mode)
+(vendor 'tabkey2)
+(tabkey2-mode 1)
 (setq tabkey2-completion-functions
       '(("Hippie expand" hippie-expand t)
         ;;        ("Spell check word" flyspell-correct-word-before-point)
@@ -66,4 +69,3 @@
 (autoload 'mode-compile-kill "mode-compile"
   "Command to kill a compilation launched by `mode-compile'" t)
 (global-set-key "\C-ck" 'mode-compile-kill)
-

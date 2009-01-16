@@ -7,8 +7,6 @@
  '(clearcase-diff-on-checkin t)
  '(clearcase-suppress-checkout-comments t)
  '(compilation-scroll-output (quote first-error))
- '(inhibit-startup-screen nil)
- '(initial-buffer-choice "~/")
  '(load-home-init-file t t))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
