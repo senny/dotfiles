@@ -1,7 +1,7 @@
 # diverses
 alias cls='clear'
 alias dhcp-renew='sudo ipconfig set en0 BOOTP;sudo ipconfig set en0 DHCP'
-alias e='/Applications/Emacs.app/Contents/MacOS/Emacs'
+alias e='emacsclient '
 
 # cd
 alias ..='cd ..'
