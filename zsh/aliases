@@ -25,10 +25,8 @@ alias gsm='git submodule init'
 alias gr='git remote'
 alias gf='git fetch'
 
-# merb
-alias gen='merb-gen'
-alias bm='bin/merb'
-alias bt='bin/thor'
+# emacs
+alias e='openemacs'
 
 # rails
 alias sc='script/console'
