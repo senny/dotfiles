@@ -16,7 +16,6 @@ class Object
   def yaml(output); output.to_yaml; end
   extend Hirb::Console
   Hirb::View::enable
-  Hirb::View::output_config["Hash"] = {:method => :yaml}
   
   # list methods which aren't in superclass
   def local_methods(obj = self)
