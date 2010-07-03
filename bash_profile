@@ -1,4 +1,4 @@
-export EDITOR="mate -w"
+export EDITOR="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
 export TM_RUBY=/usr/bin/ruby
 
 ##
