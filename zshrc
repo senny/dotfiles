@@ -24,6 +24,5 @@ source $ZSH/oh-my-zsh.sh
 source ~/.zsh/config
 source ~/.zsh/aliases
 source ~/.zsh/completion
-source /Users/senny/.profile
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
