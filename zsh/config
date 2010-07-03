@@ -18,9 +18,9 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 
 #cdpath=($cdpath ~/projects)
-fpath=(~/.zsh/functions $fpath)
+# fpath=(~/.zsh/functions $fpath)
 
-autoload -U ~/.zsh/functions/*(:t)
+# autoload -U ~/.zsh/functions/*(:t)
 
 HISTFILE=~/.zsh_history
 HISTSIZE=1000

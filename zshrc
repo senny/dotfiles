@@ -16,13 +16,12 @@ export ZSH_THEME="senny"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(emacs git ruby rails)
+plugins=(organization osx emacs git ruby rails)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 source ~/.zsh/config
-source ~/.zsh/aliases
-source ~/.zsh/completion
+alias cls='clear'
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"

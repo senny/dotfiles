@@ -1,2 +1,0 @@
-#compdef thor
-compadd `thor list --all | grep '^.*:.*' | cut -d ' ' -f 1`
