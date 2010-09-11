@@ -21,7 +21,6 @@ plugins=(organization osx emacs git ruby rails)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-source ~/.zsh/config
 alias cls='clear'
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
