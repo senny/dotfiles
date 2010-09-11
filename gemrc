@@ -1,9 +1,8 @@
---- 
+---
 :benchmark: false
 :verbose: true
 :update_sources: true
-:sources: 
+:sources:
 - http://rubygems.org
 :backtrace: false
 :bulk_threshold: 1000
-gemcutter_key: 5abb8f879d54db72bcde1f035bd29e7e
