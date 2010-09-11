@@ -1,27 +1,17 @@
 #!/usr/bin/ruby
 require "rubygems"
-require "hirb"
 require 'irb/completion'
 require 'irb/ext/save-history'
- 
+
 IRB.conf[:SAVE_HISTORY] = 1000
 IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.irb_history"
- 
-IRB.conf[:PROMPT_MODE] = :SIMPLE
- 
-IRB.conf[:AUTO_INDENT] = true
- 
+
 class Object
-  #configuring Hirb
-  def yaml(output); output.to_yaml; end
-  extend Hirb::Console
-  Hirb::View::enable
-  
   # list methods which aren't in superclass
   def local_methods(obj = self)
     (obj.methods - obj.class.superclass.instance_methods).sort
   end
-  
+
   # print documentation
   #
   #   ri 'Array#pop'
@@ -35,12 +25,12 @@ class Object
     end
     puts `ri '#{method}'`
   end
-  
+
   def quick(repetitions=100, &block)
     require 'benchmark'
 
     Benchmark.bmbm do |b|
-      b.report {repetitions.times &block} 
+      b.report {repetitions.times &block}
     end
     nil
   end
