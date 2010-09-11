@@ -1,60 +1,50 @@
 require 'rake'
+require 'erb'
 
-namespace :emacs do
-  namespace :compile do
+desc "install the dot files into user's home directory"
+task :install do
+  replace_all = false
+  Dir['*'].each do |file|
+    next if %w[Rakefile README.rdoc LICENSE].include? file
 
-    task :vendor do
-      compile_emacs_files("emacs.d/vendor")
-    end
-
-    task :senny do
-      compile_emacs_files("emacs.d/senny")
-    end
-
-  end
-end
-
-namespace :dotfiles do
-  desc "install the dot files into user's home directory"
-  task :install do
-    replace_all = false
-    Dir['*'].each do |file|
-      next if %w[Rakefile README].include? file
-
-      if File.exist?(File.join(ENV['HOME'], ".#{file}"))
-        if replace_all
-          replace_file(file)
-        else
-          print "overwrite ~/.#{file}? [ynaq] "
-          case $stdin.gets.chomp
-          when 'a'
-            replace_all = true
-            replace_file(file)
-          when 'y'
-            replace_file(file)
-          when 'q'
-            exit
-          else
-            puts "skipping ~/.#{file}"
-          end
-        end
+    if File.exist?(File.join(ENV['HOME'], ".#{file.sub('.erb', '')}"))
+      if File.identical? file, File.join(ENV['HOME'], ".#{file.sub('.erb', '')}")
+        puts "identical ~/.#{file.sub('.erb', '')}"
+      elsif replace_all
+        replace_file(file)
       else
-        link_file(file)
+        print "overwrite ~/.#{file.sub('.erb', '')}? [ynaq] "
+        case $stdin.gets.chomp
+        when 'a'
+          replace_all = true
+          replace_file(file)
+        when 'y'
+          replace_file(file)
+        when 'q'
+          exit
+        else
+          puts "skipping ~/.#{file.sub('.erb', '')}"
+        end
       end
+    else
+      link_file(file)
     end
   end
 end
 
 def replace_file(file)
-  system %Q{rm "$HOME/.#{file}"}
+  system %Q{rm -rf "$HOME/.#{file.sub('.erb', '')}"}
   link_file(file)
 end
 
 def link_file(file)
-  puts "linking ~/.#{file}"
-  system %Q{ln -s "$PWD/#{file}" "$HOME/.#{file}"}
-end
-
-def compile_emacs_files(dir)
-  sh("emacs -l ~/.emacs -batch -f batch-byte-compile #{dir}/**/*.el")
+  if file =~ /.erb$/
+    puts "generating ~/.#{file.sub('.erb', '')}"
+    File.open(File.join(ENV['HOME'], ".#{file.sub('.erb', '')}"), 'w') do |new_file|
+      new_file.write ERB.new(File.read(file)).result(binding)
+    end
+  else
+    puts "linking ~/.#{file}"
+    system %Q{ln -s "$PWD/#{file}" "$HOME/.#{file}"}
+  end
 end
