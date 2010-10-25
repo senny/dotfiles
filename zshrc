@@ -3,7 +3,7 @@ export ZSH=$HOME/.oh-my-zsh
 
 # Set to the name theme to load.
 # Look in ~/.oh-my-zsh/themes/
-export ZSH_THEME="senny"
+export ZSH_THEME="kennethreitz"
 
 # Set to this to use case-sensitive completion
 # export CASE_SENSITIVE="true"
@@ -16,11 +16,12 @@ export ZSH_THEME="senny"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(organization osx emacs git ruby rails)
+plugins=(organization osx emacs git ruby rails brew gem)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 alias cls='clear'
 
+unsetopt auto_name_dirs
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
