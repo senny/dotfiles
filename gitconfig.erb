@@ -17,6 +17,8 @@
   pretty = %C(yellow)%h%Creset%C(green)%d%Creset %s %C(red)[%an]%Creset %C(cyan)[%cr]%Creset
 [rerere]
   enabled = 1
+[push]
+	default = tracking
 [github]
   user = <%= print("GitHub Username: "); STDOUT.flush; STDIN.gets.chomp %>
   token = <%= print("GitHub API Token: "); STDOUT.flush; STDIN.gets.chomp %>
