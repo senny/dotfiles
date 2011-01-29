@@ -19,6 +19,8 @@
   enabled = 1
 [push]
 	default = tracking
+[branch]
+	autosetuprebase = always
 [github]
   user = <%= print("GitHub Username: "); STDOUT.flush; STDIN.gets.chomp %>
   token = <%= print("GitHub API Token: "); STDOUT.flush; STDIN.gets.chomp %>
