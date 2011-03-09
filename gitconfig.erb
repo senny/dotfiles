@@ -24,5 +24,10 @@
 [github]
   user = <%= print("GitHub Username: "); STDOUT.flush; STDIN.gets.chomp %>
   token = <%= print("GitHub API Token: "); STDOUT.flush; STDIN.gets.chomp %>
-[mergetool.ediff]
-  cmd = /usr/local/Cellar/emacs/HEAD/Emacs.app/Contents/MacOS/bin/emacsclient --eval \"(progn  (defun ediff-write-merge-buffer ()    (let ((file ediff-merge-store-file))      (set-buffer ediff-buffer-C)      (write-region (point-min) (point-max) file)      (message \\\"Merge buffer saved in: %s\\\" file)      (set-buffer-modified-p nil)      (sit-for 1)))  (setq ediff-quit-merge-hook 'ediff-write-merge-buffer)   (ediff-merge-files-with-ancestor \\\"$LOCAL\\\" \\\"$REMOTE\\\"                                   \\\"$BASE\\\" nil \\\"$MERGED\\\"))\"
+[mergetool "ediff"]
+  cmd = emacsclient --eval \"(git-mergetool-emacsclient-ediff \\\"$LOCAL\\\" \\\"$REMOTE\\\" \\\"$BASE\\\" \\\"$MERGED\\\")\"
+  trustExitCode = true
+[mergetool]
+  prompt = false
+[merge]
+  tool = ediff
