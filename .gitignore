@@ -1,2 +1,5 @@
 *.elc
 doc/*
+emacs.d/backup
+emacs.d/org-clock-save.el
+emacs.d/ac-comphist.dat
