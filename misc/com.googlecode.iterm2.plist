@@ -174,9 +174,9 @@
 	<key>NSWindow Frame NSColorPanel</key>
 	<string>586 519 214 309 0 0 2560 1418 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>495 487 851 483 0 0 2560 1418 </string>
+	<string>500 490 851 483 0 0 2560 1418 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 13 2558 1405 0 0 2560 1418 </string>
+	<string>0 0 2560 1440 0 0 2560 1418 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -826,6 +826,8 @@
 	<date>2011-10-01T08:31:19Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
+	<key>Show Toolbelt</key>
+	<false/>
 	<key>ShowBookmarkName</key>
 	<false/>
 	<key>SmartPlacement</key>
@@ -847,7 +849,7 @@
 	<key>UseCompactLabel</key>
 	<true/>
 	<key>UseLionStyleFullscreen</key>
-	<true/>
+	<false/>
 	<key>Window Arrangements</key>
 	<dict>
 		<key>Development</key>
