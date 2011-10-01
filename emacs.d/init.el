@@ -21,8 +21,11 @@
                       yaml
 
                       e-max-developer
+                      rails
+                      ;; latex
                       org
                       ;; plone
+                      ;; terminal
                       ))
 
 ;; see https://github.com/senny/theme-roller.el for a list of available themes
