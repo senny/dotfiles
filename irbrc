@@ -6,6 +6,13 @@ require 'irb/ext/save-history'
 IRB.conf[:SAVE_HISTORY] = 1000
 IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.irb_history"
 
+require 'logger'
+if ENV.include?('RAILS_ENV') && !Object.const_defined?('RAILS_DEFAULT_LOGGER')
+   Object.const_set('RAILS_DEFAULT_LOGGER', Logger.new(STDOUT))
+else
+   ActiveRecord::Base.logger = Logger.new(STDOUT)
+end
+
 class Object
   # list methods which aren't in superclass
   def local_methods(obj = self)
