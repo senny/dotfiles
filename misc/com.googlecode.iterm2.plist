@@ -202,9 +202,9 @@
 	<key>NSRepeatCountBinding</key>
 	<string></string>
 	<key>NSWindow Frame Preferences</key>
-	<string>269 112 851 483 0 0 1920 1178 </string>
+	<string>260 423 851 483 0 0 1920 1178 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 8 2552 1165 0 0 1920 1178 </string>
+	<string>0 0 1920 1200 0 0 1920 1178 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -884,7 +884,7 @@
 		<array>
 			<dict>
 				<key>Height</key>
-				<real>1405</real>
+				<real>1165</real>
 				<key>Screen</key>
 				<integer>0</integer>
 				<key>Selected Tab Index</key>
@@ -1519,9 +1519,9 @@
 											<string>/Users/senny</string>
 										</dict>
 										<key>Columns</key>
-										<integer>114</integer>
+										<integer>73</integer>
 										<key>Rows</key>
-										<integer>81</integer>
+										<integer>67</integer>
 										<key>Working Directory</key>
 										<string>/Users/senny</string>
 									</dict>
@@ -1530,9 +1530,9 @@
 									<key>frame</key>
 									<dict>
 										<key>height</key>
-										<real>1383</real>
+										<real>1143</real>
 										<key>width</key>
-										<real>823</real>
+										<real>539</real>
 										<key>x</key>
 										<real>0.0</real>
 										<key>y</key>
@@ -2162,22 +2162,22 @@
 											<string>/Users/senny</string>
 										</dict>
 										<key>Columns</key>
-										<integer>122</integer>
+										<integer>105</integer>
 										<key>Rows</key>
-										<integer>81</integer>
+										<integer>67</integer>
 										<key>Working Directory</key>
-										<string>/Users/senny/Projects/dotfiles</string>
+										<string>/Users/senny</string>
 									</dict>
 									<key>View Type</key>
 									<string>SessionView</string>
 									<key>frame</key>
 									<dict>
 										<key>height</key>
-										<real>1383</real>
+										<real>1143</real>
 										<key>width</key>
-										<real>881</real>
+										<real>764</real>
 										<key>x</key>
-										<real>824</real>
+										<real>540</real>
 										<key>y</key>
 										<real>0.0</real>
 									</dict>
@@ -2808,9 +2808,9 @@
 													<string>/Users/senny</string>
 												</dict>
 												<key>Columns</key>
-												<integer>118</integer>
+												<integer>83</integer>
 												<key>Rows</key>
-												<integer>23</integer>
+												<integer>19</integer>
 												<key>Working Directory</key>
 												<string>/Users/senny</string>
 											</dict>
@@ -2819,9 +2819,9 @@
 											<key>frame</key>
 											<dict>
 												<key>height</key>
-												<real>401</real>
+												<real>331</real>
 												<key>width</key>
-												<real>852</real>
+												<real>610</real>
 												<key>x</key>
 												<real>0.0</real>
 												<key>y</key>
@@ -3451,9 +3451,9 @@
 													<string>/Users/senny</string>
 												</dict>
 												<key>Columns</key>
-												<integer>118</integer>
+												<integer>83</integer>
 												<key>Rows</key>
-												<integer>57</integer>
+												<integer>47</integer>
 												<key>Working Directory</key>
 												<string>/Users/senny</string>
 											</dict>
@@ -3462,13 +3462,13 @@
 											<key>frame</key>
 											<dict>
 												<key>height</key>
-												<real>981</real>
+												<real>811</real>
 												<key>width</key>
-												<real>852</real>
+												<real>610</real>
 												<key>x</key>
 												<real>0.0</real>
 												<key>y</key>
-												<real>402</real>
+												<real>332</real>
 											</dict>
 										</dict>
 									</array>
@@ -3477,11 +3477,11 @@
 									<key>frame</key>
 									<dict>
 										<key>height</key>
-										<real>1383</real>
+										<real>1143</real>
 										<key>width</key>
-										<real>852</real>
+										<real>610</real>
 										<key>x</key>
-										<real>1706</real>
+										<real>1305</real>
 										<key>y</key>
 										<real>0.0</real>
 									</dict>
@@ -3494,9 +3494,9 @@
 							<key>frame</key>
 							<dict>
 								<key>height</key>
-								<real>1383</real>
+								<real>1143</real>
 								<key>width</key>
-								<real>2558</real>
+								<real>1915</real>
 								<key>x</key>
 								<real>0.0</real>
 								<key>y</key>
@@ -3508,7 +3508,7 @@
 					</dict>
 				</array>
 				<key>Width</key>
-				<real>2558</real>
+				<real>1915</real>
 				<key>Window Type</key>
 				<integer>0</integer>
 				<key>X Origin</key>
