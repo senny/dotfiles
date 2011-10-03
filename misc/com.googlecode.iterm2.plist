@@ -191,20 +191,20 @@
 	<true/>
 	<key>MaxVertically</key>
 	<false/>
-	<key>NSColorPanelMode</key>
-	<string>7</string>
+	<key>NSNavBrowserPreferedColumnContentWidth</key>
+	<real>186</real>
+	<key>NSNavLastCurrentDirectory</key>
+	<string>~/Projects/dotfiles/misc</string>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/Projects/dotfiles</string>
+	<string>~</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
 	<string></string>
-	<key>NSWindow Frame NSColorPanel</key>
-	<string>586 519 214 309 0 0 2560 1418 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>500 490 851 483 0 0 2560 1418 </string>
+	<string>269 112 851 483 0 0 1920 1178 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 13 2558 1405 0 0 2560 1418 </string>
+	<string>0 8 2552 1165 0 0 1920 1178 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -851,7 +851,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2011-10-01T08:31:19Z</date>
+	<date>2011-10-03T06:37:12Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
