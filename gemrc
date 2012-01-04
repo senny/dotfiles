@@ -6,3 +6,5 @@
 - http://rubygems.org
 :backtrace: false
 :bulk_threshold: 1000
+:install: --no-ri --no-rdoc
+:update: --no-ri --no-rdoc
