@@ -70,34 +70,6 @@
 			<key>Text</key>
 			<string></string>
 		</dict>
-		<key>0x61-0x40000</key>
-		<dict>
-			<key>Action</key>
-			<integer>18</integer>
-			<key>Text</key>
-			<string></string>
-		</dict>
-		<key>0x64-0x40000</key>
-		<dict>
-			<key>Action</key>
-			<integer>19</integer>
-			<key>Text</key>
-			<string></string>
-		</dict>
-		<key>0x73-0x40000</key>
-		<dict>
-			<key>Action</key>
-			<integer>21</integer>
-			<key>Text</key>
-			<string></string>
-		</dict>
-		<key>0x77-0x40000</key>
-		<dict>
-			<key>Action</key>
-			<integer>20</integer>
-			<key>Text</key>
-			<string></string>
-		</dict>
 		<key>0xf700-0x300000</key>
 		<dict>
 			<key>Action</key>
@@ -219,20 +191,20 @@
 	<true/>
 	<key>MaxVertically</key>
 	<false/>
-	<key>NSNavBrowserPreferedColumnContentWidth</key>
-	<real>186</real>
-	<key>NSNavLastCurrentDirectory</key>
-	<string>~/Projects/dotfiles/misc</string>
+	<key>NSColorPanelMode</key>
+	<string>7</string>
 	<key>NSNavLastRootDirectory</key>
-	<string>~</string>
+	<string>~/Projects/dotfiles</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
 	<string></string>
+	<key>NSWindow Frame NSColorPanel</key>
+	<string>586 519 214 309 0 0 2560 1418 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>260 423 851 483 0 0 1920 1178 </string>
+	<string>500 490 924 485 0 0 2560 1418 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 0 1920 1200 0 0 1920 1178 </string>
+	<string>0 0 2560 1440 0 0 2560 1418 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -852,6 +824,8 @@
 			<string>/Users/senny</string>
 		</dict>
 	</array>
+	<key>NoSyncNeverRemindPrefsChangesLost</key>
+	<true/>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -879,7 +853,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2011-10-03T06:37:12Z</date>
+	<date>2012-01-07T11:51:30Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Show Toolbelt</key>
@@ -3553,6 +3527,6 @@
 	<key>WordCharacters</key>
 	<string>/-+\~_.</string>
 	<key>iTerm Version</key>
-	<string>1.0.0.20110909</string>
+	<string>1.0.0.20111020</string>
 </dict>
 </plist>
