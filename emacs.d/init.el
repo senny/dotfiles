@@ -4,21 +4,22 @@
 
 (setq e-max-bundles '(
                       accessibility
+                      ergonomic
                       completion
                       css
                       cucumber
-                      ergonomic
                       erlang
                       git
                       html
                       javascript
                       lisp
-                      power-edit
                       project
                       python
+                      power-edit
                       ruby
                       haml-and-sass
                       yaml
+                      spelling
 
                       e-max-developer
                       rails
