@@ -1,8 +1,8 @@
-(setq e-max-repository (expand-file-name "/Users/senny/Projects/e-max/"))
+(setq cabbage-repository (expand-file-name "/Users/senny/Projects/cabbage/"))
 
-(setq e-max-org-files (expand-file-name "~/Dropbox/org"))
+(setq cabbage-org-files (expand-file-name "~/Dropbox/org"))
 
-(setq e-max-bundles '(
+(setq cabbage-bundles '(
                       accessibility
                       ergonomic
                       completion
@@ -20,8 +20,9 @@
                       haml-and-sass
                       yaml
                       spelling
+                      coffee-script
 
-                      e-max-developer
+                      cabbage-developer
                       rails
                       ;; latex
                       org
@@ -31,7 +32,7 @@
                       ))
 
 ;; see https://github.com/senny/theme-roller.el for a list of available themes
-(setq e-max-theme 'color-theme-lazy)
+(setq cabbage-theme 'color-theme-lazy)
 
-(load (concat e-max-repository "e-max"))
+(load (concat cabbage-repository "cabbage"))
 (put 'ido-exit-minibuffer 'disabled nil)
