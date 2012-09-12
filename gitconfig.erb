@@ -3,6 +3,8 @@
   email = <%= print("Your Email: "); STDOUT.flush; STDIN.gets.chomp %>
 [alias]
   co = checkout
+  build = push -f origin HEAD:build/yse0217
+  merge-diff = !sh -c 'git diff "$1^1"..."$1^2" "$@"' -
 [color]
   diff = auto
   status = auto
