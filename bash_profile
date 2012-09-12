@@ -15,3 +15,4 @@ export MANPATH=/opt/local/share/man:$MANPATH
 # rvm-install added line:
 if [[ -s ~/.rvm/scripts/rvm ]] ; then source ~/.rvm/scripts/rvm ; fi
 
+alias ll='ls -l'
