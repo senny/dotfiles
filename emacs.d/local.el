@@ -1,8 +1,5 @@
 (setq e-max-javascript-jslint-enabled t)
 
-(add-hook 'e-max-initialized-hook (lambda ()
-                                    (setq rspec-use-bundler-when-possible t)))
-
 (defun senny-run-unit-tests ()
   (interactive)
   (let ((default-directory (e-max-project-root)))
