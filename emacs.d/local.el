@@ -28,6 +28,12 @@
 
 (global-set-key (kbd "<f6>") 'senny-toggle-rspec-use-bundler)
 (global-set-key (kbd "M-§") 'senny-run-unit-tests)
+
+(defun senny-cabbage-initialized-hook ()
+  (setq rspec-use-bundler-when-possible t))
+
+(add-hook 'cabbage-initialized-hook 'senny-cabbage-initialized-hook)
+
 (defun senny-change-log-mode-hook ()
   (setq tab-width 4)
   (setq left-margin 4)
