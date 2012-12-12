@@ -28,3 +28,9 @@
 
 (global-set-key (kbd "<f6>") 'senny-toggle-rspec-use-bundler)
 (global-set-key (kbd "M-§") 'senny-run-unit-tests)
+(defun senny-change-log-mode-hook ()
+  (setq tab-width 4)
+  (setq left-margin 4)
+  (setq indent-tabs-mode nil))
+
+(add-hook 'change-log-mode-hook 'senny-change-log-mode-hook)
