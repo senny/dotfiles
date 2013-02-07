@@ -36,3 +36,4 @@
 
 (load (concat cabbage-repository "cabbage"))
 (put 'ido-exit-minibuffer 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
