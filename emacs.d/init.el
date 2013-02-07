@@ -21,6 +21,7 @@
                       yaml
                       spelling
                       coffee-script
+                      rect-mark
 
                       cabbage-developer
                       rails
