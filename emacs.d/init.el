@@ -22,6 +22,7 @@
                       spelling
                       coffee-script
                       rect-mark
+                      markdown
 
                       cabbage-developer
                       rails
