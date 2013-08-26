@@ -29,6 +29,10 @@
 (global-set-key (kbd "<f6>") 'senny-toggle-rspec-use-bundler)
 (global-set-key (kbd "M-§") 'senny-run-unit-tests)
 
+(defun senny-rails-test-use-adapter (adapter)
+  (interactive (list (ido-completing-read "Adapter: " '("postgresql" "mysql2" "sqlite3" "mysql"))))
+  (setenv "ARCONN" adapter))
+
 (defun senny-cabbage-initialized-hook ()
   (setq rspec-use-bundler-when-possible t))
 
