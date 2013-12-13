@@ -11,7 +11,7 @@
   branch = auto
 [core]
   excludesfile = <%= ENV['HOME'] %>/.gitignore
-  editor = /usr/local/Cellar/emacs/HEAD/Emacs.app/Contents/MacOS/bin/emacsclient
+  editor = /usr/local/bin/emacsclient
   autocrlf = input
 [apply]
   whitespace = nowarn
@@ -33,3 +33,5 @@
   prompt = false
 [merge]
   tool = ediff
+[init]
+  templatedir= <%= ENV['HOME'] %>/.git-hooks
