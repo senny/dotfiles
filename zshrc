@@ -26,8 +26,8 @@ alias cls='clear'
 PATH=/Library/PostgreSQL8/bin:$PATH
 export PATH
 
-
 unsetopt auto_name_dirs
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
-PATH=/usr/local/bin:$PATH
+PATH=/usr/local/bin:$HOME/.rbenv/bin:$PATH
+
+eval "$(rbenv init -)"
