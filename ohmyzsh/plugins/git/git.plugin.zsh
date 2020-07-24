@@ -109,7 +109,6 @@ alias gfo='git fetch origin'
 
 alias gfg='git ls-files | grep'
 
-alias gg='git gui citool'
 alias gga='git gui citool --amend'
 
 function ggf() {
@@ -175,6 +174,7 @@ alias gk='\gitk --all --branches'
 alias gke='\gitk --all $(git log -g --pretty=%h)'
 
 alias gl='git pull'
+alias gg='git log --graph'
 alias glg='git log --stat'
 alias glgp='git log --stat -p'
 alias glgg='git log --graph'
