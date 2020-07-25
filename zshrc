@@ -1,7 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=/Applications/Emacs.app/Contents/MacOS/bin:$PATH
-export PATH=/Applications/Postgres.app/Contents/Versions/9.6/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/senny/.oh-my-zsh"
