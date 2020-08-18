@@ -102,7 +102,11 @@
   :bind (("M-m" . helm-swoop)
 	 ("M-M" . helm-swoop-back-to-last-point))
   :init
-  (bind-key "M-m" 'helm-swoop-from-isearch isearch-mode-map))
+  (bind-key "M-m" 'helm-swoop-from-isearch isearch-mode-map)
+  :config
+  (bind-keys :map helm-swoop-map
+             ("M-i" . nil)
+             ("M-o" . helm-multi-swoop-all-from-helm-swoop)))
 (use-package helm-ag
   :ensure helm-ag
   :bind ("M-p" . helm-projectile-ag)
