@@ -100,7 +100,7 @@
 (use-package helm-swoop
   :ensure t
   :bind (("M-m" . helm-swoop)
-	 ("M-M" . helm-swoop-back-to-last-point))
+	 ("M-M" . helm-multi-swoop))
   :init
   (bind-key "M-m" 'helm-swoop-from-isearch isearch-mode-map)
   :config
