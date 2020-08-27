@@ -126,7 +126,8 @@
 
 (use-package helm-projectile
   :ensure t
-  :bind ("M-t" . helm-projectile-find-file)
+  :bind (("M-P" . projectile-ag)
+	 ("M-t" . helm-projectile-find-file))
   :config
   (helm-projectile-on))
 
