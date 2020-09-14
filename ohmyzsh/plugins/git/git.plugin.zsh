@@ -173,7 +173,7 @@ alias git-svn-dcommit-push='git svn dcommit && git push github $(git_main_branch
 alias gk='\gitk --all --branches'
 alias gke='\gitk --all $(git log -g --pretty=%h)'
 
-alias gl='git pull'
+alias gl='git pull --rebase'
 alias gg='git log --graph'
 alias glg='git log --stat'
 alias glgp='git log --stat -p'
