@@ -70,13 +70,4 @@ on the current buffer."
                     (line-end-position)
 		    distance)))
 
-(defun shift-right (count)
-  (interactive "p")
-  (shift-text count))
-
-(defun shift-left (count)
-  (interactive "p")
-  (shift-text (- count)))
-
-
 (provide 'defuns-cfg)

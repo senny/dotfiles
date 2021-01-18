@@ -97,16 +97,26 @@
 	      ("M-K" . nil)
 	      ("M-h" . nil)
 	      ("M-H" . nil)))
-(use-package helm-swoop
+(use-package swiper
   :ensure t
-  :bind (("M-m" . helm-swoop)
-	 ("M-M" . helm-multi-swoop))
-  :init
-  (bind-key "M-m" 'helm-swoop-from-isearch isearch-mode-map)
+  :bind (("M-C-f" . swiper-thing-at-point)
+	 ("C-f" . swiper)
+	 ("M-m" . swiper-thing-at-point))
   :config
-  (bind-keys :map helm-swoop-map
+  (bind-keys :map ivy-minibuffer-map
              ("M-i" . nil)
-             ("M-o" . helm-multi-swoop-all-from-helm-swoop)))
+             ("M-k" . nil)))
+;; (use-package helm-swoop
+;;   :ensure t
+;;   :bind (("C-f" . helm-swoop)
+;; 	 ("M-m" . helm-swoop)
+;; 	 ("M-M" . helm-multi-swoop))
+;;   :init
+;;   (bind-key "M-m" 'helm-swoop-from-isearch isearch-mode-map)
+;;   :config
+;;   (bind-keys :map helm-swoop-map
+;;              ("M-i" . nil)
+;;              ("M-o" . helm-multi-swoop-all-from-helm-swoop)))
 (use-package helm-ag
   :ensure helm-ag
   :bind ("M-p" . helm-projectile-ag)
@@ -151,7 +161,9 @@
 		  enh-ruby-bounce-deep-indent t
 		  enh-ruby-hanging-indent-level 2)
 	    (setq enh-ruby-program "/Users/senny/.asdf/installs/ruby/2.6.6/bin/ruby")
-	    (setq ruby-insert-encoding-magic-comment nil)))
+	    (setq ruby-insert-encoding-magic-comment nil))
+  :bind (:map enh-ruby-mode-map
+	      ("C-M-f" . nil)))
 
 (use-package rubocop
   :ensure t
@@ -185,8 +197,8 @@
   :ensure t
   :bind (("M-<up>" . drag-stuff-up)
 	 ("M-<down>" . drag-stuff-down)
-	 ("M-<left>" . shift-left)
-	 ("M-<right>" . shift-right)))
+	 ("M-<left>" . indent-rigidly-left)
+	 ("M-<right>" . indent-rigidly-right)))
 
 (use-package magit
   :ensure t
@@ -237,9 +249,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" default)))
  '(package-selected-packages
    (quote
-    (yaml-mode web-mode use-package twilight-bright-theme swift-mode slim-mode rubocop rspec-mode rbenv minitest markdown-mode magit helm-swoop helm-projectile helm-descbinds helm-ag go-mode flycheck enh-ruby-mode drag-stuff diminish ag))))
+    (swiper-helm color-theme-sanityinc-tomorrow yaml-mode web-mode use-package twilight-bright-theme swift-mode slim-mode rubocop rspec-mode rbenv minitest markdown-mode magit helm-swoop helm-projectile helm-descbinds helm-ag go-mode flycheck enh-ruby-mode drag-stuff diminish ag))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

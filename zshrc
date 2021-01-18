@@ -99,3 +99,5 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 unset LESS
+
+export GOPATH=/Users/senny/Projects/go
