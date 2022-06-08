@@ -69,7 +69,7 @@ ZSH_CUSTOM=~/Projects/dotfiles/ohmyzsh
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(asdf git ruby rails brew gem osx emacs organization)
+plugins=(asdf git ruby rails brew gem macos emacs organization)
 
 source $ZSH/oh-my-zsh.sh
 
