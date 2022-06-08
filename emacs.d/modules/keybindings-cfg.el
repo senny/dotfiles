@@ -134,4 +134,7 @@
 (global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
 (global-set-key (kbd "C-c r") 'revert-buffer)
 
+;; KBD Macros
+(global-set-key (kbd "C-x (") 'start-kbd-macro)
+(global-set-key (kbd "C-x )") 'end-kbd-macro)
 (provide 'keybindings-cfg)

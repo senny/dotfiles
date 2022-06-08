@@ -137,7 +137,9 @@
 (use-package helm-projectile
   :ensure t
   :bind (("M-P" . projectile-ag)
-	 ("M-t" . helm-projectile-find-file))
+	 ("M-t" . helm-projectile-find-file)
+	 :map helm-projectile-find-file-map
+	 ("M-l" . nil))
   :config
   (helm-projectile-on))
 
@@ -215,7 +217,9 @@
 
 (use-package markdown-mode
   :ensure t
-  :mode ("\\.md\\'" . markdown-mode))
+  :mode ("\\.md\\'" . markdown-mode)
+  :bind (:map markdown-mode-map
+	      ("M-p" . nil)))
 
 (use-package web-mode
   :ensure t
@@ -250,11 +254,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   (quote
-    ("bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" default)))
+   '("bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" default))
  '(package-selected-packages
-   (quote
-    (swiper-helm color-theme-sanityinc-tomorrow yaml-mode web-mode use-package twilight-bright-theme swift-mode slim-mode rubocop rspec-mode rbenv minitest markdown-mode magit helm-swoop helm-projectile helm-descbinds helm-ag go-mode flycheck enh-ruby-mode drag-stuff diminish ag))))
+   '(swiper-helm color-theme-sanityinc-tomorrow yaml-mode web-mode use-package twilight-bright-theme swift-mode slim-mode rubocop rspec-mode rbenv minitest markdown-mode magit helm-swoop helm-projectile helm-descbinds helm-ag go-mode flycheck enh-ruby-mode drag-stuff diminish ag)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
