@@ -38,8 +38,8 @@
 
 (server-start)
 
-(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
-(setq exec-path (cons "/usr/local/bin" exec-path))
+(setenv "PATH" (concat (getenv "PATH") ":/opt/homebrew/bin"))
+(setq exec-path (cons "/opt/homebrew/bin" exec-path))
 
 ;; Bootstrap `use-package'
 (require 'package)
@@ -119,7 +119,7 @@
 ;;              ("M-o" . helm-multi-swoop-all-from-helm-swoop)))
 (use-package helm-ag
   :ensure helm-ag
-  :bind ("M-p" . helm-projectile-ag)
+  :bind ("M-P" . helm-ag)
   :commands (helm-ag helm-projectile-ag)
   :init (setq helm-ag-insert-at-point 'symbol
 	      helm-ag-command-option "--path-to-ignore ~/.agignore"))
@@ -136,7 +136,7 @@
 
 (use-package helm-projectile
   :ensure t
-  :bind (("M-P" . projectile-ag)
+  :bind (("M-p" . helm-projectile-ag)
 	 ("M-t" . helm-projectile-find-file)
 	 :map helm-projectile-find-file-map
 	 ("M-l" . nil))
@@ -162,7 +162,7 @@
 		  enh-ruby-deep-indent-paren nil
 		  enh-ruby-bounce-deep-indent t
 		  enh-ruby-hanging-indent-level 2)
-	    (setq enh-ruby-program "/Users/senny/.asdf/installs/ruby/2.6.6/bin/ruby")
+	    (setq enh-ruby-program "/Users/senny/.asdf/installs/ruby/3.1.1/bin/ruby")
 	    (setq ruby-insert-encoding-magic-comment nil))
   :bind (:map enh-ruby-mode-map
 	      ("C-M-f" . nil)))
@@ -171,7 +171,6 @@
   :ensure t
   :defer t
   :init (add-hook 'ruby-mode-hook 'rubocop-mode))
-
 
 (use-package minitest
   :ensure t
@@ -270,7 +269,7 @@
  '(custom-safe-themes
    '("bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" default))
  '(package-selected-packages
-   '(typescript-mode svelte-mode swiper-helm color-theme-sanityinc-tomorrow yaml-mode web-mode use-package twilight-bright-theme swift-mode slim-mode rubocop rspec-mode rbenv minitest markdown-mode magit helm-swoop helm-projectile helm-descbinds helm-ag go-mode flycheck enh-ruby-mode drag-stuff diminish ag)))
+   '(asdf typescript-mode svelte-mode swiper-helm color-theme-sanityinc-tomorrow yaml-mode web-mode use-package twilight-bright-theme swift-mode slim-mode rubocop rspec-mode rbenv minitest markdown-mode magit helm-swoop helm-projectile helm-descbinds helm-ag go-mode flycheck enh-ruby-mode drag-stuff diminish ag)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
