@@ -231,6 +231,19 @@
 		  web-mode-css-indent-offset 2
 		  web-mode-code-indent-offset 2)))
 
+(use-package js2-mode
+  :ensure t
+  :defer t
+  :mode "\\.js$"
+  :config
+
+  (electric-indent-mode -1)
+  (setq js2-basic-offset 2)
+  (setq js2-bounce-indent-p t)
+  (setq js2-consistent-level-indent-inner-bracket-p t)
+  (setq js2-pretty-multiline-decl-indentation-p t)
+  (add-hook 'js2-mode-hook #'js2-refactor-mode))
+
 (use-package go-mode
   :defer t
   :ensure t
