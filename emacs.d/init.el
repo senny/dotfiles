@@ -75,7 +75,9 @@
          ("C-x f" . helm-recentf)
          ("C-SPC" . helm-dabbrev)
          ("M-y" . helm-show-kill-ring)
-         ("C-x b" . helm-buffers-list))
+         ("C-x b" . helm-buffers-list)
+	 ("M-[" . helm-resume)
+	 ("M-]" . helm-refresh))
   :bind (:map helm-map
 	      ("M-i" . helm-previous-line)
 	      ("M-k" . helm-next-line)
