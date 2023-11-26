@@ -45,8 +45,21 @@
 (require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/"))
+             '("melpa" . "https://melpa.org/packages/")
+	     '("gnu-devel" . "https://elpa.gnu.org/devel/"))
 (package-initialize)
+
+(unless (package-installed-p 'quelpa)
+  (with-temp-buffer
+    (url-insert-file-contents "https://raw.githubusercontent.com/quelpa/quelpa/master/quelpa.el")
+    (eval-buffer)
+    (quelpa-self-upgrade)))
+
+(quelpa
+ '(quelpa-use-package
+   :fetcher github
+   :repo "quelpa/quelpa-use-package"))
+(require 'quelpa-use-package)
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -59,6 +72,21 @@
   :config
   (setq ido-enable-flex-matching t)
   (ido-mode 1))
+
+(use-package diff-mode
+  :ensure t
+  :bind (:map diff-mode-map
+	      ("M-i" . nil)
+	      ("M-j" . nil)
+	      ("M-l" . nil)
+	      ("M-k" . nil)
+	      ("M-o" . nil)
+	      ("M-u" . nil)
+	      ("M-SPC" . nil)
+	      ("M-I" . nil)
+	      ("M-K" . nil)
+	      ("M-h" . nil)
+	      ("M-H" . nil)))
 
 (use-package ag
   :ensure t
@@ -84,6 +112,7 @@
 	      ("M-I" . helm-previous-page)
 	      ("M-K" . helm-next-page)
 	      ("M-h" . helm-beginning-of-buffer)
+	      ("M-1" . helm-toggle-full-frame)
 	      ("M-H" . helm-end-of-buffer))
   :config (progn
 	    (setq helm-buffers-fuzzy-matching t)
@@ -94,6 +123,10 @@
 (use-package helm-files
   :bind (:map helm-find-files-map
 	      ("M-i" . nil)
+	      ("M-l" . nil)
+	      ("M-L" . nil)
+	      ("M-j" . nil)
+	      ("M-J" . nil)
 	      ("M-k" . nil)
 	      ("M-I" . nil)
 	      ("M-K" . nil)
@@ -164,9 +197,10 @@
 		  enh-ruby-deep-indent-paren nil
 		  enh-ruby-bounce-deep-indent t
 		  enh-ruby-hanging-indent-level 2)
-	    (setq enh-ruby-program "/Users/senny/.asdf/installs/ruby/3.1.1/bin/ruby")
+	    (setq enh-ruby-program "/Users/senny/.asdf/installs/ruby/3.2.2/bin/ruby")
 	    (setq ruby-insert-encoding-magic-comment nil))
   :bind (:map enh-ruby-mode-map
+              ("C-SPC" . copilot-complete)
 	      ("C-M-f" . nil)))
 
 (use-package rubocop
@@ -276,6 +310,53 @@
 	      ("M-K" . nil)
 	      ("M-h" . nil)
 	      ("M-H" . nil)))
+
+(use-package copilot
+  :quelpa (copilot :fetcher github
+                   :repo "zerolfx/copilot.el"
+                   :branch "main"
+                   :files ("dist" "*.el"))
+  :bind (:map copilot-completion-map
+	      ("<tab>" . copilot-accept-completion)
+	      ("TAB" . copilot-accept-completion))
+  :config
+
+  (setq copilot-node-executable "/Users/senny/.asdf/installs/nodejs/16/bin/node")
+  (add-to-list 'copilot-major-mode-alist '("enh-ruby" . "ruby")))
+  ;; (add-hook 'js2-mode-hook #'js2-refactor-mode)))
+
+(use-package asdf
+  :quelpa (asdf-enable :fetcher github
+                       :repo "tabfugnic/asdf.el"
+                       :branch "main"
+                       :files ("asdf.el"))
+  :config
+  (asdf-enable))
+
+;; (use-package eglot
+;;   :ensure t
+;;   ;; :hook ((( enh-ruby-mode)
+;;   ;;         . eglot-ensure))
+;;   :config
+;;   (with-eval-after-load 'eglot
+;;     (add-to-list 'eglot-server-programs '((ruby-mode ruby-ts-mode enh-ruby-mode) "ruby-lsp"))))
+
+(use-package lsp-mode
+  :ensure t
+  :config
+  (setq gc-cons-threshold 100000000)
+  (setq read-process-output-max (* 1024 1024))
+  (add-hook 'enh-ruby-mode-hook #'lsp)
+  (with-eval-after-load "lsp-mode"
+    (add-to-list 'lsp-disabled-clients 'rubocop-ls)))
+
+(use-package helm-lsp
+  :ensure t
+  :commands helm-lsp-workspace-symbol
+  :bind (:map lsp-mode-map
+	      ("M-n" . helm-lsp-workspace-symbol)
+	      ("M-p" . helm-lsp-workspace-symbol)))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -284,7 +365,7 @@
  '(custom-safe-themes
    '("bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" default))
  '(package-selected-packages
-   '(asdf typescript-mode svelte-mode swiper-helm color-theme-sanityinc-tomorrow yaml-mode web-mode use-package twilight-bright-theme swift-mode slim-mode rubocop rspec-mode rbenv minitest markdown-mode magit helm-swoop helm-projectile helm-descbinds helm-ag go-mode flycheck enh-ruby-mode drag-stuff diminish ag)))
+   '(vertico helm-lsp lsp-mode asdf typescript-mode svelte-mode swiper-helm color-theme-sanityinc-tomorrow yaml-mode web-mode use-package twilight-bright-theme swift-mode slim-mode rubocop rspec-mode rbenv minitest markdown-mode magit helm-swoop helm-projectile helm-descbinds helm-ag go-mode flycheck enh-ruby-mode drag-stuff diminish ag)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
