@@ -1,6 +1,8 @@
 *.elc
 doc/*
+emacs.d/quelpa/
 emacs.d/backup/
+emacs.d/tutorial/
 emacs.d/org-clock-save.el
 emacs.d/ac-comphist.dat
 emacs.d/backup.*

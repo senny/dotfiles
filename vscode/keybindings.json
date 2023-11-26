@@ -11,11 +11,20 @@
   { "key": "cmd+shift+j", "command": "cursorLineStart" },
   { "key": "cmd+shift+o", "command": "cursorLineStart" },
   { "key": "cmd+shift+u", "command": "cursorLineStart" },
+  { "key": "cmd+shift+i", "command": "cursorTop" },
+  { "key": "cmd+shift+k", "command": "cursorBottom" },
+  { "key": "cmd+shift+o",   "command": "cursorMove", "when": "editorTextFocus", "args": { "to": "nextBlankLine", "by": "wrappedLine" }
+},
+  { "key": "cmd+shift+u", "command": "cursorMove", "when": "editorTextFocus", "args": { "to": "prevBlankLine", "by": "wrappedLine" }
+}
+
+  // Selection
+  { "key": "cmd+space", "command": "extension.setMark" },
 
   // Buffers
   { "key": "ctrl+x b", "command": "workbench.action.showAllEditorsByMostRecentlyUsed" },
   { "key": "ctrl+x p", "command": "workbench.action.openRecent" },
-  
+
   // Commands
   { "key": "cmd+a", "command": "workbench.action.showCommands" },
   { "key": "cmd+t", "command": "workbench.action.quickOpen" },
@@ -25,6 +34,8 @@
   { "key": "cmd+1", "command": "workbench.action.joinAllGroups" },
   { "key": "cmd+2", "command": "workbench.action.splitEditorUp" },
   { "key": "cmd+3", "command": "workbench.action.splitEditorLeft" },
-  
-
+  { "key": "ctrl+a", "command": "workbench.action.focusLeftGroup" },
+  { "key": "ctrl+d", "command": "workbench.action.focusRightGroup" },
+  { "key": "ctrl+w", "command": "workbench.action.focusAboveGroup" },
+  { "key": "ctrl+s", "command": "workbench.action.focusBelowGroup" },
 ]

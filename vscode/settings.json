@@ -1,5 +1,8 @@
 {
     "editor.tabSize": 2,
     "search.searchOnTypeDebouncePeriod": 50,
-    "editor.renderWhitespace": "none"
+    "editor.renderWhitespace": "none",
+    "editor.fontSize": 14,
+    "workbench.colorTheme": "Visual Studio Light",
+    "workbench.activityBar.location": "hidden"
 }
