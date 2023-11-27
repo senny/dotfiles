@@ -341,21 +341,21 @@
 ;;   (with-eval-after-load 'eglot
 ;;     (add-to-list 'eglot-server-programs '((ruby-mode ruby-ts-mode enh-ruby-mode) "ruby-lsp"))))
 
-(use-package lsp-mode
-  :ensure t
-  :config
-  (setq gc-cons-threshold 100000000)
-  (setq read-process-output-max (* 1024 1024))
-  (add-hook 'enh-ruby-mode-hook #'lsp)
-  (with-eval-after-load "lsp-mode"
-    (add-to-list 'lsp-disabled-clients 'rubocop-ls)))
+;; (use-package lsp-mode
+;;   :ensure t
+;;   :config
+;;   (setq gc-cons-threshold 100000000)
+;;   (setq read-process-output-max (* 1024 1024))
+;;   (add-hook 'enh-ruby-mode-hook #'lsp)
+;;   (with-eval-after-load "lsp-mode"
+;;     (add-to-list 'lsp-disabled-clients 'rubocop-ls)))
 
-(use-package helm-lsp
-  :ensure t
-  :commands helm-lsp-workspace-symbol
-  :bind (:map lsp-mode-map
-	      ("M-n" . helm-lsp-workspace-symbol)
-	      ("M-p" . helm-lsp-workspace-symbol)))
+;; (use-package helm-lsp
+;;   :ensure t
+;;   :commands helm-lsp-workspace-symbol
+;;   :bind (:map lsp-mode-map
+;; 	      ("M-n" . helm-lsp-workspace-symbol)
+;; 	      ("M-p" . helm-lsp-workspace-symbol)))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
