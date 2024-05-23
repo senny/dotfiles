@@ -1,0 +1,20 @@
+[window]
+  startup_mode = "SimpleFullscreen"
+
+[keyboard]
+bindings = [
+  { key = "i", mods = "Command|Shift",     chars = "\uE000" },
+  { key = "j", mods = "Command|Shift",     chars = "\uE001" },
+  { key = "k", mods = "Command|Shift",     chars = "\uE002" },
+  { key = "l", mods = "Command|Shift",     chars = "\uE003" },
+  { key = "Enter", mods = "Command|Shift",     chars = "\uE004" },
+  { key = "2", mods = "Command",     chars = "\uE005" },
+  { key = "k", mods = "Command",     chars = "\uE006" },
+  { key = "1", mods = "Command",     chars = "\uE007" },
+]
+
+[font]
+  size = 12
+
+[colors]
+  selection = { text = "#000000", background = "#656AC3" }

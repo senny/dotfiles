@@ -197,10 +197,9 @@
 		  enh-ruby-deep-indent-paren nil
 		  enh-ruby-bounce-deep-indent t
 		  enh-ruby-hanging-indent-level 2)
-	    (setq enh-ruby-program "/Users/senny/.asdf/installs/ruby/3.2.2/bin/ruby")
+	    (setq enh-ruby-program "/Users/senny/.asdf/installs/ruby/3.3.1/bin/ruby")
 	    (setq ruby-insert-encoding-magic-comment nil))
   :bind (:map enh-ruby-mode-map
-              ("C-SPC" . copilot-complete)
 	      ("C-M-f" . nil)))
 
 (use-package rubocop
@@ -261,11 +260,13 @@
   :mode (("\\.erb\\'" . web-mode)
 	 ("\\.mustache\\'" . web-mode)
 	 ("\\.html?\\'" . web-mode)
+	 ("\\.mjml?\\'" . web-mode)
          ("\\.php\\'" . web-mode))
-  :config (progn
-            (setq web-mode-markup-indent-offset 2
-		  web-mode-css-indent-offset 2
-		  web-mode-code-indent-offset 2)))
+  :custom
+  (web-mode-markup-indent-offset 2)
+  (web-mode-css-indent-offset 2)
+  (web-mode-code-indent-offset 2)
+  (indent-tabs-mode nil))
 
 (use-package js2-mode
   :ensure t
@@ -278,6 +279,7 @@
   (setq js2-bounce-indent-p t)
   (setq js2-consistent-level-indent-inner-bracket-p t)
   (setq js2-pretty-multiline-decl-indentation-p t)
+  (setq js2-strict-missing-semi-warning nil)
   (add-hook 'js2-mode-hook #'js2-refactor-mode))
 
 (use-package go-mode

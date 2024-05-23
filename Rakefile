@@ -1,5 +1,6 @@
 require 'rake'
 require 'erb'
+require 'fileutils'
 
 task :default => :install
 
@@ -7,7 +8,7 @@ desc "install the dot files into user's home directory"
 task :install do
   replace_all = false
   Dir['*'].each do |file|
-    next if %w[Rakefile README.rdoc LICENSE misc ohmyzsh vscode].include? file
+    next if %w[Rakefile README.rdoc LICENSE misc ohmyzsh vscode config].include? file
 
     if File.exist?(File.join(ENV['HOME'], ".#{file.sub('.erb', '')}"))
       if File.identical? file, File.join(ENV['HOME'], ".#{file.sub('.erb', '')}")
@@ -33,23 +34,30 @@ task :install do
     end
   end
 
-  system %Q{ln -s "$PWD/vscode/settings.json" "/Users/senny/Library/Application Support/Code/User/settings.json"}
-  system %Q{ln -s "$PWD/vscode/keybindings.json" "/Users/senny/Library/Application Support/Code/User/keybindings.json"}
+  FileUtils.mkdir_p File.expand_path("~/.config")
+  link_file "config/zellij", "~/.config/zellij"
+  link_file "vscode/settings.json", "~/Library/Application Support/Code/User/settings.json"
+  link_file "vscode/keybindings.json", "~/Library/Application Support/Code/User/keybindings.json"
 end
 
 def replace_file(file)
-  system %Q{rm -rf "$HOME/.#{file.sub('.erb', '')}"}
+  system %Q{rm -rf "~/.#{file.sub('.erb', '')}"}
   link_file(file)
 end
 
-def link_file(file)
-  if file =~ /.erb$/
-    puts "generating ~/.#{file.sub('.erb', '')}"
-    File.open(File.join(ENV['HOME'], ".#{file.sub('.erb', '')}"), 'w') do |new_file|
-      new_file.write ERB.new(File.read(file)).result(binding)
-    end
+def link_file(file, target = nil)
+  target ||= "~/.#{file}"
+  if File.exist?(File.expand_path(target))
+    puts "existing #{target}"
   else
-    puts "linking ~/.#{file}"
-    system %Q{ln -s "$PWD/#{file}" "$HOME/.#{file}"}
+    if file =~ /.erb$/
+      puts "generating ~/.#{file.sub('.erb', '')}"
+      File.open(File.join(ENV['HOME'], ".#{file.sub('.erb', '')}"), 'w') do |new_file|
+        new_file.write ERB.new(File.read(file)).result(binding)
+      end
+    else
+      puts "linking ~/.#{file}"
+      system %Q{ln -s "$PWD/#{file}" "#{File.expand_path(target)}"}
+    end
   end
 end

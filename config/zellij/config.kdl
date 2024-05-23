@@ -1,0 +1,15 @@
+keybinds {
+    shared_except "resize" "locked" {
+      bind "" { MoveFocus "Up"; } // Cmd-Shift-i
+      bind "" { MoveFocus "Left"; } // Cmd-Shift-j
+      bind "" { MoveFocus "Down"; } // Cmd-Shift-k
+      bind "" { MoveFocus "Right"; }  // Cmd-Shift-l
+      bind "" { ToggleFocusFullscreen; }  // Cmd-Shift-Enter
+      bind "" { ToggleFloatingPanes; }  // Cmd-2
+      bind "" { Clear; }  // Cmd-Shift-Enter
+      bind "" { ToggleFocusFullscreen; }  // Cmd-1
+    }
+}
+
+theme "catppuccin-frappe"
+default_layout "development"
