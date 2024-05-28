@@ -11,5 +11,7 @@ keybinds {
     }
 }
 
+default_shell "fish"
 theme "catppuccin-frappe"
 default_layout "development"
+scrollback_editor "/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
