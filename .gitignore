@@ -6,3 +6,8 @@ emacs.d/tutorial/
 emacs.d/org-clock-save.el
 emacs.d/ac-comphist.dat
 emacs.d/backup.*
+
+config/fish/conf.d/*
+config/fish/completions/*
+config/fish/fish_variables
+config/fish/functions/fisher.fish
