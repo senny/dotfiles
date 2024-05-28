@@ -104,3 +104,5 @@ unset LESS
 export GOPATH=/Users/senny/Projects/go
 
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+eval "$(starship init zsh)"
