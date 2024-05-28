@@ -35,7 +35,10 @@ task :install do
   end
 
   FileUtils.mkdir_p File.expand_path("~/.config")
-  link_file "config/zellij", "~/.config/zellij"
+  Dir[File.join('config/*')].each do |path|
+    dir = File.basename(path)
+    link_file "config/#{dir}", "~/.config/#{dir}"
+  end
   link_file "vscode/settings.json", "~/Library/Application Support/Code/User/settings.json"
   link_file "vscode/keybindings.json", "~/Library/Application Support/Code/User/keybindings.json"
 end

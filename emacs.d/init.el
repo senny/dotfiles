@@ -8,8 +8,9 @@
 (require 'defuns-cfg)
 (require 'keybindings-cfg)
 
-(if (member "Monaco" (font-family-list))
-    (set-face-attribute 'default nil :font "Monaco 16"))
+(let ((font "DejaVuSansM Nerd Font"))
+  (if (member font (font-family-list))
+      (set-face-attribute 'default nil :font (concat font " 16"))))
 (if window-system
     (progn
       (setq frame-title-format '(buffer-file-name "%f" ("%b")))
@@ -53,12 +54,11 @@
   (with-temp-buffer
     (url-insert-file-contents "https://raw.githubusercontent.com/quelpa/quelpa/master/quelpa.el")
     (eval-buffer)
-    (quelpa-self-upgrade)))
-
-(quelpa
- '(quelpa-use-package
-   :fetcher github
-   :repo "quelpa/quelpa-use-package"))
+    (quelpa-self-upgrade))
+  (quelpa
+   '(quelpa-use-package
+     :fetcher github
+     :repo "quelpa/quelpa-use-package")))
 (require 'quelpa-use-package)
 
 (unless (package-installed-p 'use-package)
@@ -92,9 +92,15 @@
   :ensure t
   :commands (ag ag-regexp ag-project))
 
-(use-package twilight-bright-theme
-  :ensure t
-  :config (load-theme 'twilight-bright t))
+(if (display-graphic-p)
+    (progn
+      (use-package twilight-bright-theme
+        :ensure t
+        :config (load-theme 'twilight-bright t)))
+  (use-package gruvbox-theme
+    :ensure t
+    :config (load-theme 'ayu-dark t)))
+
 
 (use-package helm
   :ensure t
@@ -367,7 +373,7 @@
  '(custom-safe-themes
    '("bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" default))
  '(package-selected-packages
-   '(vertico helm-lsp lsp-mode asdf typescript-mode svelte-mode swiper-helm color-theme-sanityinc-tomorrow yaml-mode web-mode use-package twilight-bright-theme swift-mode slim-mode rubocop rspec-mode rbenv minitest markdown-mode magit helm-swoop helm-projectile helm-descbinds helm-ag go-mode flycheck enh-ruby-mode drag-stuff diminish ag)))
+   '(ayu-theme gruvbox-theme lua-mode vertico helm-lsp lsp-mode asdf typescript-mode svelte-mode swiper-helm color-theme-sanityinc-tomorrow yaml-mode web-mode use-package twilight-bright-theme swift-mode slim-mode rubocop rspec-mode rbenv minitest markdown-mode magit helm-swoop helm-projectile helm-descbinds helm-ag go-mode flycheck enh-ruby-mode drag-stuff diminish ag)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
