@@ -10,3 +10,10 @@ starship init fish | source
 enable_transience
 
 source ~/.asdf/asdf.fish
+
+bind  'up-line'       # Cmd + i
+bind  'down-line'     # Cmd + k
+bind  'forward-char' # Cmd + l
+bind  'backward-char' # Cmd + j
+bind  'backward-word' # Cmd + u
+bind  'forward-word' # Cmd + o
