@@ -1,36 +1,45 @@
 [user]
-  name = <%= print("Your Name: "); STDOUT.flush; STDIN.gets.chomp %>
-  email = <%= print("Your Email: "); STDOUT.flush; STDIN.gets.chomp %>
+  name = {{ vars.git_name | json_encode }}
+  email = {{ vars.git_email | json_encode }}
+
 [alias]
   co = checkout
   build = push -f origin HEAD:build/yse0217
   merge-diff = !sh -c 'git diff "$1^1"..."$1^2" "$@"' -
+
 [color]
   diff = auto
   status = auto
   branch = auto
+
 [core]
-  excludesfile = <%= ENV['HOME'] %>/.gitignore
+  excludesfile = ~/.gitignore
   autocrlf = input
+
 [apply]
   whitespace = nowarn
+
 [format]
   pretty = %C(yellow)%h%Creset%C(green)%d%Creset %s %C(red)[%an]%Creset %C(cyan)[%cr]%Creset
+
 [rerere]
-  enabled = 1
+  enabled = true
+
 [push]
-	default = tracking
+  default = tracking
+
 [branch]
-	autosetuprebase = always
-[github]
-  user = <%= print("GitHub Username: "); STDOUT.flush; STDIN.gets.chomp %>
-  token = <%= print("GitHub API Token: "); STDOUT.flush; STDIN.gets.chomp %>
+  autosetuprebase = always
+
 [mergetool "ediff"]
   cmd = emacsclient --eval \"(git-mergetool-emacsclient-ediff \\\"$LOCAL\\\" \\\"$REMOTE\\\" \\\"$BASE\\\" \\\"$MERGED\\\")\"
   trustExitCode = true
+
 [mergetool]
   prompt = false
+
 [merge]
   tool = ediff
+
 [init]
-  templatedir= <%= ENV['HOME'] %>/.git-hooks
+  templatedir = ~/.git-hooks

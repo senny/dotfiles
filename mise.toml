@@ -15,6 +15,29 @@ python = "3.13.2"
 "brew:zellij" = "latest"
 "brew-cask:alacritty" = "latest"
 
-[tasks.bootstrap]
-description = "Link dotfiles into the home directory"
-run = "rake install"
+[settings]
+dotfiles.default_mode = "symlink"
+
+[vars]
+git_name = { required = "Set git_name in mise.local.toml" }
+git_email = { required = "Set git_email in mise.local.toml" }
+
+[dotfiles]
+"~/.agignore" = "agignore"
+"~/.alacritty.toml" = "alacritty.toml"
+"~/.bash_profile" = "bash_profile"
+"~/.emacs.d" = "emacs.d"
+"~/.gemrc" = "gemrc"
+"~/.git-hooks" = "git-hooks"
+"~/.gitignore" = "gitignore"
+"~/.irbrc" = "irbrc"
+"~/.rspec" = "rspec"
+"~/.rubocop.yml" = "rubocop.yml"
+"~/.tool-versions" = "tool-versions"
+"~/.zshrc" = "zshrc"
+"~/.config/fish" = "config/fish"
+"~/.config/starship.toml" = "config/starship.toml"
+"~/.config/zellij" = "config/zellij"
+"~/Library/Application Support/Code/User/settings.json" = "vscode/settings.json"
+"~/Library/Application Support/Code/User/keybindings.json" = "vscode/keybindings.json"
+"~/.gitconfig" = { source = "gitconfig.tmpl", mode = "template" }

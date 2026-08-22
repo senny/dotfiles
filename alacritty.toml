@@ -1,4 +1,4 @@
-[shell]
+[terminal.shell]
 program = "/opt/homebrew/bin/fish"
 
 [window]
@@ -79,3 +79,5 @@ blue    = '#556b79'
 magenta = '#6e4962'
 cyan    = '#5c8482'
 white   = '#828282'
+
+[terminal]
