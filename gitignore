@@ -4,3 +4,4 @@
 gitconfig
 *_flymake.*
 *.#*
+.codex/

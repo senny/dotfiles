@@ -1,0 +1,20 @@
+min_version = "2026.8.0"
+
+[plugins]
+postgres = "git@github.com:senny/asdf-postgres-app.git"
+
+[tools]
+ruby = "4.0.6"
+python = "3.13.2"
+
+[bootstrap.packages]
+"brew:fish" = "latest"
+"brew:git" = "latest"
+"brew:ripgrep" = "latest"
+"brew:starship" = "latest"
+"brew:zellij" = "latest"
+"brew-cask:alacritty" = "latest"
+
+[tasks.bootstrap]
+description = "Link dotfiles into the home directory"
+run = "rake install"

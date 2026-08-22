@@ -201,9 +201,8 @@
 	    (setq enh-ruby-indent-level 2
 		  enh-ruby-add-encoding-comment-on-save nil
 		  enh-ruby-deep-indent-paren nil
-		  enh-ruby-bounce-deep-indent t
+		  enh-ruby-bounce-deep-indent nil
 		  enh-ruby-hanging-indent-level 2)
-	    (setq enh-ruby-program "/Users/senny/.asdf/installs/ruby/3.3.1/bin/ruby")
 	    (setq ruby-insert-encoding-magic-comment nil))
   :bind (:map enh-ruby-mode-map
 	      ("C-M-f" . nil)))
@@ -221,13 +220,11 @@
   :ensure t
   :defer t)
 
-(use-package rbenv
+(use-package mise
   :ensure t
   :defer t
-  :init (setq rbenv-show-active-ruby-in-modeline nil)
-  :config (progn
-            (global-rbenv-mode)
-            (add-hook 'enh-ruby-mode-hook 'rbenv-use-corresponding)))
+  :hook
+  (after-init . global-mise-mode))
 
 (use-package flycheck
   :ensure t
@@ -271,6 +268,7 @@
   :custom
   (web-mode-markup-indent-offset 2)
   (web-mode-css-indent-offset 2)
+  (css-indent-offset 2)
   (web-mode-code-indent-offset 2)
   (indent-tabs-mode nil))
 
@@ -319,27 +317,18 @@
 	      ("M-h" . nil)
 	      ("M-H" . nil)))
 
-(use-package copilot
-  :quelpa (copilot :fetcher github
-                   :repo "zerolfx/copilot.el"
-                   :branch "main"
-                   :files ("dist" "*.el"))
-  :bind (:map copilot-completion-map
-	      ("<tab>" . copilot-accept-completion)
-	      ("TAB" . copilot-accept-completion))
-  :config
+;; (use-package copilot
+;;   :quelpa (copilot :fetcher github
+;;                    :repo "zerolfx/copilot.el"
+;;                    :branch "main"
+;;                    :files ("dist" "*.el"))
+;;   :bind (:map copilot-completion-map
+;; 	      ("<tab>" . copilot-accept-completion)
+;; 	      ("TAB" . copilot-accept-completion))
+;;   :config
 
-  (setq copilot-node-executable "/Users/senny/.asdf/installs/nodejs/16/bin/node")
-  (add-to-list 'copilot-major-mode-alist '("enh-ruby" . "ruby")))
+;;   (add-to-list 'copilot-major-mode-alist '("enh-ruby" . "ruby")))
   ;; (add-hook 'js2-mode-hook #'js2-refactor-mode)))
-
-(use-package asdf
-  :quelpa (asdf-enable :fetcher github
-                       :repo "tabfugnic/asdf.el"
-                       :branch "main"
-                       :files ("asdf.el"))
-  :config
-  (asdf-enable))
 
 ;; (use-package eglot
 ;;   :ensure t
@@ -371,12 +360,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" default))
- '(package-selected-packages
-   '(ayu-theme gruvbox-theme lua-mode vertico helm-lsp lsp-mode asdf typescript-mode svelte-mode swiper-helm color-theme-sanityinc-tomorrow yaml-mode web-mode use-package twilight-bright-theme swift-mode slim-mode rubocop rspec-mode rbenv minitest markdown-mode magit helm-swoop helm-projectile helm-descbinds helm-ag go-mode flycheck enh-ruby-mode drag-stuff diminish ag)))
+   '("bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58"
+     default))
+ '(package-selected-packages nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'upcase-region 'disabled nil)

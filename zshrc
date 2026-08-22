@@ -70,7 +70,7 @@ ZSH_CUSTOM=~/Projects/dotfiles/ohmyzsh
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(asdf git ruby rails brew gem macos emacs organization)
+plugins=(git ruby rails brew gem macos emacs organization)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -104,5 +104,8 @@ unset LESS
 export GOPATH=/Users/senny/Projects/go
 
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+export PATH="$HOME/.local/bin:$PATH"
+eval "$(mise activate zsh)"
 
 eval "$(starship init zsh)"

@@ -57,6 +57,11 @@ on the current buffer."
   (untabify (point-min) (point-max))
   (delete-trailing-whitespace))
 
+(defun senny-toggle-final-newline ()
+  "Toggle if a newline is required at the end of a file."
+  (interactive)
+  (setq require-final-newline (not require-final-newline)))
+
 (defun shift-text (distance)
   (if (use-region-p)
       (let ((mark (mark)))
