@@ -1,0 +1,41 @@
+# macOS-specific mise configuration
+
+[plugins]
+postgres = "git@github.com:senny/asdf-postgres-app.git"
+
+[bootstrap.packages]
+"brew:fish" = "latest"
+"brew:git" = "latest"
+"brew:ripgrep" = "latest"
+"brew:starship" = "latest"
+"brew:zellij" = "latest"
+"brew-cask:alacritty" = { version = "latest", os = "macos", adopt = true }
+"brew-cask:postgres-app" = { version = "latest", os = "macos", adopt = true }
+
+[bootstrap.macos.dock]
+autohide = true
+orientation = "bottom"
+tilesize = 52
+show_recents = false
+
+[bootstrap.macos.finder]
+show_all_files = true
+show_pathbar = true
+preferred_view_style = "list"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
