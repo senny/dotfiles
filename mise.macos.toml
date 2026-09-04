@@ -9,6 +9,7 @@ postgres = "git@github.com:senny/asdf-postgres-app.git"
 [bootstrap.packages]
 "brew:fish" = "latest"
 "brew:git" = "latest"
+"brew:lazygit" = "latest"
 "brew:ripgrep" = "latest"
 "brew:starship" = "latest"
 "brew:zellij" = "latest"
@@ -25,20 +26,3 @@ show_recents = false
 show_all_files = true
 show_pathbar = true
 preferred_view_style = "list"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
