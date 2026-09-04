@@ -1,1 +1,4 @@
 # Linux-specific mise configuration
+[dotfiles]
+  "~/.config/omarchy" = { source = "config/omarchy" }
+  "~/.config/hypr" = { source = "config/hypr" }
