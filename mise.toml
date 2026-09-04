@@ -14,7 +14,6 @@ git_email = { required = "Set git_email in mise.local.toml" }
 "~/.agignore" = "agignore"
 "~/.alacritty.toml" = "alacritty.toml"
 "~/.bash_profile" = "bash_profile"
-"~/.emacs.d" = "emacs.d"
 "~/.gemrc" = "gemrc"
 "~/.git-hooks" = "git-hooks"
 "~/.gitignore" = "gitignore"

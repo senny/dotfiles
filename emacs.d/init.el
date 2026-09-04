@@ -1,4 +1,10 @@
-;;; -*- lexical-binding: t; -*-
+;;; init.el --- User Emacs configuration -*- lexical-binding: t -*-
+
+;; Load Omarchy integration (theme syncing, font syncing, file watchers).
+;; Remove this line to opt out of Omarchy Emacs integration.
+(load (expand-file-name "omarchy" user-emacs-directory) 'noerror)
+
+;; Your customizations below
 
 (defvar senny-temporary-file-directory (expand-file-name "~/.emacs.d/tmp"))
 (setq backup-directory-alist
@@ -13,6 +19,7 @@
 (let ((font "DejaVuSansM Nerd Font"))
   (if (member font (font-family-list))
       (set-face-attribute 'default nil :font (concat font " 16"))))
+
 (if window-system
     (progn
       (setq frame-title-format '(buffer-file-name "%f" ("%b")))
@@ -96,15 +103,15 @@
   :ensure t
   :commands (ag ag-regexp ag-project))
 
-(if (display-graphic-p)
-    (progn
-      (use-package twilight-bright-theme
-        :ensure t
-        :config (load-theme 'twilight-bright t)))
-  (use-package gruvbox-theme
-    :ensure t
-    :config (load-theme 'ayu-dark t)))
-
+(when (eq system-type 'darwin)
+  (if (display-graphic-p)
+      (progn
+        (use-package twilight-bright-theme
+          :ensure t
+          :config (load-theme 'twilight-bright t)))
+    (use-package gruvbox-theme
+      :ensure t
+      :config (load-theme 'ayu-dark t))))
 
 (use-package helm
   :ensure t

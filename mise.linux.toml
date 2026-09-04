@@ -2,3 +2,4 @@
 [dotfiles]
   "~/.config/omarchy" = { source = "config/omarchy" }
   "~/.config/hypr" = { source = "config/hypr" }
+  "~/.config/emacs" = "emacs.d"

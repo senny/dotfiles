@@ -3,6 +3,9 @@
 [plugins]
 postgres = "git@github.com:senny/asdf-postgres-app.git"
 
+[dotfiles]
+"~/.emacs.d" = "emacs.d"
+
 [bootstrap.packages]
 "brew:fish" = "latest"
 "brew:git" = "latest"
