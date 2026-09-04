@@ -50,8 +50,8 @@
 (unless (server-running-p)
   (server-start))
 
-(setenv "PATH" (concat (getenv "PATH") ":/opt/homebrew/bin"))
-(setq exec-path (cons "/opt/homebrew/bin" exec-path))
+(setenv "PATH" (concat (getenv "PATH") ":/opt/homebrew/bin:/Users/senny/.local/bin"))
+(setq exec-path (cons "/Users/senny/.local/bin" (cons "/opt/homebrew/bin" exec-path)))
 
 ;; Bootstrap `use-package'
 (require 'package)
@@ -169,10 +169,9 @@
 ;;   (bind-keys :map helm-swoop-map
 ;;              ("M-i" . nil)
 ;;              ("M-o" . helm-multi-swoop-all-from-helm-swoop)))
-(use-package helm-grep
-  :ensure nil
-  :bind ("M-P" . helm-do-grep-ag)
-  :commands (helm-do-grep-ag))
+(use-package helm-rg
+  :ensure t)
+
 (use-package helm-dash
   :ensure t)
 
@@ -187,7 +186,7 @@
 
 (use-package helm-projectile
   :ensure t
-  :bind (("M-p" . helm-projectile-ag)
+  :bind (("M-p" . helm-projectile-rg)
 	 ("M-t" . helm-projectile-find-file)
 	 :map helm-projectile-find-file-map
 	 ("M-l" . nil))
@@ -359,7 +358,13 @@
  '(custom-safe-themes
    '("bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58"
      default))
- '(package-selected-packages nil))
+ '(package-selected-packages
+   '(ag ayu-theme drag-stuff enh-ruby-mode flycheck go-mode gruvbox-theme
+        helm-ag helm-dash helm-descbinds helm-lsp helm-projectile
+        helm-rg js2-mode lua-mode magit minitest mise
+        quelpa-use-package rbenv rspec-mode rubocop slim-mode
+        svelte-mode swift-mode swiper twilight-bright-theme
+        typescript-mode vertico web-mode yaml-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
