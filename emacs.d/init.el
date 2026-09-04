@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t; -*-
+
 (defvar senny-temporary-file-directory (expand-file-name "~/.emacs.d/tmp"))
 (setq backup-directory-alist
       `((".*" . ,temporary-file-directory)))
@@ -16,8 +18,8 @@
       (setq frame-title-format '(buffer-file-name "%f" ("%b")))
       (tooltip-mode -1)
       (mouse-wheel-mode t)
-      (scroll-bar-mode -1))
-  (menu-bar-mode -1))
+      (scroll-bar-mode -1)
+      (menu-bar-mode -1)))
 
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
@@ -37,7 +39,9 @@
 (remove-trailing-whitespace-mode)
 (setq-default require-final-newline 'visit-save)
 
-(server-start)
+(require 'server)
+(unless (server-running-p)
+  (server-start))
 
 (setenv "PATH" (concat (getenv "PATH") ":/opt/homebrew/bin"))
 (setq exec-path (cons "/opt/homebrew/bin" exec-path))
@@ -158,12 +162,10 @@
 ;;   (bind-keys :map helm-swoop-map
 ;;              ("M-i" . nil)
 ;;              ("M-o" . helm-multi-swoop-all-from-helm-swoop)))
-(use-package helm-ag
-  :ensure helm-ag
-  :bind ("M-P" . helm-ag)
-  :commands (helm-ag helm-projectile-ag)
-  :init (setq helm-ag-insert-at-point 'symbol
-	      helm-ag-command-option "--path-to-ignore ~/.agignore"))
+(use-package helm-grep
+  :ensure nil
+  :bind ("M-P" . helm-do-grep-ag)
+  :commands (helm-do-grep-ag))
 (use-package helm-dash
   :ensure t)
 
@@ -172,7 +174,8 @@
   :bind (("C-p s" . projectile-switch-open-project)
 	 ("C-x p" . projectile-switch-project))
   :config
-  (projectile-global-mode)
+  (projectile-mode 1)
+  (setq projectile-project-search-path '("~/Work/"))
   (setq projectile-enable-caching t))
 
 (use-package helm-projectile
@@ -316,19 +319,6 @@
 	      ("M-K" . nil)
 	      ("M-h" . nil)
 	      ("M-H" . nil)))
-
-;; (use-package copilot
-;;   :quelpa (copilot :fetcher github
-;;                    :repo "zerolfx/copilot.el"
-;;                    :branch "main"
-;;                    :files ("dist" "*.el"))
-;;   :bind (:map copilot-completion-map
-;; 	      ("<tab>" . copilot-accept-completion)
-;; 	      ("TAB" . copilot-accept-completion))
-;;   :config
-
-;;   (add-to-list 'copilot-major-mode-alist '("enh-ruby" . "ruby")))
-  ;; (add-hook 'js2-mode-hook #'js2-refactor-mode)))
 
 ;; (use-package eglot
 ;;   :ensure t

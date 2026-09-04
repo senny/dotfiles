@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (define-minor-mode remove-trailing-whitespace-mode
   "Toggle remove trailing whitespace on save.
 When enabled trailing whitespace is removed before saving."

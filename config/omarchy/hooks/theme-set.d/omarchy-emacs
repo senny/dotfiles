@@ -1,0 +1,6 @@
+#!/bin/bash
+# omarchy-emacs:managed — overwritten by omarchy-emacs-setup on updates.
+# Remove this marker to keep your customizations.
+
+# Sync Emacs theme to match Omarchy
+omarchy-restart-emacs

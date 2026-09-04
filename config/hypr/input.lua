@@ -5,6 +5,10 @@
 -- See https://wiki.hypr.land/Configuring/Basics/Variables/#input
 hl.config({
   input = {
+       -- Swap the physical Left Alt and Left Super keys. The physical Left Super
+       -- key acts as macOS Option; Option+U, then a letter, adds a diaeresis.
+       -- Keep Right Alt available as the regular Alt modifier for shortcuts.
+       kb_variant = "mac",
        kb_options = "ctrl:nocaps",
 --     -- Use multiple keyboard layouts and switch between them with Left Alt + Right Alt.
 --     kb_layout = "us,dk,eu",

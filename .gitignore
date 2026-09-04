@@ -6,6 +6,9 @@ emacs.d/tutorial/
 emacs.d/org-clock-save.el
 emacs.d/ac-comphist.dat
 emacs.d/backup.*
+emacs.d/eln-cache/ 
+emacs.d/tramp
+emacs.d/*.eld
 
 config/fish/conf.d/*
 config/fish/completions/*

@@ -1,12 +1,19 @@
-;; UI-Mode
-(when (display-graphic-p)
-  (setq mac-pass-command-to-system nil
-        ns-alternate-modifier (quote none)
-        ns-command-modifier (quote meta)))
+;;; -*- lexical-binding: t; -*-
 
-;; Terminal-Mode
-(when (not (display-graphic-p))
-  (setq mac-right-option-modifier 'meta))
+;; Platform-specific modifier keys.
+(when (eq system-type 'darwin)
+  (if (display-graphic-p)
+      (setq mac-pass-command-to-system nil
+            ns-alternate-modifier 'none
+            ns-command-modifier 'meta)
+    (setq mac-right-option-modifier 'meta)))
+
+;; Omarchy uses Super for desktop shortcuts. Hyprland suppresses those shortcuts
+;; while Emacs is focused, and Emacs interprets the same modifier as Meta.
+;; Keep this outside `display-graphic-p' so it also applies to daemon frames.
+(when (and (eq system-type 'gnu/linux)
+           (string-match-p "Hyprland" (or (getenv "XDG_CURRENT_DESKTOP") "")))
+  (setq x-super-keysym 'meta))
 
 (global-unset-key (kbd "C-b")) ; backward-char
 (global-unset-key (kbd "C-f")) ; forward-char
