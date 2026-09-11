@@ -3,3 +3,13 @@
   "~/.config/omarchy" = { source = "config/omarchy" }
   "~/.config/hypr" = { source = "config/hypr" }
   "~/.config/emacs" = "emacs.d"
+  "~/.local/bin/grid-audio" = "bin/grid-audio"
+
+[bootstrap.linux.systemd.units.grid-audio]
+description = "Intech Grid -> audio volume/mute (PipeWire)"
+exec_start = "~/.local/bin/grid-audio"
+after = ["pipewire.service"]
+wants = ["pipewire.service"]
+restart = "on-failure"
+restart_sec = "3s"
+environment = { PATH = "/usr/local/bin:/usr/bin:/bin" }

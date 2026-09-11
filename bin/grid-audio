@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Listen to Intech Studio Grid MIDI and drive PipeWire audio.
+#   CC 36 (channel 0)   -> set default sink volume
+#   Note 40 (channel 0) -> toggle mute
+#
+# The Grid is addressed by ALSA client name, not number: client ids are not
+# stable across reboots or replugs. aseqdump keeps running (while receiving
+# nothing) after the Grid is unplugged, so it is restarted periodically to
+# re-resolve the port and pick the device back up.
+set -u
+
+SINK=${SINK:-@DEFAULT_AUDIO_SINK@}
+VOL_CC=${VOL_CC:-36}
+MUTE_NOTE=${MUTE_NOTE:-40}
+GRID=${GRID:-Grid}
+GRID_TIMEOUT=${GRID_TIMEOUT:-5} # seconds between (re)connects to the Grid
+
+for cmd in aseqdump wpctl; do
+  command -v "$cmd" >/dev/null || { echo "grid-audio: '$cmd' not found" >&2; exit 1; }
+done
+
+while :; do
+  start=$SECONDS
+  timeout "$GRID_TIMEOUT" aseqdump -p "$GRID" 2>/dev/null |
+    while IFS= read -r line; do
+      if [[ $line =~ "controller ${VOL_CC}, value "([0-9]+) ]]; then
+        pct=$(( BASH_REMATCH[1] * 100 / 127 ))
+        wpctl set-volume -l 1.0 "$SINK" "${pct}%"
+      elif [[ $line =~ "Note on".*"note ${MUTE_NOTE}" ]]; then
+        wpctl set-mute "$SINK" toggle
+      fi
+    done
+  # If aseqdump served the full period the Grid is present, so reconnect at
+  # once; otherwise it is absent (or failed) and we back off before retrying.
+  (( SECONDS - start < GRID_TIMEOUT )) && sleep 1
+done
