@@ -1,5 +1,8 @@
 # macOS-specific mise configuration
 
+[tools]
+opencode = "latest"
+
 [plugins]
 postgres = "git@github.com:senny/asdf-postgres-app.git"
 
