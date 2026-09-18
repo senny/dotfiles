@@ -1,0 +1,6 @@
+{
+  "theme": "dark",
+  "defaultProvider": "opencode-go",
+  "defaultModel": "deepseek-v4.1-flash",
+  "lastChangelogVersion": "0.85.1"
+}

@@ -2,12 +2,14 @@
 
 [tools]
 opencode = "latest"
+pi = "latest"
 
 [plugins]
 postgres = "git@github.com:senny/asdf-postgres-app.git"
 
 [dotfiles]
 "~/.emacs.d" = "emacs.d"
+"~/.pi/agent/settings.json" = "config/pi/settings.json"
 
 [bootstrap.packages]
 "brew:fish" = "latest"
