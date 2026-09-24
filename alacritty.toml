@@ -9,14 +9,16 @@ padding = { x = 3, y = 15 }
 [keyboard]
 bindings = [
   { key = "Enter", mods = "Command",     action = "ToggleSimpleFullscreen" },
-  { key = "i", mods = "Command|Shift",     chars = "\uE000" },
-  { key = "j", mods = "Command|Shift",     chars = "\uE001" },
-  { key = "k", mods = "Command|Shift",     chars = "\uE002" },
-  { key = "l", mods = "Command|Shift",     chars = "\uE003" },
-  { key = "Enter", mods = "Command|Shift",     chars = "\uE004" },
-  { key = "2", mods = "Command",     chars = "\uE005" },
+  { key = "i", mods = "Command|Shift",     chars = "\u001b[1;2P" }, # F13
+  { key = "j", mods = "Command|Shift",     chars = "\u001b[1;2Q" }, # F14
+  { key = "k", mods = "Command|Shift",     chars = "\u001b[1;2R" }, # F15
+  { key = "l", mods = "Command|Shift",     chars = "\u001b[1;2S" }, # F16
+  { key = "Enter", mods = "Command|Shift",     chars = "\u001b[15;2~" }, # Shift F5
+  { key = "2", mods = "Command",     chars = "\u001b[17;2~" }, # Shift F6
+  { key = "3", mods = "Command",     chars = "\u001b[18;2~" }, # Shift F7
+  { key = "0", mods = "Command",     chars = "\u001b[19;2~" }, # Shift F8
   { key = "k", mods = "Command",     chars = "\uE006" },
-  { key = "1", mods = "Command",     chars = "\uE007" },
+  { key = "1", mods = "Command",     chars = "\u001b[15;2~" }, # Shift F5
   { key = "i", mods = "Command",     chars = "\uE008" },
   { key = "j", mods = "Command",     chars = "\uE009" },
   { key = "l", mods = "Command",     chars = "\uE010" },

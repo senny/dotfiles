@@ -1,13 +1,13 @@
 keybinds {
     shared_except "resize" "locked" {
-      bind "" { MoveFocus "Up"; } // Cmd-Shift-i
-      bind "" { MoveFocus "Left"; } // Cmd-Shift-j
-      bind "" { MoveFocus "Down"; } // Cmd-Shift-k
-      bind "" { MoveFocus "Right"; }  // Cmd-Shift-l
+      bind "Shift F1" { MoveFocus "Up"; } // Cmd-Shift-i
+      bind "Shift F2" { MoveFocus "Left"; } // Cmd-Shift-j
+      bind "Shift F3" { MoveFocus "Down"; } // Cmd-Shift-k
+      bind "Shift F4" { MoveFocus "Right"; }  // Cmd-Shift-l
       bind "" { ToggleFocusFullscreen; }  // Cmd-Shift-Enter
-      bind "" { ToggleFloatingPanes; }  // Cmd-2
+      bind "Shift F6" { ToggleFloatingPanes; }  // Cmd-2
       bind "" { Clear; }  // Cmd-p
-      bind "" { ToggleFocusFullscreen; }  // Cmd-1
+      bind "Shift F5" { ToggleFocusFullscreen; }  // Cmd-1
     }
 }
 

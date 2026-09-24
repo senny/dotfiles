@@ -11,6 +11,7 @@ postgres = "git@github.com:senny/asdf-postgres-app.git"
 
 [dotfiles]
 "~/.emacs.d" = "emacs.d"
+"~/.config/herdr/config.toml" = "config/herdr/config.toml"
 "~/.pi/agent/settings.json" = "config/pi/settings.json"
 
 [bootstrap.packages]
