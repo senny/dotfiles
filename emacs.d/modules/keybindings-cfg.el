@@ -97,7 +97,7 @@
 (global-set-key (kbd "M-x") 'kill-region)
 (global-set-key (kbd "M-c") 'kill-ring-save)
 (global-set-key (kbd "M-v") 'yank)
-(global-set-key (kbd "M-V") 'helm-show-kill-ring)
+(global-set-key (kbd "M-V") 'consult-yank-pop)
 (global-set-key (kbd "C-r d") 'kill-rectangle)
 
 (global-unset-key (kbd "C-x C-f")) ; find-file
@@ -120,8 +120,7 @@
 (global-set-key (kbd "C-'") 'senny-kill-buffer)
 (global-set-key (kbd "C-c i") 'indent-buffer)
 (global-set-key (kbd "C-c n") 'senny-cleanup-buffer)
-(global-set-key (kbd "C-o") 'helm-find-files)
-(global-set-key (kbd "C-x b") 'helm-buffers-list)
+(global-set-key (kbd "C-x b") 'consult-buffer)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (global-set-key (kbd "C-c C-k") 'senny-comment-or-uncomment-region-or-line)
@@ -138,7 +137,7 @@
 (define-key isearch-mode-map (kbd "C-f") 'isearch-repeat-forward)
 
 ;; File finding
-(global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
+(global-set-key (kbd "C-x M-f") 'find-file-other-window)
 (global-set-key (kbd "C-c r") 'revert-buffer)
 
 ;; KBD Macros

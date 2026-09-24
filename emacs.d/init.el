@@ -79,11 +79,6 @@
 (eval-and-compile
   (add-to-list 'load-path (expand-file-name "vendor" user-emacs-directory)))
 
-(use-package ido
-  :config
-  (setq ido-enable-flex-matching t)
-  (ido-mode 1))
-
 (use-package diff-mode
   :ensure t
   :bind (:map diff-mode-map
@@ -113,85 +108,92 @@
       :ensure t
       :config (load-theme 'ayu-dark t))))
 
-(use-package helm
+;;; Minibuffer completion (Vertico stack)
+;;
+;; Vertico remaps `next-line', `previous-line', `beginning-of-buffer',
+;; `end-of-buffer', `scroll-up-command', `scroll-down-command' and the
+;; paragraph motions, so the custom M-i/M-k/M-h/M-H/M-I/M-K/M-U/M-O
+;; navigation keys keep working in the minibuffer unchanged.
+
+(use-package vertico
   :ensure t
-  :bind (("M-a" . helm-M-x)
-         ("C-x C-f" . helm-find-files)
-         ("C-x f" . helm-recentf)
-         ("C-SPC" . helm-dabbrev)
-         ("M-y" . helm-show-kill-ring)
-         ("C-x b" . helm-buffers-list)
-	 ("M-[" . helm-resume)
-	 ("M-]" . helm-refresh))
-  :bind (:map helm-map
-	      ("M-i" . helm-previous-line)
-	      ("M-k" . helm-next-line)
-	      ("M-I" . helm-previous-page)
-	      ("M-K" . helm-next-page)
-	      ("M-h" . helm-beginning-of-buffer)
-	      ("M-1" . helm-toggle-full-frame)
-	      ("M-H" . helm-end-of-buffer))
-  :config (progn
-	    (setq helm-buffers-fuzzy-matching t)
-            (helm-mode 1)))
-(use-package helm-descbinds
-  :ensure t
-  :bind ("C-h b" . helm-descbinds))
-(use-package helm-files
-  :bind (:map helm-find-files-map
-	      ("M-i" . nil)
-	      ("M-l" . nil)
-	      ("M-L" . nil)
-	      ("M-j" . nil)
-	      ("M-J" . nil)
-	      ("M-k" . nil)
-	      ("M-I" . nil)
-	      ("M-K" . nil)
-	      ("M-h" . nil)
-	      ("M-H" . nil)))
-(use-package swiper
-  :ensure t
-  :bind (("M-C-f" . swiper-thing-at-point)
-	 ("C-f" . swiper)
-	 ("M-m" . swiper-thing-at-point))
+  :custom
+  (vertico-cycle t)
+  :init
+  (vertico-mode 1)
+  :bind (("M-[" . vertico-repeat)         ; was helm-resume
+         ("M-]" . vertico-repeat-select)) ; was helm-refresh
   :config
-  (bind-keys :map ivy-minibuffer-map
-             ("M-i" . nil)
-             ("M-k" . nil)))
-;; (use-package helm-swoop
-;;   :ensure t
-;;   :bind (("C-f" . helm-swoop)
-;; 	 ("M-m" . helm-swoop)
-;; 	 ("M-M" . helm-multi-swoop))
-;;   :init
-;;   (bind-key "M-m" 'helm-swoop-from-isearch isearch-mode-map)
-;;   :config
-;;   (bind-keys :map helm-swoop-map
-;;              ("M-i" . nil)
-;;              ("M-o" . helm-multi-swoop-all-from-helm-swoop)))
-(use-package helm-rg
-  :ensure t)
+  (require 'vertico-repeat)
+  (add-hook 'minibuffer-setup-hook #'vertico-repeat-save))
 
-(use-package helm-dash
-  :ensure t)
+(use-package vertico-directory
+  :ensure nil
+  :after vertico
+  :bind (:map vertico-map
+              ("C-l" . vertico-directory-up))) ; was helm-find-files-up-one-level
 
+(use-package savehist
+  :ensure nil
+  :init
+  (savehist-mode 1)
+  :custom
+  (savehist-additional-variables '(vertico-repeat-history)))
+
+(use-package recentf
+  :ensure nil
+  :init
+  (recentf-mode 1)
+  :custom
+  (recentf-max-saved-items 200))
+
+(use-package marginalia
+  :ensure t
+  :bind (:map minibuffer-local-map
+              ("M-A" . marginalia-cycle))
+  :init
+  (marginalia-mode 1))
+
+(use-package orderless
+  :ensure t
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
+
+(use-package consult
+  :ensure t
+  :bind (("C-x C-f" . find-file)                        ; was helm-find-files
+         ("C-x f" . consult-recent-file)                ; was helm-recentf
+         ("C-SPC" . hippie-expand)                      ; was helm-dabbrev
+         ("M-y" . consult-yank-pop)                     ; was helm-show-kill-ring
+         ("C-f" . consult-line)                         ; was swiper
+         ("M-m" . senny-consult-line-thing-at-point)    ; was swiper-thing-at-point
+         ("M-C-f" . senny-consult-line-thing-at-point)) ; was swiper-thing-at-point
+  :config
+  (setq consult-project-function #'senny-consult-project-root))
+
+(use-package embark
+  :ensure t
+  :bind (("C-." . embark-act)
+         ("C-;" . embark-dwim)
+         ("C-h b" . embark-bindings))                   ; was helm-descbinds
+  :init
+  (setq prefix-help-command #'embark-prefix-help-command))
+
+(use-package embark-consult
+  :ensure t
+  :after (embark consult))
 (use-package projectile
   :ensure t
   :bind (("C-p s" . projectile-switch-open-project)
-	 ("C-x p" . projectile-switch-project))
+	 ("C-x p" . projectile-switch-project)
+	 ("M-p" . consult-ripgrep)              ; was helm-projectile-rg
+         ("M-n" . consult-imenu)
+	 ("M-t" . projectile-find-file))        ; was helm-projectile-find-file
   :config
   (projectile-mode 1)
   (setq projectile-project-search-path '("~/Work/"))
   (setq projectile-enable-caching t))
-
-(use-package helm-projectile
-  :ensure t
-  :bind (("M-p" . helm-projectile-rg)
-	 ("M-t" . helm-projectile-find-file)
-	 :map helm-projectile-find-file-map
-	 ("M-l" . nil))
-  :config
-  (helm-projectile-on))
 
 (use-package enh-ruby-mode
   :ensure t
@@ -358,13 +360,7 @@
  '(custom-safe-themes
    '("bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58"
      default))
- '(package-selected-packages
-   '(ag ayu-theme drag-stuff enh-ruby-mode flycheck go-mode gruvbox-theme
-        helm-ag helm-dash helm-descbinds helm-lsp helm-projectile
-        helm-rg js2-mode lua-mode magit minitest mise
-        quelpa-use-package rbenv rspec-mode rubocop slim-mode
-        svelte-mode swift-mode swiper twilight-bright-theme
-        typescript-mode vertico web-mode yaml-mode)))
+ '(package-selected-packages nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

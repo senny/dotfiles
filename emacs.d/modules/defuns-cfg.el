@@ -76,4 +76,18 @@ on the current buffer."
                     (line-end-position)
 		    distance)))
 
+(defun senny-consult-line-thing-at-point ()
+  "Search for the symbol at point using `consult-line'."
+  (interactive)
+  (consult-line (thing-at-point 'symbol t)))
+
+(defun senny-consult-project-root (may-prompt)
+  "Return the current project root for Consult.
+Prefer Projectile when it is available, otherwise fall back to
+the built-in project.el."
+  (or (when (fboundp 'projectile-project-root)
+        (ignore-errors (projectile-project-root)))
+      (when-let* ((project (project-current may-prompt)))
+        (project-root project))))
+
 (provide 'defuns-cfg)
