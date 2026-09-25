@@ -1,0 +1,21 @@
+schemaVersion: "1"
+agent: pi
+workspace: ${{ env.projectDir }}
+
+# pi's state (settings.json, models-store.json, sessions/) lives in
+# the pi-config checkout, so mount it and point pi at it. Direct mounts keep
+# the host path, which is why the absolute `fileDir`-based value below works.
+additionalWorkspaces:
+  - path: Work/pi-config
+
+lifecycle:
+  postCreate:
+    - command: herdr machine add "$SBX_SANDBOX_NAME.sbx" --label "$SBX_SANDBOX_NAME"
+      timeout: 2m
+  preRemove:
+    - command: herdr machine list --json | jq -r '.[] | select(.label=="'"$SBX_SANDBOX_NAME"'") | .id' | xargs -r herdr machine remove
+      timeout: 1m
+
+kits:
+  - ../pi-config/sbx/pi
+  - ../pi-config/sbx/basecamp
