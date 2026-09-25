@@ -10,6 +10,13 @@ additionalWorkspaces:
 
 lifecycle:
   postCreate:
+    # `herdr machine add` connects to the sandbox over SSH using the
+    # `<name>.sbx` alias. That alias only resolves after `sbx setup ssh` has
+    # written the generated SSH client config, so it has to run first.
+    # `sbx setup ssh` is idempotent, so re-running it on every create is safe.
+    - name: Set up sandbox SSH access
+      command: sbx setup ssh
+      timeout: 1m
     - command: herdr machine add "$SBX_SANDBOX_NAME.sbx" --label "$SBX_SANDBOX_NAME"
       timeout: 2m
   preRemove:
@@ -17,5 +24,7 @@ lifecycle:
       timeout: 1m
 
 kits:
-  - ../pi-config/sbx/pi
-  - ../pi-config/sbx/basecamp
+  - source: ${{ env.fileDir }}/Work/pi-config/sbx/pi
+    args:
+      config_dir: ${{ env.fileDir }}/Work/pi-config
+  - ${{ env.fileDir }}/Work/pi-config/sbx/basecamp
