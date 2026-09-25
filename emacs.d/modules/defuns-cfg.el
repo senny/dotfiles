@@ -90,4 +90,14 @@ the built-in project.el."
       (when-let* ((project (project-current may-prompt)))
         (project-root project))))
 
+(defun senny-consult-ripgrep-thing-at-point ()
+  "Search the project with `consult-ripgrep' for the word at point.
+If a region is active, its contents are used as the initial query instead."
+  (interactive)
+  (consult-ripgrep
+   nil
+   (if (use-region-p)
+       (buffer-substring-no-properties (region-beginning) (region-end))
+     (thing-at-point 'symbol t))))
+
 (provide 'defuns-cfg)

@@ -188,6 +188,7 @@
   :bind (("C-p s" . projectile-switch-open-project)
 	 ("C-x p" . projectile-switch-project)
 	 ("M-p" . consult-ripgrep)              ; was helm-projectile-rg
+	 ("M-P" . senny-consult-ripgrep-thing-at-point) ; grep word at point
          ("M-n" . consult-imenu)
 	 ("M-t" . projectile-find-file))        ; was helm-projectile-find-file
   :config
