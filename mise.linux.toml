@@ -1,5 +1,10 @@
 # Linux-specific mise configuration
+
+[tools]
+uv = "latest"
+
 [dotfiles]
+  "~/.config/mise/config.linux.toml" = "mise.linux.toml"
   "~/.config/omarchy" = { source = "config/omarchy" }
   "~/.config/hypr" = { source = "config/hypr" }
   "~/.config/emacs" = "emacs.d"
