@@ -9,7 +9,7 @@ auto_switch = false
 
 [keys]
 # Alacritty sends Shift-F1/F2/F3/F4 for Cmd-Shift-I/J/K/L.
-focus_pane_up = ["prefix+k", "shift+f1"]
+focus_pane_up = ["shift+f1"]
 focus_pane_left = ["prefix+h", "shift+f2"]
 focus_pane_down = ["prefix+j", "shift+f3"]
 focus_pane_right = ["prefix+l", "shift+f4"]
@@ -17,3 +17,10 @@ zoom = ["prefix+z", "shift+f5"]
 split_horizontal = ["prefix+minus", "shift+f6"]
 split_vertical = ["prefix+v", "shift+f7"]
 close_pane = ["prefix+x", "shift+f8"]
+
+# Alacritty sends Shift-F9 for Cmd-k.
+[[keys.command]]
+key = "shift+f9"
+type = "shell"
+description = "clear pane"
+command = "\"$HERDR_BIN_PATH\" pane send-keys \"$HERDR_ACTIVE_PANE_ID\" ctrl+l"

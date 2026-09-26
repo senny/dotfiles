@@ -17,7 +17,7 @@ bindings = [
   { key = "2", mods = "Command",     chars = "\u001b[17;2~" }, # Shift F6
   { key = "3", mods = "Command",     chars = "\u001b[18;2~" }, # Shift F7
   { key = "0", mods = "Command",     chars = "\u001b[19;2~" }, # Shift F8
-  { key = "k", mods = "Command",     chars = "\uE006" },
+  { key = "k", mods = "Command",     chars = "\u001b[20;2~" }, # Shift F9
   { key = "1", mods = "Command",     chars = "\u001b[15;2~" }, # Shift F5
   { key = "i", mods = "Command",     chars = "\uE008" },
   { key = "j", mods = "Command",     chars = "\uE009" },
