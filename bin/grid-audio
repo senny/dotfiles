@@ -1,25 +1,45 @@
 #!/usr/bin/env bash
 # Listen to Intech Studio Grid MIDI and drive PipeWire audio.
 #   CC 36 (channel 0)   -> set default sink volume
-#   Note 40 (channel 0) -> toggle mute
+#   Note 40 (channel 0) -> toggle mute; the button LED mirrors the mute state
 #
 # The Grid is addressed by ALSA client name, not number: client ids are not
 # stable across reboots or replugs. aseqdump keeps running (while receiving
 # nothing) after the Grid is unplugged, so it is restarted periodically to
 # re-resolve the port and pick the device back up.
+#
+# Mute LED feedback: the mute button's MIDI block must have "receive" (LED
+# sync) enabled in Grid Editor. We send the button's own Note back to the
+# Grid, and LED sync drives the LED from the velocity: 127 while muted, 0
+# otherwise (set the button color to red in Grid Editor).
 set -u
 
 SINK=${SINK:-@DEFAULT_AUDIO_SINK@}
 VOL_CC=${VOL_CC:-36}
 MUTE_NOTE=${MUTE_NOTE:-40}
+MUTE_CH=${MUTE_CH:-0} # MIDI channel of the mute button (0-15)
+MIDI_DEV=${MIDI_DEV:-hw:Grid,0,0} # rawmidi port used to drive the LED
 GRID=${GRID:-Grid}
 GRID_TIMEOUT=${GRID_TIMEOUT:-5} # seconds between (re)connects to the Grid
 
-for cmd in aseqdump wpctl; do
+for cmd in aseqdump wpctl amidi; do
   command -v "$cmd" >/dev/null || { echo "grid-audio: '$cmd' not found" >&2; exit 1; }
 done
 
+# Mirror the current sink mute state onto the Grid button LED.
+led_sync() {
+  local vel
+  if [[ $(wpctl get-volume "$SINK") == *MUTED* ]]; then
+    vel=127
+  else
+    vel=0
+  fi
+  amidi -p "$MIDI_DEV" -S \
+    "$(printf '%02X %02X %02X' "$((0x90 | MUTE_CH))" "$MUTE_NOTE" "$vel")" 2>/dev/null
+}
+
 while :; do
+  led_sync # re-assert the LED on (re)connect, e.g. if the Grid was replugged
   start=$SECONDS
   timeout "$GRID_TIMEOUT" aseqdump -p "$GRID" 2>/dev/null |
     while IFS= read -r line; do
@@ -28,6 +48,7 @@ while :; do
         wpctl set-volume -l 1.0 "$SINK" "${pct}%"
       elif [[ $line =~ "Note on".*"note ${MUTE_NOTE}" ]]; then
         wpctl set-mute "$SINK" toggle
+        led_sync
       fi
     done
   # If aseqdump served the full period the Grid is present, so reconnect at
